@@ -50,7 +50,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         token = extractToken(token);
 
-        try{
+        try {
             var person = Objects.requireNonNull(
                 personMsAuthFeignClient.getAuthenticatedPersonInformation("Bearer " + token)
                     .getBody()
@@ -60,7 +60,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             authenticate(person);
 
             filterChain.doFilter(request, response);
-        } catch (BusinessException be){
+        } catch (BusinessException be) {
             filterExceptionUtil.setResponseError(response, be);
         }
     }

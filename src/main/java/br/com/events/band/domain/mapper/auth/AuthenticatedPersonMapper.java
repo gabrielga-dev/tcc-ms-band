@@ -19,7 +19,7 @@ public final class AuthenticatedPersonMapper {
      * @param result {@link GetAuthenticatedPersonInformationResult} object with the data to be mapped
      * @return {@link AuthenticatedPerson} object with the mapped information
      */
-    public  static AuthenticatedPerson convertToAuthenticatedPerson(GetAuthenticatedPersonInformationResult result){
+    public static AuthenticatedPerson convertToAuthenticatedPerson(GetAuthenticatedPersonInformationResult result) {
         return AuthenticatedPerson
             .builder()
             .uuid(result.getUuid())

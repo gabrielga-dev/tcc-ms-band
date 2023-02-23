@@ -12,6 +12,11 @@ import br.com.events.band.infrastructure.process.band.create.CreateBandValidator
 import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class implements the {@link CreateBandUseCase} interface and creates a new band with the incoming information
+ *
+ * @author Gabriel Guimarães de Almeida
+ */
 @Component
 @RequiredArgsConstructor
 public class CreateBandUseCaseImpl implements CreateBandUseCase {

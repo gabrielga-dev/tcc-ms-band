@@ -8,8 +8,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import feign.RequestInterceptor;
 
-
-public class MyEventFeignClientConfiguration extends BaseFeignClientConfig{
+/**
+ * This class does the basic feign client configuration for the communication among EVENTS project's MSs
+ *
+ * @author Gabriel Guimarães de Almeida
+ */
+public class MyEventFeignClientConfiguration extends BaseFeignClientConfig {
 
     @Value("${api.key.header}")
     private String apiKeyHeaderName;

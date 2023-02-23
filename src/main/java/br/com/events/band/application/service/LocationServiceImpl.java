@@ -11,6 +11,11 @@ import br.com.events.band.infrastructure.feign.countryStateCity.CountryStateCity
 import br.com.events.band.infrastructure.service.LocationService;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class implements the {@link LocationService} interface and holds every needed method to work with locations
+ *
+ * @author Gabriel Guimarães de Almeida
+ */
 @Service
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {

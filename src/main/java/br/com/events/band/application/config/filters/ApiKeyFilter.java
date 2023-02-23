@@ -54,7 +54,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
         var apiKeyOpt = Optional.ofNullable(httpRequest.getHeader(apiKeyHeader));
 
-        if (apiKeyOpt.isPresent()){
+        if (apiKeyOpt.isPresent()) {
             if (validApiKeys.contains(apiKeyOpt.get())) {
                 filterChain.doFilter(httpRequest, response);
             } else {

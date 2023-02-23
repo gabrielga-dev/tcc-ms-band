@@ -17,9 +17,14 @@ import br.com.events.band.infrastructure.controller.v1.BandControllerV1Doc;
 import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This interface dictates all available endpoints and its swagger documentation
+ *
+ * @author Gabriel Guimarães de Almeida
+ */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping ("/v1/band")
+@RequestMapping("/v1/band")
 public class BandControllerV1 implements BandControllerV1Doc {
 
     private final CreateBandUseCase createBandUseCase;

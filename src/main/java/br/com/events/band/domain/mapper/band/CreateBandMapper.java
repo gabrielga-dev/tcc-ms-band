@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CreateBandMapper {
 
-    public static CreateBandUseCaseForm toUseCaseForm(CreateBandRestForm bandRestForm){
+    public static CreateBandUseCaseForm toUseCaseForm(CreateBandRestForm bandRestForm) {
         return CreateBandUseCaseForm
             .builder()
             .name(bandRestForm.getName())
@@ -115,7 +115,7 @@ public final class CreateBandMapper {
         return contact;
     }
 
-    public static CreateBandUseCaseResult toResult(final Band band){
+    public static CreateBandUseCaseResult toResult(final Band band) {
         return CreateBandUseCaseResult
             .builder()
             .bandUuid(band.getUuid())

@@ -9,6 +9,12 @@ import br.com.events.band.infrastructure.process.band.create.CreateBandValidatio
 import br.com.events.band.infrastructure.process.band.create.CreateBandValidator;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class implements then{@link CreateBandValidator} interface to call every {@link CreateBandValidation} to
+ * validate the incoming band that will be inserted into the database
+ *
+ * @author Gabriel Guimarães de Almeida
+ */
 @Component
 @RequiredArgsConstructor
 public class CreateBandValidatorImpl implements CreateBandValidator {
