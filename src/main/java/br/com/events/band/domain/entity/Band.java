@@ -48,7 +48,7 @@ public class Band {
     private Boolean active = Boolean.TRUE;
 
     @Column(name = "owner_uuid", nullable = false)
-    private String owner_uuid;
+    private String ownerUuid;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
