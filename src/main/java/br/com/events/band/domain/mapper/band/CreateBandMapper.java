@@ -3,9 +3,12 @@ package br.com.events.band.domain.mapper.band;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import br.com.events.band.domain.entity.Band;
 import br.com.events.band.domain.entity.Contact;
 import br.com.events.band.domain.entity.address.BandAddress;
+import br.com.events.band.domain.io.auth.AuthenticatedPerson;
 import br.com.events.band.domain.io.band.create.rest.in.AddressCreateBandRestForm;
 import br.com.events.band.domain.io.band.create.rest.in.ContactCreateBandRestForm;
 import br.com.events.band.domain.io.band.create.rest.in.CreateBandRestForm;
@@ -14,7 +17,6 @@ import br.com.events.band.domain.io.band.create.useCase.in.AddressCreateBandUseC
 import br.com.events.band.domain.io.band.create.useCase.in.ContactCreateBandUseCaseForm;
 import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm;
 import br.com.events.band.domain.io.band.create.useCase.out.CreateBandUseCaseResult;
-import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -77,6 +79,9 @@ public final class CreateBandMapper {
             bandUseCaseForm.getContacts().stream().map(
                 contact -> CreateBandMapper.contact(band, contact)
             ).collect(Collectors.toList())
+        );
+        band.setOwnerUuid(
+            ((AuthenticatedPerson) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUuid()
         );
         return band;
     }

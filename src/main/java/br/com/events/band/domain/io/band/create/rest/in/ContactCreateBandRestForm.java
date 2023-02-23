@@ -1,8 +1,5 @@
 package br.com.events.band.domain.io.band.create.rest.in;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
