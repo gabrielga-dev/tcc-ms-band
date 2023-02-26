@@ -1,9 +1,9 @@
 package br.com.events.band.util;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * This class checks if the incoming path is not protected by JWT token filter

@@ -1,6 +1,11 @@
 package br.com.events.band.domain.entity.address;
 
-import java.math.BigDecimal;
+import br.com.events.band.domain.entity.Musician;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import br.com.events.band.domain.entity.Musician;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import java.math.BigDecimal;
 
 /**
  * This class represents the event address's database table

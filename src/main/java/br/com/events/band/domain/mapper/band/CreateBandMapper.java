@@ -1,10 +1,5 @@
 package br.com.events.band.domain.mapper.band;
 
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import br.com.events.band.domain.entity.Band;
 import br.com.events.band.domain.entity.Contact;
 import br.com.events.band.domain.entity.address.BandAddress;
@@ -19,6 +14,10 @@ import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm
 import br.com.events.band.domain.io.band.create.useCase.out.CreateBandUseCaseResult;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 /**
  * This class holds every needed mapping method that is needed at band creation feature

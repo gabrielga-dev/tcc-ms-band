@@ -1,15 +1,12 @@
 package br.com.events.band.util;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-
+import br.com.events.band.infrastructure.exception.BusinessException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import br.com.events.band.infrastructure.exception.BusinessException;
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * This class returns the error that appears at filters

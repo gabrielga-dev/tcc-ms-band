@@ -1,7 +1,11 @@
 package br.com.events.band.domain.entity;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import br.com.events.band.domain.entity.address.MusicianAddress;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,13 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import br.com.events.band.domain.entity.address.MusicianAddress;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * This class represents the musician's database table
@@ -52,6 +51,9 @@ public class Musician {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active = Boolean.TRUE;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "band_uuid", nullable = false)

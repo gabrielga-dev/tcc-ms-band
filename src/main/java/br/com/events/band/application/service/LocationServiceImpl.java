@@ -1,15 +1,14 @@
 package br.com.events.band.application.service;
 
-import java.util.Objects;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import br.com.events.band.domain.io.location.in.CachedCountryStateCity;
 import br.com.events.band.domain.mapper.service.location.location.CacheLocationMapper;
 import br.com.events.band.infrastructure.feign.countryStateCity.CountryStateCityFeignClient;
 import br.com.events.band.infrastructure.service.LocationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * This class implements the {@link LocationService} interface and holds every needed method to work with locations

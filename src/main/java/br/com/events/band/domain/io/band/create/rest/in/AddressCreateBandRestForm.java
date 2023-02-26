@@ -1,14 +1,13 @@
 package br.com.events.band.domain.io.band.create.rest.in;
 
-import java.math.BigDecimal;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigDecimal;
 
 /**
  * This class holds every needed information about the address of the new band

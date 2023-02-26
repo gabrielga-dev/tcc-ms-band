@@ -1,12 +1,11 @@
 package br.com.events.band.application.config.feign;
 
+import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import feign.RequestInterceptor;
 
 /**
  * This class does the basic feign client configuration for the communication among EVENTS project's MSs

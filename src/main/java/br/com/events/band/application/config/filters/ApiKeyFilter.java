@@ -1,24 +1,22 @@
 package br.com.events.band.application.config.filters;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 import br.com.events.band.application.config.filters.exception.InvalidApiKeyException;
 import br.com.events.band.application.config.filters.exception.NoApiKeyReceivedException;
 import br.com.events.band.util.FilterExceptionUtil;
 import br.com.events.band.util.FilteredRoutesUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This class makes the request filtering so only consumers with allowed api-key can access this microservice's

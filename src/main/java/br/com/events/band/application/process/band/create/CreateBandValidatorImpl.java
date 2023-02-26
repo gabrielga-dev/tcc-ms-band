@@ -1,13 +1,12 @@
 package br.com.events.band.application.process.band.create;
 
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
 import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm;
 import br.com.events.band.infrastructure.process.band.create.CreateBandValidation;
 import br.com.events.band.infrastructure.process.band.create.CreateBandValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * This class implements then{@link CreateBandValidator} interface to call every {@link CreateBandValidation} to

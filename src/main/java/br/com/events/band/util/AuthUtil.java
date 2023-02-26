@@ -1,8 +1,7 @@
 package br.com.events.band.util;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import br.com.events.band.domain.io.auth.AuthenticatedPerson;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * This class is used when is needed to reclaim the authenticated person's data

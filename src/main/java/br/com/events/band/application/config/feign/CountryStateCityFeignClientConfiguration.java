@@ -1,10 +1,9 @@
 package br.com.events.band.application.config.feign;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-
 import br.com.events.band.infrastructure.feign.countryStateCity.CountryStateCityFeignClient;
 import feign.RequestInterceptor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 
 /**
  * This class makes all needed configuration for {@link CountryStateCityFeignClient} feign client

@@ -1,10 +1,10 @@
 package br.com.events.band.domain.io.band.create.useCase.in;
 
-import java.util.List;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * This class holds every needed information about the new band at the use case layer

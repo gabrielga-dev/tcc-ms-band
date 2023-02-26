@@ -1,10 +1,10 @@
 package br.com.events.band.domain.io.band.create.useCase.in;
 
-import java.math.BigDecimal;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 /**
  * This class holds every needed information about the address of the new band at the use case layer

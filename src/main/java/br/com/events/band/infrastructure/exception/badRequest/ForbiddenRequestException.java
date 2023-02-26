@@ -1,8 +1,7 @@
 package br.com.events.band.infrastructure.exception.badRequest;
 
-import org.springframework.http.HttpStatus;
-
 import br.com.events.band.infrastructure.exception.BusinessException;
+import org.springframework.http.HttpStatus;
 
 /**
  * This exception will be extended by any other exception that needs to return a 400 http status

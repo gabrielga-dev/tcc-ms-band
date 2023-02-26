@@ -1,5 +1,8 @@
 package br.com.events.band.infrastructure.feign.msAuth;
 
+import br.com.events.band.application.config.feign.MyEventFeignClientConfiguration;
+import br.com.events.band.domain.io.feign.msAuth.person.addServiceToPerson.AddServiceToPersonServiceType;
+import br.com.events.band.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -7,10 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
-
-import br.com.events.band.application.config.feign.MyEventFeignClientConfiguration;
-import br.com.events.band.domain.io.feign.msAuth.person.addServiceToPerson.AddServiceToPersonServiceType;
-import br.com.events.band.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
 
 /**
  * This interface communicates with MS-AUTH

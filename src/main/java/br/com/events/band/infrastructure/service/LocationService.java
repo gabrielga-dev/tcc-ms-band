@@ -1,8 +1,8 @@
 package br.com.events.band.infrastructure.service;
 
-import java.util.Optional;
-
 import br.com.events.band.domain.io.location.in.CachedCountryStateCity;
+
+import java.util.Optional;
 
 /**
  * This interface dictates every needed method to work with location
