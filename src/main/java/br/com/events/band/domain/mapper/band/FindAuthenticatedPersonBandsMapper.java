@@ -19,6 +19,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -74,9 +75,13 @@ public final class FindAuthenticatedPersonBandsMapper {
                 .description(result.getDescription())
                 .active(result.getActive())
                 .creationDateMilliseconds(
-                        DateUtil.localDateTimeToMilliseconds(result.getCreationDate())
+                        Objects.isNull(result.getCreationDate())
+                                ? null
+                                : DateUtil.localDateTimeToMilliseconds(result.getCreationDate())
                 ).updateDateMilliseconds(
-                        DateUtil.localDateTimeToMilliseconds(result.getUpdateDate())
+                        Objects.isNull(result.getUpdateDate())
+                                ? null
+                                : DateUtil.localDateTimeToMilliseconds(result.getUpdateDate())
                 ).musicians(mappedMusicians)
                 .address(mappedAddress)
                 .contacts(mappedContacts)
@@ -121,7 +126,9 @@ public final class FindAuthenticatedPersonBandsMapper {
                 .lastName(musician.getLastName())
                 .age(musician.getAge())
                 .creationDateMilliseconds(
-                        DateUtil.localDateTimeToMilliseconds(musician.getCreationDate()))
+                        Objects.isNull(musician.getCreationDate())
+                                ? null
+                                : DateUtil.localDateTimeToMilliseconds(musician.getCreationDate()))
                 .build();
     }
 
