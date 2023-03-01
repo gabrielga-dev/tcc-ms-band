@@ -1,8 +1,5 @@
 package br.com.events.band.infrastructure.exception;
 
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +7,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * This class makes the exception data extraction to return a clean error response

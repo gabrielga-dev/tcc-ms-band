@@ -1,19 +1,5 @@
 package br.com.events.band.application.config.filters;
 
-import java.io.IOException;
-import java.util.Objects;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 import br.com.events.band.application.config.filters.exception.NoTokenReceivedException;
 import br.com.events.band.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
 import br.com.events.band.domain.mapper.auth.AuthenticatedPersonMapper;
@@ -22,6 +8,18 @@ import br.com.events.band.infrastructure.feign.msAuth.PersonMsAuthFeignClient;
 import br.com.events.band.util.FilterExceptionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * This class intercept every request and check if there is a Authorization header containing a JWT and validate it

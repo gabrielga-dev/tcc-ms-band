@@ -1,8 +1,11 @@
 package br.com.events.band.domain.entity;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import br.com.events.band.domain.entity.type.QuoteStatusType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,13 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import br.com.events.band.domain.entity.type.QuoteStatusType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * This class represents the quote's database table

@@ -1,7 +1,5 @@
 package br.com.events.band.application.useCase.band;
 
-import org.springframework.stereotype.Component;
-
 import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm;
 import br.com.events.band.domain.io.band.create.useCase.out.CreateBandUseCaseResult;
 import br.com.events.band.domain.io.feign.msAuth.person.addServiceToPerson.AddServiceToPersonServiceType;
@@ -11,6 +9,7 @@ import br.com.events.band.infrastructure.feign.msAuth.PersonMsAuthFeignClient;
 import br.com.events.band.infrastructure.process.band.create.CreateBandValidator;
 import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * This class implements the {@link CreateBandUseCase} interface and creates a new band with the incoming information

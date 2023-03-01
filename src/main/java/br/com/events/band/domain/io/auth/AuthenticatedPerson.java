@@ -1,14 +1,13 @@
 package br.com.events.band.domain.io.auth;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * This class holds all needed data of the current authenticated person

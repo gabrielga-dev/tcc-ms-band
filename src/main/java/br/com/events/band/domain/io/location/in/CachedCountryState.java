@@ -1,10 +1,10 @@
 package br.com.events.band.domain.io.location.in;
 
-import java.util.Map;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
 
 /**
  * This class holds every needed information to cache every state

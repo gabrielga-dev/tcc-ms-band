@@ -1,12 +1,11 @@
 package br.com.events.band.application.process.band.create.validations;
 
-import org.springframework.stereotype.Component;
-
 import br.com.events.band.application.process.band.create.exception.CreateBandLocationDoesntExistsException;
 import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm;
 import br.com.events.band.infrastructure.process.band.create.CreateBandValidation;
 import br.com.events.band.infrastructure.service.LocationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * This class validates if the incoming event's date is on present or future

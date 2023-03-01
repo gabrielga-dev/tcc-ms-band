@@ -1,13 +1,13 @@
 package br.com.events.band.domain.io.band.create.rest.in;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import br.com.events.band.domain.entity.type.ContactType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * This class holds every needed information about the contact of the new band
