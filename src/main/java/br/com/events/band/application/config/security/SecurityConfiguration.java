@@ -30,15 +30,22 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers(HttpMethod.OPTIONS).permitAll()
-            .antMatchers(HttpMethod.GET, "/v1/band").permitAll()
-            .anyRequest().authenticated()
-            .and().cors().and().csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .addFilterBefore(
-                jwtTokenFilter, UsernamePasswordAuthenticationFilter.class
-            );
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/band").permitAll()
+                .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
+                .antMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/api-docs").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+                .antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
+                .anyRequest().authenticated()
+                .and().cors().and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(
+                        jwtTokenFilter, UsernamePasswordAuthenticationFilter.class
+                );
 
         return http.build();
     }
