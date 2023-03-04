@@ -19,7 +19,7 @@ public class AddressCreateBandUseCaseForm {
     private String street;
     private String neighbour;
     private String complement;
-    private String city;
+    private Long city;
     private String state;
     private String country;
     private String zipCode;

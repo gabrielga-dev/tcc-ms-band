@@ -3,11 +3,15 @@ package br.com.events.band.application.controller.v1;
 import br.com.events.band.domain.io.band.create.rest.in.CreateBandRestForm;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.in.FindAuthenticatedPersonBandsRestFilters;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.out.FindAuthenticatedPersonBandsRestResult;
+import br.com.events.band.domain.io.band.findBands.rest.in.FindBandsRestFilters;
+import br.com.events.band.domain.io.band.findBands.rest.out.FindBandsRestResult;
 import br.com.events.band.domain.mapper.band.CreateBandMapper;
 import br.com.events.band.domain.mapper.band.FindAuthenticatedPersonBandsMapper;
+import br.com.events.band.domain.mapper.band.FindBandsMapper;
 import br.com.events.band.infrastructure.controller.v1.BandControllerV1Doc;
 import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import br.com.events.band.infrastructure.useCase.band.FindAuthenticatedPersonBands;
+import br.com.events.band.infrastructure.useCase.band.FindBandsUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +38,10 @@ public class BandControllerV1 implements BandControllerV1Doc {
 
     private final CreateBandUseCase createBandUseCase;
     private final FindAuthenticatedPersonBands findAuthenticatedPersonBands;
+    private final FindBandsUseCase findBandsUseCase;
+
+    private final FindAuthenticatedPersonBandsMapper findAuthenticatedPersonBandsMapper;
+    private final FindBandsMapper findBandsMapper;
 
     @Override
     @PostMapping
@@ -57,7 +65,21 @@ public class BandControllerV1 implements BandControllerV1Doc {
 
         var result = findAuthenticatedPersonBands.execute(mappedFilters);
 
-        var mappedResult = result.map(FindAuthenticatedPersonBandsMapper::toRestControllerResult);
+        var mappedResult = result.map(findAuthenticatedPersonBandsMapper::toRestControllerResult);
+
+        return ResponseEntity.ok(mappedResult);
+    }
+
+    @Override
+    @GetMapping
+    public ResponseEntity<Page<FindBandsRestResult>> findBands(
+            Pageable pageable, FindBandsRestFilters filters
+    ) {
+        var mappedFilter = FindBandsMapper.toUseCaseFilter(filters, pageable);
+
+        var result = findBandsUseCase.execute(mappedFilter);
+
+        var mappedResult = result.map(findBandsMapper::toRestControllerResult);
 
         return ResponseEntity.ok(mappedResult);
     }

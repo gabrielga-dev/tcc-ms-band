@@ -44,7 +44,7 @@ public class MusicianAddress {
     private String complement;
 
     @Column(name = "city", nullable = false)
-    private String city;
+    private Long city;
 
     @Column(name = "state", nullable = false)
     private String state;

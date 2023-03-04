@@ -32,4 +32,26 @@ public interface BandRepository extends JpaRepository<Band, String> {
             @Param("creationDateStart") LocalDateTime creationDateStart,
             @Param("creationDateEnd") LocalDateTime creationDateEnd
     );
+
+    @Query(
+            "SELECT band FROM Band band join band.address add WHERE " +
+                    "((:name IS NULL) OR (band.name LIKE %:name%)) AND " +
+                    "(" +
+                    "((:latitude IS NULL) AND (:longitude IS NULL) AND (:distance IS NULL)) " +
+                    "OR (FUNCTION('ST_Distance_Sphere', FUNCTION('POINT', add.longitude, add.latitude), FUNCTION('POINT', :longitude, :latitude)) <= :distance)" +
+                    ") AND ((:country IS NULL) OR (add.country = :country)) " +
+                    "AND ((:state IS NULL) OR (add.state = :state)) " +
+                    "AND ((:city IS NULL) OR (add.city = :city)) " +
+                    "AND band.active = true"
+    )
+    Page<Band> filterBands(
+            Pageable pageable,
+            @Param("name") String name,
+            @Param("latitude") Double latitude,
+            @Param("longitude") Double longitude,
+            @Param("distance") Double distance,
+            @Param("country") String country,
+            @Param("state") String state,
+            @Param("city") String city
+    );
 }
