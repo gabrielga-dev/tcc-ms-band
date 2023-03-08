@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 /**
  * This class holds every needed mapping method that is needed at band list
  *
@@ -32,23 +30,9 @@ public class FindBandsMapper {
                 .builder()
                 .pageable(pageable)
                 .name(filters.getName())
-                .latitude(
-                        Objects.nonNull(filters.getLatitude())
-                                ? filters.getLatitude().doubleValue()
-                                : null
-                ).longitude(
-                        Objects.nonNull(filters.getLongitude())
-                                ? filters.getLongitude().doubleValue()
-                                : null
-                )
-                .distance(
-                        Objects.nonNull(filters.getDistance())
-                                ? filters.getDistance().doubleValue()
-                                : null
-                )
-                .city(filters.getCity())
-                .state(filters.getState())
-                .country(filters.getCountry())
+                .cityId(filters.getCityId())
+                .stateIso(filters.getStateIso())
+                .countryIso(filters.getCountryIso())
                 .build();
     }
 

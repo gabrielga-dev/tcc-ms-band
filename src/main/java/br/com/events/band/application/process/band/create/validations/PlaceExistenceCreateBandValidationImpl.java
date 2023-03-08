@@ -24,9 +24,9 @@ public class PlaceExistenceCreateBandValidationImpl implements CreateBandValidat
         try{
             var toValidate = form.getAddress();
             locationFeignClient.validateIfAddressExists(
-                    toValidate.getCity(),
-                    toValidate.getState(),
-                    toValidate.getCountry()
+                    toValidate.getCityId(),
+                    toValidate.getStateIso(),
+                    toValidate.getCountryIso()
             );
         } catch (FeignException fe){
             throw new CreateBandLocationDoesntExistsException();

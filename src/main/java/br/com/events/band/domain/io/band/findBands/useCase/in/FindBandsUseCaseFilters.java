@@ -12,10 +12,7 @@ public class FindBandsUseCaseFilters {
 
     private Pageable pageable;
     private String name;
-    private Double latitude;
-    private Double longitude;
-    private Double distance;
-    private String city;
-    private String state;
-    private String country;
+    private Long cityId;
+    private String stateIso;
+    private String countryIso;
 }

@@ -21,12 +21,9 @@ public class FindBandsUseCaseImpl implements FindBandsUseCase {
         var filteredBands = bandRepository.filterBands(
             param.getPageable(),
             param.getName(),
-            param.getLatitude(),
-            param.getLongitude(),
-            param.getDistance(),
-            param.getCity(),
-            param.getState(),
-            param.getCountry()
+            param.getCityId(),
+            param.getStateIso(),
+            param.getCountryIso()
         );
 
         return filteredBands.map(FindBandsMapper::toUseCaseFilter);
