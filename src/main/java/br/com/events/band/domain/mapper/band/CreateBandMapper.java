@@ -51,12 +51,12 @@ public final class CreateBandMapper {
             .street(address.getStreet())
             .neighbour(address.getNeighbour())
             .complement(address.getComplement())
-            .city(address.getCity())
-            .state(address.getState())
-            .country(address.getCountry())
+            .cityId(address.getCityId())
+            .stateIso(address.getStateIso())
+            .countryIso(address.getCountryIso())
             .zipCode(address.getZipCode())
-            .latitude(address.getLatitude())
-            .longitude(address.getLongitude())
+            .latitude(null)//TODO latly add latitude filtering
+            .longitude(null)//TODO latly add longitude filtering
             .build();
     }
 
@@ -92,9 +92,9 @@ public final class CreateBandMapper {
         bandAddress.setStreet(address.getStreet());
         bandAddress.setNeighbour(address.getNeighbour());
         bandAddress.setComplement(address.getComplement());
-        bandAddress.setCity(address.getCity());
-        bandAddress.setState(address.getState());
-        bandAddress.setCountry(address.getCountry());
+        bandAddress.setCity(address.getCityId());
+        bandAddress.setState(address.getStateIso());
+        bandAddress.setCountry(address.getCountryIso());
         bandAddress.setZipCode(address.getZipCode());
         bandAddress.setLatitude(address.getLatitude());
         bandAddress.setLongitude(address.getLongitude());

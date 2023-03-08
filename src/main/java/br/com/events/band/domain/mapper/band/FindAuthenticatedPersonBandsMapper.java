@@ -14,10 +14,12 @@ import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.useCase.ou
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.useCase.out.ContactFindAuthenticatedPersonBandsUseCaseResult;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.useCase.out.FindAuthenticatedPersonBandsUseCaseResult;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.useCase.out.MusicianFindAuthenticatedPersonBandsUseCaseResult;
+import br.com.events.band.domain.io.process.address.getCityName.in.GetCityNameByIdProcessRequest;
+import br.com.events.band.infrastructure.process.address.cityName.GetCityNameByIdProcess;
 import br.com.events.band.util.DateUtil;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -27,8 +29,11 @@ import java.util.stream.Collectors;
  *
  * @author Gabriel Guimarães de Almeida
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class FindAuthenticatedPersonBandsMapper {
+@Component
+@RequiredArgsConstructor
+public class FindAuthenticatedPersonBandsMapper {
+
+    private final GetCityNameByIdProcess getCityNameByIdProcess;
 
     public static FindAuthenticatedPersonBandsUseCaseFilters toUseCaseFilters(
             Pageable pageable, FindAuthenticatedPersonBandsRestFilters filters
@@ -53,19 +58,19 @@ public final class FindAuthenticatedPersonBandsMapper {
         return pageable;
     }
 
-    public static FindAuthenticatedPersonBandsRestResult toRestControllerResult(
+    public FindAuthenticatedPersonBandsRestResult toRestControllerResult(
             FindAuthenticatedPersonBandsUseCaseResult result
     ) {
         var mappedMusicians = result.getMusicians()
                 .stream()
-                .map(FindAuthenticatedPersonBandsMapper::toUseCaseResult)
+                .map(this::toUseCaseResult)
                 .collect(Collectors.toList());
 
         var mappedAddress = toUseCaseResult(result.getAddress());
 
         var mappedContacts = result.getContacts()
                 .stream()
-                .map(FindAuthenticatedPersonBandsMapper::toUseCaseResult)
+                .map(this::toUseCaseResult)
                 .collect(Collectors.toList());
 
         return FindAuthenticatedPersonBandsRestResult
@@ -89,7 +94,7 @@ public final class FindAuthenticatedPersonBandsMapper {
                 .build();
     }
 
-    private static ContactFindAuthenticatedPersonBandsRestResult toUseCaseResult(
+    private ContactFindAuthenticatedPersonBandsRestResult toUseCaseResult(
             ContactFindAuthenticatedPersonBandsUseCaseResult contact
     ) {
         return ContactFindAuthenticatedPersonBandsRestResult
@@ -99,15 +104,22 @@ public final class FindAuthenticatedPersonBandsMapper {
                 .build();
     }
 
-    private static BandAddressFindAuthenticatedPersonBandsRestResult toUseCaseResult(
+    private BandAddressFindAuthenticatedPersonBandsRestResult toUseCaseResult(
             BandAddressFindAuthenticatedPersonBandsUseCaseResult address
     ) {
+        var param = GetCityNameByIdProcessRequest
+                .builder()
+                .countryIso(address.getCountry())
+                .stateIso(address.getState())
+                .cityId(address.getCity())
+                .build();
+
         return BandAddressFindAuthenticatedPersonBandsRestResult
                 .builder()
                 .street(address.getStreet())
                 .neighbour(address.getNeighbour())
                 .complement(address.getComplement())
-                .city(address.getCity())
+                .city(getCityNameByIdProcess.execute(param))
                 .state(address.getState())
                 .country(address.getCountry())
                 .zipCode(address.getZipCode())
@@ -116,7 +128,7 @@ public final class FindAuthenticatedPersonBandsMapper {
                 .build();
     }
 
-    private static MusicianFindAuthenticatedPersonBandsRestResult toUseCaseResult(
+    private MusicianFindAuthenticatedPersonBandsRestResult toUseCaseResult(
             MusicianFindAuthenticatedPersonBandsUseCaseResult musician
     ) {
         return MusicianFindAuthenticatedPersonBandsRestResult

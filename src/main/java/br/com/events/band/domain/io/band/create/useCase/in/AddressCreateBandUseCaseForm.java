@@ -19,9 +19,9 @@ public class AddressCreateBandUseCaseForm {
     private String street;
     private String neighbour;
     private String complement;
-    private String city;
-    private String state;
-    private String country;
+    private Long cityId;
+    private String stateIso;
+    private String countryIso;
     private String zipCode;
     private BigDecimal latitude;
     private BigDecimal longitude;

@@ -21,7 +21,7 @@ public interface BandRepository extends JpaRepository<Band, String> {
     @Query(
             "SELECT band FROM Band band WHERE " +
             "(band.ownerUuid = :ownerUuid) AND " +
-            "((:name IS NULL) OR (band.name LIKE %:name%)) AND " +
+            "((:name IS NULL) OR (band.name LIKE CONCAT('%',:name,'%'))) AND " +
             "((:creationDateStart IS NULL) OR (:creationDateStart <= band.creationDate)) AND " +
             "((:creationDateEnd IS NULL) OR (:creationDateEnd >= band.creationDate))"
     )
@@ -31,5 +31,21 @@ public interface BandRepository extends JpaRepository<Band, String> {
             @Param("name") String name,
             @Param("creationDateStart") LocalDateTime creationDateStart,
             @Param("creationDateEnd") LocalDateTime creationDateEnd
+    );
+
+    @Query(
+            "SELECT band FROM Band band join band.address address WHERE " +
+                    "((:name IS NULL) OR (band.name LIKE CONCAT('%',:name,'%'))) " +
+                    "AND ((:country IS NULL) OR (address.country = :country)) " +
+                    "AND ((:state IS NULL) OR (address.state = :state)) " +
+                    "AND ((:city IS NULL) OR (address.city = :city)) " +
+                    "AND band.active = true"
+    )
+    Page<Band> filterBands(
+            Pageable pageable,
+            @Param("name") String name,
+            @Param("city") Long cityId,
+            @Param("state") String stateIso,
+            @Param("country") String countryIso
     );
 }
