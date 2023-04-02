@@ -1,4 +1,4 @@
-package br.com.events.band.application.process.band.create.exception;
+package br.com.events.band.application.process.band.exception;
 
 import br.com.events.band.infrastructure.exception.badRequest.NotFoundException;
 
@@ -7,9 +7,9 @@ import br.com.events.band.infrastructure.exception.badRequest.NotFoundException;
  *
  * @author Gabriel Guimarães de Almeida
  */
-public class CreateBandLocationDoesntExistsException extends NotFoundException {
+public class BandLocationDoesntExistsException extends NotFoundException {
 
-    public CreateBandLocationDoesntExistsException() {
+    public BandLocationDoesntExistsException() {
         super(
             "Endereço inválido!",
             "Por favor, selecione um endereço válido."

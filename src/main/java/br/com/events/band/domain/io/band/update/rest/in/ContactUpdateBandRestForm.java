@@ -1,4 +1,4 @@
-package br.com.events.band.domain.io.band.create.rest.in;
+package br.com.events.band.domain.io.band.update.rest.in;
 
 import br.com.events.band.domain.entity.type.ContactType;
 import lombok.Builder;
@@ -10,14 +10,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * This class holds every needed information about the contact of the new band
+ * This class holds every needed information about the new contact of the band
  *
  * @author Gabriel Guimarães de Almeida
  */
 @Getter
 @Setter
 @Builder
-public class ContactCreateBandRestForm {
+public class ContactUpdateBandRestForm {
+
+    private String uuid;
 
     @NotNull(message = "O campo do tipo do contato não pode ser nulo.")
     private ContactType type;

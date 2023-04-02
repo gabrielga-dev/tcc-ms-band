@@ -5,19 +5,24 @@ import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.in.Fi
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.out.FindAuthenticatedPersonBandsRestResult;
 import br.com.events.band.domain.io.band.findBands.rest.in.FindBandsRestFilters;
 import br.com.events.band.domain.io.band.findBands.rest.out.FindBandsRestResult;
+import br.com.events.band.domain.io.band.update.rest.in.UpdateBandRestForm;
 import br.com.events.band.domain.mapper.band.CreateBandMapper;
 import br.com.events.band.domain.mapper.band.FindAuthenticatedPersonBandsMapper;
 import br.com.events.band.domain.mapper.band.FindBandsMapper;
+import br.com.events.band.domain.mapper.band.UpdateBandMapper;
 import br.com.events.band.infrastructure.controller.v1.BandControllerV1Doc;
 import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import br.com.events.band.infrastructure.useCase.band.FindAuthenticatedPersonBands;
 import br.com.events.band.infrastructure.useCase.band.FindBandsUseCase;
+import br.com.events.band.infrastructure.useCase.band.UpdateBandUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +44,7 @@ public class BandControllerV1 implements BandControllerV1Doc {
     private final CreateBandUseCase createBandUseCase;
     private final FindAuthenticatedPersonBands findAuthenticatedPersonBands;
     private final FindBandsUseCase findBandsUseCase;
+    private final UpdateBandUseCase updateBandUseCase;
 
     private final FindAuthenticatedPersonBandsMapper findAuthenticatedPersonBandsMapper;
     private final FindBandsMapper findBandsMapper;
@@ -82,5 +88,17 @@ public class BandControllerV1 implements BandControllerV1Doc {
         var mappedResult = result.map(findBandsMapper::toRestControllerResult);
 
         return ResponseEntity.ok(mappedResult);
+    }
+
+    @Override
+    @PutMapping("/{bandUuid}")
+    public ResponseEntity<Void> update(
+            @PathVariable("bandUuid") String bandUuid, @RequestBody @Valid UpdateBandRestForm form
+    ) {
+        var mappedForm = UpdateBandMapper.toUseCaseForm(bandUuid, form);
+
+        updateBandUseCase.execute(mappedForm);
+
+        return ResponseEntity.noContent().build();
     }
 }
