@@ -1,4 +1,4 @@
-package br.com.events.band.application.process.band.exception;
+package br.com.events.band.application.process.exception;
 
 import br.com.events.band.infrastructure.exception.badRequest.UnauthorizedRequestException;
 

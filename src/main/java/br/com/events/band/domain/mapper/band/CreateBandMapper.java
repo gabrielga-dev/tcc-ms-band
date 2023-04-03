@@ -1,14 +1,12 @@
 package br.com.events.band.domain.mapper.band;
 
 import br.com.events.band.domain.entity.Band;
-import br.com.events.band.domain.entity.Contact;
 import br.com.events.band.domain.entity.address.BandAddress;
 import br.com.events.band.domain.io.auth.AuthenticatedPerson;
 import br.com.events.band.domain.io.band.create.rest.in.AddressCreateBandRestForm;
 import br.com.events.band.domain.io.band.create.rest.in.CreateBandRestForm;
 import br.com.events.band.domain.io.band.create.rest.out.CreateBandRestResult;
 import br.com.events.band.domain.io.band.create.useCase.in.AddressCreateBandUseCaseForm;
-import br.com.events.band.domain.io.band.create.useCase.in.ContactCreateBandUseCaseForm;
 import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm;
 import br.com.events.band.domain.io.band.create.useCase.out.CreateBandUseCaseResult;
 import lombok.AccessLevel;

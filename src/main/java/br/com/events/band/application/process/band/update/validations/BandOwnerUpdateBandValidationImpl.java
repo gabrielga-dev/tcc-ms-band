@@ -1,6 +1,6 @@
 package br.com.events.band.application.process.band.update.validations;
 
-import br.com.events.band.application.process.band.exception.BandOwnerException;
+import br.com.events.band.application.process.exception.BandOwnerException;
 import br.com.events.band.domain.io.process.band.update.UpdateBandProcessDTO;
 import br.com.events.band.infrastructure.process.band.update.UpdateBandValidation;
 import br.com.events.band.util.AuthUtil;
