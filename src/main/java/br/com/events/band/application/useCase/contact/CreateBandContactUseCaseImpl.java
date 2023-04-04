@@ -4,7 +4,7 @@ import br.com.events.band.domain.io.contact.createBandContact.useCase.in.CreateB
 import br.com.events.band.domain.mapper.contact.CreateBandContactMapper;
 import br.com.events.band.domain.repository.BandRepository;
 import br.com.events.band.domain.repository.ContactRepository;
-import br.com.events.band.infrastructure.process.contact.createBandContact.CreateBandContactValidator;
+import br.com.events.band.infrastructure.process.contact.operate.OperateBandContactValidator;
 import br.com.events.band.infrastructure.useCase.contact.CreateBandContactUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,11 +15,12 @@ public class CreateBandContactUseCaseImpl implements CreateBandContactUseCase {
 
     private final ContactRepository contactRepository;
     private final BandRepository bandRepository;
-    private final CreateBandContactValidator createBandContactValidator;
+    private final OperateBandContactValidator operateBandContactValidator;
 
     @Override
     public Void execute(CreateBandContactUseCaseForm param) {
-        createBandContactValidator.callProcesses(param);
+        var dtoToValidate = CreateBandContactMapper.toDtoToValidate(param);
+        operateBandContactValidator.callProcesses(dtoToValidate);
 
         var toSave = CreateBandContactMapper.from(param);
         toSave.setBand(bandRepository.findById(param.getBandUuid()).get());

@@ -3,6 +3,7 @@ package br.com.events.band.domain.mapper.contact;
 import br.com.events.band.domain.entity.Contact;
 import br.com.events.band.domain.io.contact.createBandContact.rest.in.CreateBandContactRestForm;
 import br.com.events.band.domain.io.contact.createBandContact.useCase.in.CreateBandContactUseCaseForm;
+import br.com.events.band.domain.io.process.contact.operate.OperateBandContactDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +23,13 @@ public final class CreateBandContactMapper {
                 .bandUuid(uuid)
                 .type(origial.getType())
                 .content(origial.getContent())
+                .build();
+    }
+
+    public static OperateBandContactDTO toDtoToValidate(CreateBandContactUseCaseForm original) {
+        return OperateBandContactDTO
+                .builder()
+                .bandUuid(original.getBandUuid())
                 .build();
     }
 

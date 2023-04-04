@@ -25,4 +25,14 @@ public interface ContactControllerV1Doc {
             dataTypeClass = String.class
     )
     ResponseEntity<Void> createBandContact(String uuid, CreateBandContactRestForm bandRestForm);
+
+    @ApiOperation(value = "Remove a band contact")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+        ResponseEntity<Void> removeBandContact(String bandUuid, String contactUuid);
 }
