@@ -1,11 +1,14 @@
 package br.com.events.band.infrastructure.controller.v1;
 
 import br.com.events.band.domain.io.contact.createBandContact.rest.in.CreateBandContactRestForm;
+import br.com.events.band.domain.io.contact.listBandContact.rest.out.ListBandContactRestResult;
 import br.com.events.band.domain.io.contact.updateBandContact.rest.in.UpdateBandContactRestForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 /**
  * This interface dictates which endpoints will be needed for implementation and holds which one's Swagger
@@ -46,4 +49,13 @@ public interface ContactControllerV1Doc {
             dataTypeClass = String.class
     )
     ResponseEntity<Void> updateBandContact(String bandUuid, String contactUuid, UpdateBandContactRestForm form);
+
+    @ApiOperation(value = "List all band contacts")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<List<ListBandContactRestResult>> listBandContact(String bandUuid);
 }
