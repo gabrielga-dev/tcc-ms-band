@@ -16,7 +16,6 @@ import java.util.List;
  *
  * @author Gabriel Guimarães de Almeida
  */
-
 @Api(tags = "Contact Controller")
 public interface ContactControllerV1Doc {
 
