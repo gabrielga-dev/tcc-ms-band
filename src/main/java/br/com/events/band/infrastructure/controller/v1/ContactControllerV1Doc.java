@@ -1,6 +1,7 @@
 package br.com.events.band.infrastructure.controller.v1;
 
 import br.com.events.band.domain.io.contact.createBandContact.rest.in.CreateBandContactRestForm;
+import br.com.events.band.domain.io.contact.updateBandContact.rest.in.UpdateBandContactRestForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -34,5 +35,15 @@ public interface ContactControllerV1Doc {
             paramType = "header",
             dataTypeClass = String.class
     )
-        ResponseEntity<Void> removeBandContact(String bandUuid, String contactUuid);
+    ResponseEntity<Void> removeBandContact(String bandUuid, String contactUuid);
+
+    @ApiOperation(value = "Update a band contact")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> updateBandContact(String bandUuid, String contactUuid, UpdateBandContactRestForm form);
 }
