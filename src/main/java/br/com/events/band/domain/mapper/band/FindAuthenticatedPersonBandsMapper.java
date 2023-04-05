@@ -201,7 +201,7 @@ public class FindAuthenticatedPersonBandsMapper {
                 .uuid(musician.getUuid())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
-                .age(musician.getAge())
+                .age(DateUtil.calculateAgeByBirthday(musician.getBirthday()))
                 .creationDate(musician.getCreationDate())
                 .build();
     }

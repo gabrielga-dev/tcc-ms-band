@@ -7,6 +7,8 @@ import br.com.events.band.domain.io.process.contact.operate.OperateBandContactDT
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * This class holds every needed mapping process that the Update Band Contact needs
  *
@@ -38,5 +40,6 @@ public final class UpdateBandContactMapper {
     public static void transferData(Contact original, UpdateBandContactUseCaseForm data) {
         original.setContent(data.getContent());
         original.setType(data.getType());
+        original.setUpdateDate(LocalDateTime.now());
     }
 }

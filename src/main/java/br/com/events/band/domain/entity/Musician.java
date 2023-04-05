@@ -43,8 +43,8 @@ public class Musician {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "age")
-    private Integer age;
+    @Column(name = "birthday")
+    private LocalDateTime birthday;
 
     @Column(name = "cpf", nullable = false)
     private String cpf;

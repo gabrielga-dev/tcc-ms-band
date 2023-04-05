@@ -1,26 +1,21 @@
-package br.com.events.band.application.process.band.create.validations;
+package br.com.events.band.application.process.musician.create.validation;
 
 import br.com.events.band.application.process.exception.LocationDoesntExistsException;
-import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm;
+import br.com.events.band.domain.io.musician.create.useCase.in.CreateMusicianUseCaseForm;
 import br.com.events.band.infrastructure.feign.msLocation.LocationFeignClient;
-import br.com.events.band.infrastructure.process.band.create.CreateBandValidation;
+import br.com.events.band.infrastructure.process.musician.create.CreateMusicianValidation;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-/**
- * This class validates if the incoming event's date is on present or future
- *
- * @author Gabriel Guimarães de Almeida
- */
 @Component
 @RequiredArgsConstructor
-public class PlaceExistenceCreateBandValidationImpl implements CreateBandValidation {
+public class PlaceExistenceCreateMusicianValidation implements CreateMusicianValidation {
 
     private final LocationFeignClient locationFeignClient;
 
     @Override
-    public void validate(final CreateBandUseCaseForm form) {
+    public void validate(final CreateMusicianUseCaseForm form) {
         try{
             var toValidate = form.getAddress();
             locationFeignClient.validateIfAddressExists(

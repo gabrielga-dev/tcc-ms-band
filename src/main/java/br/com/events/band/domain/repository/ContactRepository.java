@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * This interface makes every needed communication to the database at the band table
+ * This interface makes every needed communication to the database at the contact table
  *
  * @author Gabriel Guimarães de Almeida
  */

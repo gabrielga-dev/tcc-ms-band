@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 /**
  * This class represents the event address's database table
@@ -32,7 +33,7 @@ public class MusicianAddress {
 
     @Id
     @Column(name = "uuid", nullable = false)
-    private String uuid;
+    private String uuid = UUID.randomUUID().toString();
 
     @Column(name = "street", nullable = false)
     private String street;
