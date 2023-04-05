@@ -4,8 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 /**
  * This class holds every needed information about the new band at the use case layer
  *
@@ -19,5 +17,4 @@ public class CreateBandUseCaseForm {
     private String name;
     private String description;
     private AddressCreateBandUseCaseForm address;
-    private List<ContactCreateBandUseCaseForm> contacts;
 }

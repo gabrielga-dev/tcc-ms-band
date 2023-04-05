@@ -18,4 +18,11 @@ public final class AuthUtil {
     public static AuthenticatedPerson getAuthenticatedPerson() {
         return (AuthenticatedPerson) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
+
+    /**
+     * This method checks if the user is authenticated
+     */
+    public static boolean isAuthenticated() {
+        return !(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof String);
+    }
 }

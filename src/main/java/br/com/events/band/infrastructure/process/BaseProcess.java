@@ -9,5 +9,9 @@ package br.com.events.band.infrastructure.process;
  */
 public interface BaseProcess<T, R> {
 
+    default boolean matches(T param){
+        return true;
+    }
+
     R execute(T param);
 }

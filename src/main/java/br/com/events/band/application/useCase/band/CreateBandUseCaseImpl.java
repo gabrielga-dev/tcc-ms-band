@@ -10,6 +10,7 @@ import br.com.events.band.infrastructure.process.band.create.CreateBandValidator
 import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class implements the {@link CreateBandUseCase} interface and creates a new band with the incoming information
@@ -25,6 +26,7 @@ public class CreateBandUseCaseImpl implements CreateBandUseCase {
     private final PersonMsAuthFeignClient personMsAuthFeignClient;
 
     @Override
+    @Transactional
     public CreateBandUseCaseResult execute(final CreateBandUseCaseForm param) {
         createBandValidator.callProcesses(param);
 

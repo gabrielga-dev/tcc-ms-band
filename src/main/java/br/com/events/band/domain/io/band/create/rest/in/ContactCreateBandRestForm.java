@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 @Builder
 public class ContactCreateBandRestForm {
 
-
     @NotNull(message = "O campo do tipo do contato não pode ser nulo.")
     private ContactType type;
 
