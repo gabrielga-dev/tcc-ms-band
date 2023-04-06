@@ -2,13 +2,16 @@ package br.com.events.band.application.controller.v1;
 
 import br.com.events.band.domain.io.musician.create.rest.in.CreateMusicianRestForm;
 import br.com.events.band.domain.io.musician.list.rest.out.ListMusiciansRestResult;
+import br.com.events.band.domain.io.musician.update.rest.in.UpdateMusicianRestForm;
 import br.com.events.band.domain.mapper.musician.CreateMusicianMapper;
 import br.com.events.band.domain.mapper.musician.DeleteMusicianMapper;
 import br.com.events.band.domain.mapper.musician.ListMusicianMapper;
+import br.com.events.band.domain.mapper.musician.UpdateMusicianMapper;
 import br.com.events.band.infrastructure.controller.v1.MusicianControllerV1Doc;
 import br.com.events.band.infrastructure.useCase.musician.CreateMusicianUseCase;
 import br.com.events.band.infrastructure.useCase.musician.DeleteMusiciansUseCase;
 import br.com.events.band.infrastructure.useCase.musician.ListMusiciansUseCase;
+import br.com.events.band.infrastructure.useCase.musician.UpdateMusicianUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +35,7 @@ public class MusicianControllerV1 implements MusicianControllerV1Doc {
     private final CreateMusicianUseCase createMusicianUseCase;
     private final ListMusiciansUseCase listMusiciansUseCase;
     private final DeleteMusiciansUseCase deleteMusiciansUseCase;
+    private final UpdateMusicianUseCase updateMusicianUseCase;
 
     @Override
     @PostMapping("/band/{bandUuid}")
@@ -63,6 +68,20 @@ public class MusicianControllerV1 implements MusicianControllerV1Doc {
     ) {
         var form = DeleteMusicianMapper.from(bandUuid,musicianUuid);
         deleteMusiciansUseCase.execute(form);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    @PutMapping("band/{bandUuid}/{musicianUuid}")
+    public ResponseEntity<Void> update(
+            @PathVariable("bandUuid") String bandUuid,
+            @PathVariable("musicianUuid") String musicianUuid,
+            @RequestBody UpdateMusicianRestForm musicianRestForm
+    ) {
+        var mappedForm = UpdateMusicianMapper.from(musicianRestForm, bandUuid, musicianUuid);
+
+        updateMusicianUseCase.execute(mappedForm);
+
         return ResponseEntity.ok().build();
     }
 }
