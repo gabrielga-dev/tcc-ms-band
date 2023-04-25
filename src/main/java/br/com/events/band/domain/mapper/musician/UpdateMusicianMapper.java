@@ -10,6 +10,8 @@ import br.com.events.band.util.DateUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UpdateMusicianMapper {
 
@@ -46,6 +48,7 @@ public final class UpdateMusicianMapper {
         musician.setBirthday(data.getBirthday());
         musician.setCpf(data.getCpf());
         musician.setEmail(data.getEmail());
+        musician.setUpdateDate(LocalDateTime.now());
         transferData(musician.getAddress(), data.getAddress());
     }
 

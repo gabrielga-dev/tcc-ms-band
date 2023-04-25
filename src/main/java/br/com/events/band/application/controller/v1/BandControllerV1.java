@@ -5,14 +5,17 @@ import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.in.Fi
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.out.FindAuthenticatedPersonBandsRestResult;
 import br.com.events.band.domain.io.band.findBands.rest.in.FindBandsRestFilters;
 import br.com.events.band.domain.io.band.findBands.rest.out.FindBandsRestResult;
+import br.com.events.band.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
 import br.com.events.band.domain.io.band.update.rest.in.UpdateBandRestForm;
 import br.com.events.band.domain.mapper.band.CreateBandMapper;
 import br.com.events.band.domain.mapper.band.FindAuthenticatedPersonBandsMapper;
+import br.com.events.band.domain.mapper.band.FindBandByUuidMapper;
 import br.com.events.band.domain.mapper.band.FindBandsMapper;
 import br.com.events.band.domain.mapper.band.UpdateBandMapper;
 import br.com.events.band.infrastructure.controller.v1.BandControllerV1Doc;
 import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import br.com.events.band.infrastructure.useCase.band.FindAuthenticatedPersonBands;
+import br.com.events.band.infrastructure.useCase.band.FindBandByUuidUseCase;
 import br.com.events.band.infrastructure.useCase.band.FindBandsUseCase;
 import br.com.events.band.infrastructure.useCase.band.UpdateBandUseCase;
 import lombok.RequiredArgsConstructor;
@@ -45,9 +48,11 @@ public class BandControllerV1 implements BandControllerV1Doc {
     private final FindAuthenticatedPersonBands findAuthenticatedPersonBands;
     private final FindBandsUseCase findBandsUseCase;
     private final UpdateBandUseCase updateBandUseCase;
+    private final FindBandByUuidUseCase findBandByUuidUseCase;
 
     private final FindAuthenticatedPersonBandsMapper findAuthenticatedPersonBandsMapper;
     private final FindBandsMapper findBandsMapper;
+    private final FindBandByUuidMapper findBandByUuidMapper;
 
     @Override
     @PostMapping
@@ -100,5 +105,15 @@ public class BandControllerV1 implements BandControllerV1Doc {
         updateBandUseCase.execute(mappedForm);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    @GetMapping("/uuid/{bandUuid}")
+    public ResponseEntity<FindBandByUuidRestResult> findByUuid(@PathVariable("bandUuid") String bandUuid) {
+        var result = findBandByUuidUseCase.execute(bandUuid);
+
+        var mappedResult = findBandByUuidMapper.from(result);
+
+        return ResponseEntity.ok(mappedResult);
     }
 }
