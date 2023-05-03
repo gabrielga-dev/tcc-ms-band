@@ -1,6 +1,6 @@
 package br.com.events.band.infrastructure.process.musician.delete;
 
-import br.com.events.band.domain.io.musician.delete.useCase.in.DeleteMusicianUseCaseForm;
+import br.com.events.band.domain.io.musician.delete.in.DeleteMusicianUseCaseForm;
 import br.com.events.band.infrastructure.process.BaseVoidReturnProcess;
 
 /**

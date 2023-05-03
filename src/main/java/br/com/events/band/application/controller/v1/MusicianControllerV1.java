@@ -3,6 +3,8 @@ package br.com.events.band.application.controller.v1;
 import br.com.events.band.domain.io.musician.create.rest.in.CreateMusicianRestForm;
 import br.com.events.band.domain.io.musician.list.rest.out.ListMusiciansRestResult;
 import br.com.events.band.domain.io.musician.update.rest.in.UpdateMusicianRestForm;
+import br.com.events.band.domain.io.musician.uploadAvatar.in.UploadMusicianAvatarRequest;
+import br.com.events.band.domain.io.musician.uploadAvatar.out.UploadMusicianAvatarResult;
 import br.com.events.band.domain.mapper.musician.CreateMusicianMapper;
 import br.com.events.band.domain.mapper.musician.DeleteMusicianMapper;
 import br.com.events.band.domain.mapper.musician.ListMusicianMapper;
@@ -12,6 +14,7 @@ import br.com.events.band.infrastructure.useCase.musician.CreateMusicianUseCase;
 import br.com.events.band.infrastructure.useCase.musician.DeleteMusiciansUseCase;
 import br.com.events.band.infrastructure.useCase.musician.ListMusiciansUseCase;
 import br.com.events.band.infrastructure.useCase.musician.UpdateMusicianUseCase;
+import br.com.events.band.infrastructure.useCase.musician.UploadMusicianAvatarUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +25,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,6 +41,7 @@ public class MusicianControllerV1 implements MusicianControllerV1Doc {
     private final ListMusiciansUseCase listMusiciansUseCase;
     private final DeleteMusiciansUseCase deleteMusiciansUseCase;
     private final UpdateMusicianUseCase updateMusicianUseCase;
+    private final UploadMusicianAvatarUseCase uploadMusicianAvatarUseCase;
 
     @Override
     @PostMapping("/band/{bandUuid}")
@@ -83,5 +89,21 @@ public class MusicianControllerV1 implements MusicianControllerV1Doc {
         updateMusicianUseCase.execute(mappedForm);
 
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    @PostMapping("/{musicianUuid}/avatar")
+    public ResponseEntity<UploadMusicianAvatarResult> uploadMusicianAvatar(
+            @PathVariable("musicianUuid") String uuid,
+            @RequestParam("avatar") MultipartFile file
+    ) {
+        var request = UploadMusicianAvatarRequest
+                .builder()
+                .musicianUuid(uuid)
+                .file(file)
+                .build();
+
+        var result = uploadMusicianAvatarUseCase.execute(request);
+        return ResponseEntity.ok(result);
     }
 }

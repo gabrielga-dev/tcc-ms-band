@@ -1,4 +1,4 @@
-package br.com.events.band.domain.io.musician.delete.useCase.in;
+package br.com.events.band.domain.io.musician.delete.in;
 
 import lombok.Builder;
 import lombok.Getter;

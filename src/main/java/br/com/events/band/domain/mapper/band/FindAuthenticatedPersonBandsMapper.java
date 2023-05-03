@@ -141,12 +141,14 @@ public class FindAuthenticatedPersonBandsMapper {
                         Objects.isNull(musician.getCreationDate())
                                 ? null
                                 : DateUtil.localDateTimeToMilliseconds(musician.getCreationDate()))
+                .avatarUuid(musician.getAvatarUuid())
                 .build();
     }
 
     public static FindAuthenticatedPersonBandsUseCaseResult toUseCaseResult(Band band) {
         var mappedMusicians = band.getMusicians()
                 .stream()
+                .filter(Musician::getActive)
                 .map(FindAuthenticatedPersonBandsMapper::toUseCaseResult)
                 .collect(Collectors.toList());
 
@@ -203,6 +205,7 @@ public class FindAuthenticatedPersonBandsMapper {
                 .lastName(musician.getLastName())
                 .age(DateUtil.calculateAgeByBirthday(musician.getBirthday()))
                 .creationDate(musician.getCreationDate())
+                .avatarUuid(musician.getAvatarUuid())
                 .build();
     }
 }

@@ -25,6 +25,7 @@ public final class ListMusicianMapper {
                 .lastName(musician.getLastName())
                 .age(DateUtil.calculateAgeByBirthday(musician.getBirthday()))
                 .creationDateMilliseconds(DateUtil.localDateTimeToMilliseconds(musician.getCreationDate()))
+                .avatarUuid(musician.getAvatarUuid())
                 .build();
     }
 
@@ -40,6 +41,7 @@ public final class ListMusicianMapper {
                 .lastName(musician.getLastName())
                 .age(musician.getAge())
                 .creationDateMilliseconds(musician.getCreationDateMilliseconds())
+                .avatarUuid(musician.getAvatarUuid())
                 .build();
     }
 }

@@ -16,5 +16,6 @@ public class ListMusiciansRestResult {
     private String lastName;
     private Integer age;
     private Long creationDateMilliseconds;
+    private String avatarUuid;
 }
 

@@ -15,7 +15,7 @@ public class CpfUniqueAtBandCreateMusicianValidation implements CreateMusicianVa
 
     @Override
     public void validate(CreateMusicianUseCaseForm toValidate) {
-        var exists = musicianRepository.existsByCpfAndBandUuid(toValidate.getCpf(), toValidate.getBandUuid());
+        var exists = musicianRepository.existsByCpfAndBandUuidAndActiveTrue(toValidate.getCpf(), toValidate.getBandUuid());
         if (exists) {
             throw new DuplicationAtMusicianCpfException();
         }

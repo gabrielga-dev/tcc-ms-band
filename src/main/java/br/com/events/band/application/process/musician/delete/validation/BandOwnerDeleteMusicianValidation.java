@@ -2,7 +2,7 @@ package br.com.events.band.application.process.musician.delete.validation;
 
 import br.com.events.band.application.process.exception.BandNonExistenceException;
 import br.com.events.band.application.process.exception.BandOwnerException;
-import br.com.events.band.domain.io.musician.delete.useCase.in.DeleteMusicianUseCaseForm;
+import br.com.events.band.domain.io.musician.delete.in.DeleteMusicianUseCaseForm;
 import br.com.events.band.domain.repository.BandRepository;
 import br.com.events.band.infrastructure.process.musician.delete.DeleteMusicianValidation;
 import br.com.events.band.util.AuthUtil;

@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface MusicianRepository extends JpaRepository<Musician, String> {
 
-    boolean existsByCpfAndBandUuid(String cpf, String bandUuid);
+    boolean existsByCpfAndBandUuidAndActiveTrue(String cpf, String bandUuid);
 
     Optional<Musician> findByCpf(String cpf);
 

@@ -1,6 +1,7 @@
 package br.com.events.band.domain.mapper.band;
 
 import br.com.events.band.domain.entity.Band;
+import br.com.events.band.domain.entity.Musician;
 import br.com.events.band.domain.entity.address.BandAddress;
 import br.com.events.band.domain.io.band.findBands.rest.in.FindBandsRestFilters;
 import br.com.events.band.domain.io.band.findBands.rest.out.BandAddressFindBandsRestResult;
@@ -45,7 +46,7 @@ public class FindBandsMapper {
                 .name(band.getName())
                 .description(band.getDescription())
                 .address(mappedAddress)
-                .numberOfMusicians(band.getMusicians().size())
+                .numberOfMusicians((int) band.getMusicians().stream().filter(Musician::getActive).count())
                 .numberOfMusics(band.getMusics().size())
                 .build();
     }

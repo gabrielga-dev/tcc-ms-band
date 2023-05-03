@@ -65,6 +65,9 @@ public class Musician {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
+    @Column(name = "avatar_uuid")
+    private String avatarUuid;
+
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "musician", cascade = CascadeType.ALL)
     private MusicianAddress address;
 }
