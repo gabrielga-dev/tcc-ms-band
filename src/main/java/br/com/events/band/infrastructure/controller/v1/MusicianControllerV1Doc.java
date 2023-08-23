@@ -60,7 +60,7 @@ public interface MusicianControllerV1Doc {
     )
     ResponseEntity<Void> update(String bandUuid, String musicianUuid, UpdateMusicianRestForm musicianRestForm);
 
-    @ApiOperation(value = "Upload a musician")
+    @ApiOperation(value = "Upload a musician's avatar")
     @ApiImplicitParam(
             name = "Authorization",
             value = "Authorization token",
@@ -69,4 +69,14 @@ public interface MusicianControllerV1Doc {
             dataTypeClass = String.class
     )
     ResponseEntity<UploadMusicianAvatarResult> uploadMusicianAvatar(String uuid, MultipartFile avatar);
+
+    @ApiOperation(value = "Remove the musician's avatar")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> removeMusicianAvatar(String uuid);
 }

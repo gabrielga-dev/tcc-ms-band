@@ -6,14 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -44,9 +47,15 @@ public class Music {
     @Column(name = "observation")
     private String observation;
 
+    @Column(name = "active")
+    private Boolean active = Boolean.TRUE;
+
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
     @Column(name = "update_date")
     private LocalDateTime updateDate;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "music", cascade = CascadeType.ALL)
+    private List<SheetMusic> sheets;
 }

@@ -6,6 +6,7 @@ import br.com.events.band.domain.io.musician.uploadAvatar.UploadMusicianAvatarTr
 import br.com.events.band.domain.io.musician.uploadAvatar.in.UploadMusicianAvatarRequest;
 import br.com.events.band.domain.io.musician.uploadAvatar.out.UploadMusicianAvatarResult;
 import br.com.events.band.domain.repository.MusicianRepository;
+import br.com.events.band.domain.type.FileOriginType;
 import br.com.events.band.infrastructure.feign.msFile.FileFeignClient;
 import br.com.events.band.infrastructure.process.musician.uploadAvatar.UploadMusicianAvatarValidationCaller;
 import br.com.events.band.infrastructure.useCase.musician.UploadMusicianAvatarUseCase;
@@ -27,7 +28,7 @@ public class UploadMusicianAvatarUseCaseImpl implements UploadMusicianAvatarUseC
         uploadMusicianAvatarValidationCaller.callProcesses(param);
 
         var response = fileFeignClient.uploadFile(
-                "MUSICIAN",
+                FileOriginType.MUSICIAN.name(),
                 param.getMusicianUuid(),
                 FileTypeFileClient.IMAGE,
                 param.getFile()
