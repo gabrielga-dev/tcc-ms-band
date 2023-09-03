@@ -40,6 +40,8 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/v1/contact/band/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/musician/band/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/band/uuid/**").permitAll()
                 .anyRequest().authenticated()
                 .and().cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

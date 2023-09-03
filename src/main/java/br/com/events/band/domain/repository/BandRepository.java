@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * This interface makes every needed communication to the database at the band table
@@ -48,4 +49,6 @@ public interface BandRepository extends JpaRepository<Band, String> {
             @Param("state") String stateIso,
             @Param("country") String countryIso
     );
+
+    Optional<Band> findByUuidAndActiveTrue(String bandUuid);
 }

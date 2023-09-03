@@ -5,6 +5,7 @@ import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.in.Fi
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.out.FindAuthenticatedPersonBandsRestResult;
 import br.com.events.band.domain.io.band.findBands.rest.in.FindBandsRestFilters;
 import br.com.events.band.domain.io.band.findBands.rest.out.FindBandsRestResult;
+import br.com.events.band.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
 import br.com.events.band.domain.io.band.update.rest.in.UpdateBandRestForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -48,6 +49,12 @@ public interface BandControllerV1Doc {
     );
 
     @ApiOperation(value = "Searches all bands")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            paramType = "header",
+            dataTypeClass = String.class
+    )
     ResponseEntity<Page<FindBandsRestResult>> findBands(Pageable pageable, FindBandsRestFilters filters);
 
     @ApiOperation(value = "Update a band")
@@ -59,4 +66,13 @@ public interface BandControllerV1Doc {
             dataTypeClass = String.class
     )
     ResponseEntity<Void> update(String bandUuid, UpdateBandRestForm form);
+
+    @ApiOperation(value = "Searches for a band by its uuid")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<FindBandByUuidRestResult> findByUuid(String bandUuid);
 }

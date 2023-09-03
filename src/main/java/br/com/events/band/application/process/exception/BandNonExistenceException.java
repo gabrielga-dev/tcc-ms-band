@@ -1,4 +1,4 @@
-package br.com.events.band.application.process.contact.exception;
+package br.com.events.band.application.process.exception;
 
 import br.com.events.band.infrastructure.exception.badRequest.NotFoundException;
 

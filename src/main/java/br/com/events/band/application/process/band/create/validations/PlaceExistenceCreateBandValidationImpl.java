@@ -1,6 +1,6 @@
 package br.com.events.band.application.process.band.create.validations;
 
-import br.com.events.band.application.process.band.exception.BandLocationDoesntExistsException;
+import br.com.events.band.application.process.exception.LocationDoesntExistsException;
 import br.com.events.band.domain.io.band.create.useCase.in.CreateBandUseCaseForm;
 import br.com.events.band.infrastructure.feign.msLocation.LocationFeignClient;
 import br.com.events.band.infrastructure.process.band.create.CreateBandValidation;
@@ -29,7 +29,7 @@ public class PlaceExistenceCreateBandValidationImpl implements CreateBandValidat
                     toValidate.getCountryIso()
             );
         } catch (FeignException fe){
-            throw new BandLocationDoesntExistsException();
+            throw new LocationDoesntExistsException();
         }
     }
 }

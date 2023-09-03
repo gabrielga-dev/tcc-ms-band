@@ -1,6 +1,6 @@
 package br.com.events.band.application.process.contact.operate.validations;
 
-import br.com.events.band.application.process.contact.exception.BandNonExistenceException;
+import br.com.events.band.application.process.exception.BandNonExistenceException;
 import br.com.events.band.application.process.exception.BandOwnerException;
 import br.com.events.band.domain.io.process.contact.operate.OperateBandContactDTO;
 import br.com.events.band.domain.repository.BandRepository;
