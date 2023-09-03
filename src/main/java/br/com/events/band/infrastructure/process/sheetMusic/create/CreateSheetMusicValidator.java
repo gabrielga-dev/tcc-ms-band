@@ -1,4 +1,4 @@
-package br.com.events.band.infrastructure.process.sheetMusic;
+package br.com.events.band.infrastructure.process.sheetMusic.create;
 
 import br.com.events.band.infrastructure.process.BaseVoidReturnProcessCaller;
 

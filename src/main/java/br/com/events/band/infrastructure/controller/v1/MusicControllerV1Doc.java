@@ -33,4 +33,46 @@ public interface MusicControllerV1Doc {
     ResponseEntity<CreateMusicSheetResult> createSheet(
             String musicUuid, String observation, MultipartFile file
     );
+
+    @ApiOperation(value = "Updates a music")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<CreateMusicResult> update(String musicUuid, CreateMusicForm music);
+
+    @ApiOperation(value = "Updates a sheet music")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<CreateMusicSheetResult> updateSheet(String sheetUuid, String observation);
+
+
+    @ApiOperation(value = "Delete music")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> deleteMusic(String musicUuid);
+
+
+    @ApiOperation(value = "Remove music sheet")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> removeSheet(String sheetUuid);
 }

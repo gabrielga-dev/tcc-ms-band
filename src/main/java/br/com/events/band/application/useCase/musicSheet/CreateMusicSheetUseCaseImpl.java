@@ -10,7 +10,7 @@ import br.com.events.band.domain.io.musicSheet.create.useCase.in.CreateSheetMusi
 import br.com.events.band.domain.repository.MusicRepository;
 import br.com.events.band.domain.type.FileOriginType;
 import br.com.events.band.infrastructure.feign.msFile.FileFeignClient;
-import br.com.events.band.infrastructure.process.sheetMusic.CreateSheetMusicValidator;
+import br.com.events.band.infrastructure.process.sheetMusic.create.CreateSheetMusicValidator;
 import br.com.events.band.infrastructure.useCase.musicSheet.CreateMusicSheetUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class CreateMusicSheetUseCaseImpl implements CreateMusicSheetUseCase {
                 param.getMusicUuid(),
                 FileTypeFileClient.SHEET_MUSIC,
                 param.getFile()
-        ).getBody();
+        );
 
 
         var music = musicRepository.findById(param.getMusicUuid())
@@ -42,9 +42,9 @@ public class CreateMusicSheetUseCaseImpl implements CreateMusicSheetUseCase {
         var newSheet = this.generateSheetEntity(music, param, result);
         music.getSheets().add(newSheet);
 
-        musicRepository.save(music);
+        var savedSheet = musicRepository.save(music);
 
-        return new CreateMusicSheetResult(result.getUuid());
+        return new CreateMusicSheetResult(savedSheet.getUuid());
     }
 
     private SheetMusic generateSheetEntity(

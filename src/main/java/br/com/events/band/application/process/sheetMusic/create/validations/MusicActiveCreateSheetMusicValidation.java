@@ -1,8 +1,9 @@
 package br.com.events.band.application.process.sheetMusic.create.validations;
 
 import br.com.events.band.application.process.exception.BandNonExistenceException;
+import br.com.events.band.application.process.exception.MusicNonExistenceException;
 import br.com.events.band.domain.repository.MusicRepository;
-import br.com.events.band.infrastructure.process.sheetMusic.CreateSheetMusicValidation;
+import br.com.events.band.infrastructure.process.sheetMusic.create.CreateSheetMusicValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class MusicActiveCreateSheetMusicValidation implements CreateSheetMusicVa
     @Override
     public void validate(String toValidate) {
         var music = musicRepository.findById(toValidate)
-                .orElseThrow(BandNonExistenceException::new);
+                .orElseThrow(MusicNonExistenceException::new);
 
         if (!music.getActive()){
             throw new BandNonExistenceException();

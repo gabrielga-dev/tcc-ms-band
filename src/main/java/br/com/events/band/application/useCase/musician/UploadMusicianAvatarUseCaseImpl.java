@@ -32,7 +32,7 @@ public class UploadMusicianAvatarUseCaseImpl implements UploadMusicianAvatarUseC
                 param.getMusicianUuid(),
                 FileTypeFileClient.IMAGE,
                 param.getFile()
-        ).getBody();
+        );
 
         var result = UploadMusicianAvatarTranslator.from(response);
 

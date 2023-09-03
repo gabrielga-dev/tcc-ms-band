@@ -5,7 +5,6 @@ import br.com.events.band.domain.io.feign.msFile.uploadFile.in.FileTypeFileClien
 import br.com.events.band.domain.io.feign.msFile.uploadFile.out.UploadFileFileClientResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -19,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileFeignClient {
 
     @PostMapping(value = "/v1/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseEntity<UploadFileFileClientResult> uploadFile(
+    UploadFileFileClientResult uploadFile(
             @RequestParam String origin,
             @RequestParam String originUuid,
             @RequestParam FileTypeFileClient fileType,
