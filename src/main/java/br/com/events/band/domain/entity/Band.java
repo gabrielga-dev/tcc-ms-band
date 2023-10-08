@@ -49,6 +49,9 @@ public class Band {
     @Column(name = "owner_uuid", nullable = false)
     private String ownerUuid;
 
+    @Column(name = "profile_picture_uuid", nullable = false)
+    private String profilePictureUuid;
+
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 

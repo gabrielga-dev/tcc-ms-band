@@ -12,6 +12,7 @@ public class FindBandsUseCaseResult {
     private String uuid;
     private String name;
     private String description;
+    private String profilePictureUuid;
     private BandAddressFindBandsUseCaseResult address;
     private Integer numberOfMusicians;
     private Integer numberOfMusics;

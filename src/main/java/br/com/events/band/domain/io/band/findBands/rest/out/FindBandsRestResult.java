@@ -12,6 +12,7 @@ public class FindBandsRestResult {
     private String uuid;
     private String name;
     private String description;
+    private String profilePictureUuid;
     private BandAddressFindBandsRestResult address;
     private Integer numberOfMusicians;
     private Integer numberOfMusics;
