@@ -18,6 +18,7 @@ public class FindAuthenticatedPersonBandsUseCaseResult {
     private Boolean active;
     private LocalDateTime creationDate;
     private LocalDateTime updateDate;
+    private String profilePictureUuid;
     private List<MusicianFindAuthenticatedPersonBandsUseCaseResult> musicians;
     private BandAddressFindAuthenticatedPersonBandsUseCaseResult address;
     private List<ContactFindAuthenticatedPersonBandsUseCaseResult> contacts;

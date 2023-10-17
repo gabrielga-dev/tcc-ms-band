@@ -17,6 +17,7 @@ public class FindAuthenticatedPersonBandsRestResult {
     private Boolean active;
     private Long creationDateMilliseconds;
     private Long updateDateMilliseconds;
+    private String profilePictureUuid;
     private List<MusicianFindAuthenticatedPersonBandsRestResult> musicians;
     private BandAddressFindAuthenticatedPersonBandsRestResult address;
     private List<ContactFindAuthenticatedPersonBandsRestResult> contacts;

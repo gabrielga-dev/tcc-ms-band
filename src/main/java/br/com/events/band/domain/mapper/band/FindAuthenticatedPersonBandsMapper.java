@@ -87,7 +87,8 @@ public class FindAuthenticatedPersonBandsMapper {
                         Objects.isNull(result.getUpdateDate())
                                 ? null
                                 : DateUtil.localDateTimeToMilliseconds(result.getUpdateDate())
-                ).musicians(mappedMusicians)
+                ).profilePictureUuid(result.getProfilePictureUuid())
+                .musicians(mappedMusicians)
                 .address(mappedAddress)
                 .contacts(mappedContacts)
                 .numberOfMusics(result.getNumberOfMusics())
@@ -167,6 +168,7 @@ public class FindAuthenticatedPersonBandsMapper {
                 .active(band.getActive())
                 .creationDate(band.getCreationDate())
                 .updateDate(band.getUpdateDate())
+                .profilePictureUuid(band.getProfilePictureUuid())
                 .musicians(mappedMusicians)
                 .address(mappedAddress)
                 .contacts(mappedContacts)
