@@ -17,6 +17,8 @@ public class FindBandByUuidUseCaseResult {
     private String description;
     private Boolean active;
     private LocalDateTime creationDate;
+    private String profilePictureUuid;
+    private String ownerUuid;
     private List<MusicianFindBandByUuidUseCaseResult> musicians;
     private BandAddressFindBandByUuidUseCaseResult address;
     private List<ContactFindBandByUuidUseCaseResult> contacts;

@@ -16,6 +16,8 @@ public class FindBandByUuidRestResult {
     private String description;
     private Boolean active;
     private Long creationDateMilliseconds;
+    private String profilePictureUuid;
+    private String ownerUuid;
     private List<MusicianFindBandByUuidRestResult> musicians;
     private BandAddressFindBandByUuidRestResult address;
     private List<ContactFindBandByUuidRestResult> contacts;
