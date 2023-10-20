@@ -1,5 +1,6 @@
 package br.com.events.band.application.controller.v1;
 
+import br.com.events.band.domain.io.UuidHolderDTO;
 import br.com.events.band.domain.io.band.create.rest.in.CreateBandRestForm;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.in.FindAuthenticatedPersonBandsRestFilters;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.out.FindAuthenticatedPersonBandsRestResult;
@@ -17,18 +18,24 @@ import br.com.events.band.infrastructure.useCase.band.CreateBandUseCase;
 import br.com.events.band.infrastructure.useCase.band.FindAuthenticatedPersonBands;
 import br.com.events.band.infrastructure.useCase.band.FindBandByUuidUseCase;
 import br.com.events.band.infrastructure.useCase.band.FindBandsUseCase;
+import br.com.events.band.infrastructure.useCase.band.RemoveBandProfilePictureUseCase;
+import br.com.events.band.infrastructure.useCase.band.ToggleBandActivityFlagUseCase;
 import br.com.events.band.infrastructure.useCase.band.UpdateBandUseCase;
+import br.com.events.band.infrastructure.useCase.band.UploadBandProfilePictureUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -49,6 +56,9 @@ public class BandControllerV1 implements BandControllerV1Doc {
     private final FindBandsUseCase findBandsUseCase;
     private final UpdateBandUseCase updateBandUseCase;
     private final FindBandByUuidUseCase findBandByUuidUseCase;
+    private final ToggleBandActivityFlagUseCase toggleBandActivityFlagUseCase;
+    private final UploadBandProfilePictureUseCase uploadBandProfilePictureUseCase;
+    private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
 
     private final FindAuthenticatedPersonBandsMapper findAuthenticatedPersonBandsMapper;
     private final FindBandsMapper findBandsMapper;
@@ -115,5 +125,28 @@ public class BandControllerV1 implements BandControllerV1Doc {
         var mappedResult = findBandByUuidMapper.from(result);
 
         return ResponseEntity.ok(mappedResult);
+    }
+
+    @Override
+    @DeleteMapping("/uuid/{bandUuid}")
+    public ResponseEntity<Void> toggleBandActivity(@PathVariable("bandUuid") String bandUuid) {
+        toggleBandActivityFlagUseCase.execute(bandUuid);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    @PostMapping(value = "/uuid/{bandUuid}/picture", consumes = "multipart/form-data")
+    public ResponseEntity<UuidHolderDTO> uploadProfilePicture(
+            @PathVariable String bandUuid, @RequestPart("picture") MultipartFile file
+    ) {
+        var response = uploadBandProfilePictureUseCase.execute(bandUuid, file);
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @DeleteMapping("/uuid/{bandUuid}/picture")
+    public ResponseEntity<Void> removeProfilePicture(@PathVariable String bandUuid) {
+        removeBandProfilePictureUseCase.execute(bandUuid);
+        return ResponseEntity.noContent().build();
     }
 }

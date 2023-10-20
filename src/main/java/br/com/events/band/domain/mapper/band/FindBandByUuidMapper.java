@@ -59,6 +59,7 @@ public class FindBandByUuidMapper {
     private static ContactFindBandByUuidUseCaseResult toUseCaseResult(Contact contact) {
         return ContactFindBandByUuidUseCaseResult
                 .builder()
+                .uuid(contact.getUuid())
                 .type(contact.getType())
                 .content(contact.getContent())
                 .build();
@@ -119,6 +120,7 @@ public class FindBandByUuidMapper {
     private ContactFindBandByUuidRestResult toRestResultContact(ContactFindBandByUuidUseCaseResult contact) {
         return ContactFindBandByUuidRestResult
                 .builder()
+                .uuid(contact.getUuid())
                 .type(contact.getType())
                 .content(contact.getContent())
                 .build();

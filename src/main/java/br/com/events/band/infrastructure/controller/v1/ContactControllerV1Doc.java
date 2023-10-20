@@ -27,7 +27,7 @@ public interface ContactControllerV1Doc {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<Void> createBandContact(String uuid, CreateBandContactRestForm bandRestForm);
+    ResponseEntity<ListBandContactRestResult> createBandContact(String uuid, CreateBandContactRestForm bandRestForm);
 
     @ApiOperation(value = "Remove a band contact")
     @ApiImplicitParam(

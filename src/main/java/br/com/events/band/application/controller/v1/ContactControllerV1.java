@@ -13,7 +13,6 @@ import br.com.events.band.infrastructure.useCase.contact.DeleteBandContactUseCas
 import br.com.events.band.infrastructure.useCase.contact.ListBandContactUseCase;
 import br.com.events.band.infrastructure.useCase.contact.UpdateBandContactUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,15 +38,15 @@ public class ContactControllerV1 implements ContactControllerV1Doc {
 
     @Override
     @PostMapping("/band/{uuid}")
-    public ResponseEntity<Void> createBandContact(
+    public ResponseEntity<ListBandContactRestResult> createBandContact(
             @PathVariable("uuid") String uuid,
             @RequestBody @Valid CreateBandContactRestForm bandRestForm
     ) {
         var mappedForm = CreateBandContactMapper.from(uuid, bandRestForm);
 
-        createBandContactUseCase.execute(mappedForm);
+        var response = createBandContactUseCase.execute(mappedForm);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok(response);
     }
 
     @Override

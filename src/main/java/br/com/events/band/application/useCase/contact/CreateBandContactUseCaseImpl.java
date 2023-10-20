@@ -1,6 +1,7 @@
 package br.com.events.band.application.useCase.contact;
 
 import br.com.events.band.domain.io.contact.createBandContact.useCase.in.CreateBandContactUseCaseForm;
+import br.com.events.band.domain.io.contact.listBandContact.rest.out.ListBandContactRestResult;
 import br.com.events.band.domain.mapper.contact.CreateBandContactMapper;
 import br.com.events.band.domain.repository.BandRepository;
 import br.com.events.band.domain.repository.ContactRepository;
@@ -18,14 +19,14 @@ public class CreateBandContactUseCaseImpl implements CreateBandContactUseCase {
     private final OperateBandContactValidator operateBandContactValidator;
 
     @Override
-    public Void execute(CreateBandContactUseCaseForm param) {
+    public ListBandContactRestResult execute(CreateBandContactUseCaseForm param) {
         var dtoToValidate = CreateBandContactMapper.toDtoToValidate(param);
         operateBandContactValidator.callProcesses(dtoToValidate);
 
         var toSave = CreateBandContactMapper.from(param);
         toSave.setBand(bandRepository.findById(param.getBandUuid()).get());
 
-        contactRepository.save(toSave);
-        return null;
+        var saved = contactRepository.save(toSave);
+        return CreateBandContactMapper.toResult(saved);
     }
 }

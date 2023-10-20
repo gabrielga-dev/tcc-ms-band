@@ -10,6 +10,7 @@ import lombok.Setter;
 @Builder
 public class ContactFindBandByUuidRestResult {
 
+    private String uuid;
     private ContactType type;
     private String content;
 }

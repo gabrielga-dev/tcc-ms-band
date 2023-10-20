@@ -1,9 +1,11 @@
 package br.com.events.band.domain.mapper.band;
 
 import br.com.events.band.domain.entity.Band;
+import br.com.events.band.domain.entity.Contact;
 import br.com.events.band.domain.entity.address.BandAddress;
 import br.com.events.band.domain.io.auth.AuthenticatedPerson;
 import br.com.events.band.domain.io.band.create.rest.in.AddressCreateBandRestForm;
+import br.com.events.band.domain.io.band.create.rest.in.ContactCreateBandRestForm;
 import br.com.events.band.domain.io.band.create.rest.in.CreateBandRestForm;
 import br.com.events.band.domain.io.band.create.rest.out.CreateBandRestResult;
 import br.com.events.band.domain.io.band.create.useCase.in.AddressCreateBandUseCaseForm;
@@ -14,6 +16,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 /**
  * This class holds every needed mapping method that is needed at band creation feature
@@ -25,33 +28,34 @@ public final class CreateBandMapper {
 
     public static CreateBandUseCaseForm toUseCaseForm(CreateBandRestForm bandRestForm) {
         return CreateBandUseCaseForm
-            .builder()
-            .name(bandRestForm.getName())
-            .description(bandRestForm.getDescription())
-            .address(address(bandRestForm.getAddress()))
-            .build();
+                .builder()
+                .name(bandRestForm.getName())
+                .description(bandRestForm.getDescription())
+                .address(address(bandRestForm.getAddress()))
+                .contacts(bandRestForm.getContacts())
+                .build();
     }
 
     private static AddressCreateBandUseCaseForm address(final AddressCreateBandRestForm address) {
         return AddressCreateBandUseCaseForm
-            .builder()
-            .street(address.getStreet())
-            .neighbour(address.getNeighbour())
-            .complement(address.getComplement())
-            .cityId(address.getCityId())
-            .stateIso(address.getStateIso())
-            .countryIso(address.getCountryIso())
-            .zipCode(address.getZipCode())
-            .latitude(null)//TODO latly add latitude filtering
-            .longitude(null)//TODO latly add longitude filtering
-            .build();
+                .builder()
+                .street(address.getStreet())
+                .neighbour(address.getNeighbour())
+                .complement(address.getComplement())
+                .cityId(address.getCityId())
+                .stateIso(address.getStateIso())
+                .countryIso(address.getCountryIso())
+                .zipCode(address.getZipCode())
+                .latitude(null)//TODO latly add latitude filtering
+                .longitude(null)//TODO latly add longitude filtering
+                .build();
     }
 
     public static CreateBandRestResult toRestResult(final CreateBandUseCaseResult result) {
         return CreateBandRestResult
-            .builder()
-            .bandUuid(result.getBandUuid())
-            .build();
+                .builder()
+                .bandUuid(result.getBandUuid())
+                .build();
     }
 
     public static Band toEntity(final CreateBandUseCaseForm bandUseCaseForm) {
@@ -62,13 +66,19 @@ public final class CreateBandMapper {
         band.setDescription(bandUseCaseForm.getDescription());
         band.setAddress(address(band, bandUseCaseForm.getAddress()));
         band.setOwnerUuid(
-            ((AuthenticatedPerson) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUuid()
+                ((AuthenticatedPerson) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUuid()
+        );
+        band.setContacts(
+                bandUseCaseForm.getContacts()
+                        .stream()
+                        .map(contact -> contact(band, contact))
+                        .collect(Collectors.toList())
         );
         return band;
     }
 
     private static BandAddress address(
-        final Band band, final AddressCreateBandUseCaseForm address
+            final Band band, final AddressCreateBandUseCaseForm address
     ) {
         var bandAddress = new BandAddress();
         bandAddress.setStreet(address.getStreet());
@@ -84,10 +94,21 @@ public final class CreateBandMapper {
         return bandAddress;
     }
 
+    private static Contact contact(Band band, ContactCreateBandRestForm formContact){
+        var contact = new Contact();
+
+        contact.setType(formContact.getType());
+        contact.setContent(formContact.getContent());
+        contact.setBand(band);
+        contact.setCreationDate(LocalDateTime.now());
+
+        return contact;
+    }
+
     public static CreateBandUseCaseResult toResult(final Band band) {
         return CreateBandUseCaseResult
-            .builder()
-            .bandUuid(band.getUuid())
-            .build();
+                .builder()
+                .bandUuid(band.getUuid())
+                .build();
     }
 }

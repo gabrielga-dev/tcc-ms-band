@@ -16,6 +16,8 @@ public class OperateBandContactValidatorImpl implements OperateBandContactValida
 
     @Override
     public void callProcesses(OperateBandContactDTO param) {
-        validations.forEach(validation -> validation.validate(param));
+        validations
+                .stream().filter(validations -> validations.matches(param))
+                .forEach(validation -> validation.validate(param));
     }
 }

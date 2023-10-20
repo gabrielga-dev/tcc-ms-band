@@ -1,5 +1,6 @@
 package br.com.events.band.infrastructure.controller.v1;
 
+import br.com.events.band.domain.io.UuidHolderDTO;
 import br.com.events.band.domain.io.band.create.rest.in.CreateBandRestForm;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.in.FindAuthenticatedPersonBandsRestFilters;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.out.FindAuthenticatedPersonBandsRestResult;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 
@@ -75,4 +77,34 @@ public interface BandControllerV1Doc {
             dataTypeClass = String.class
     )
     ResponseEntity<FindBandByUuidRestResult> findByUuid(String bandUuid);
+
+    @ApiOperation(value = "Toggle band's activity flag")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> toggleBandActivity(String bandUuid);
+
+    @ApiOperation(value = "Uploads a new profile picture to thegiven band")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<UuidHolderDTO> uploadProfilePicture(String bandUuid, MultipartFile file);
+
+    @ApiOperation(value = "Remove the profile picture of the given band")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> removeProfilePicture(String bandUuid);
 }
