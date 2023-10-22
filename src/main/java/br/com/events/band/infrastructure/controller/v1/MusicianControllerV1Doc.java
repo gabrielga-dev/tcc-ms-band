@@ -1,5 +1,6 @@
 package br.com.events.band.infrastructure.controller.v1;
 
+import br.com.events.band.domain.io.UuidHolderDTO;
 import br.com.events.band.domain.io.musician.create.rest.in.CreateMusicianRestForm;
 import br.com.events.band.domain.io.musician.list.rest.out.ListMusiciansRestResult;
 import br.com.events.band.domain.io.musician.update.rest.in.UpdateMusicianRestForm;
@@ -29,7 +30,16 @@ public interface MusicianControllerV1Doc {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<Void> create(String bandUuid, CreateMusicianRestForm bandRestForm);
+    ResponseEntity<UuidHolderDTO> create(String bandUuid, CreateMusicianRestForm bandRestForm);
+
+    @ApiOperation(value = "Find musician by it's uuid")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<ListMusiciansRestResult> findByUuid(String bandUuid, String musicianUuid);
 
     @ApiOperation(value = "List the musicians of a band")
     @ApiImplicitParam(

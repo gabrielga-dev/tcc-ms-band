@@ -30,6 +30,7 @@ public class FindBandByUuidMapper {
     public static FindBandByUuidUseCaseResult from(Band band) {
         var mappedMusicians = band.getMusicians()
                 .stream()
+                .filter(Musician::getActive)
                 .map(FindBandByUuidMapper::toUseCaseResult)
                 .collect(Collectors.toList());
 
@@ -86,6 +87,7 @@ public class FindBandByUuidMapper {
                 .uuid(musician.getUuid())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
+                .avatarUuid(musician.getAvatarUuid())
                 .age(DateUtil.calculateAgeByBirthday(musician.getBirthday()))
                 .creationDate(musician.getCreationDate())
                 .build();
@@ -136,6 +138,7 @@ public class FindBandByUuidMapper {
                 .uuid(musicians.getUuid())
                 .firstName(musicians.getFirstName())
                 .lastName(musicians.getLastName())
+                .avatarUuid(musicians.getAvatarUuid())
                 .age(musicians.getAge())
                 .creationDateMilliseconds(DateUtil.localDateTimeToMilliseconds(musicians.getCreationDate()))
                 .build();

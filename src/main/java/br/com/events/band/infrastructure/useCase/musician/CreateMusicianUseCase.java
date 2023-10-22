@@ -1,5 +1,6 @@
 package br.com.events.band.infrastructure.useCase.musician;
 
+import br.com.events.band.domain.io.UuidHolderDTO;
 import br.com.events.band.domain.io.musician.create.useCase.in.CreateMusicianUseCaseForm;
 import br.com.events.band.infrastructure.useCase.UseCaseBase;
 
@@ -9,5 +10,5 @@ import br.com.events.band.infrastructure.useCase.UseCaseBase;
  *
  * @author Gabriel Guimarães de Almeida
  */
-public interface CreateMusicianUseCase extends UseCaseBase<CreateMusicianUseCaseForm, Void> {
+public interface CreateMusicianUseCase extends UseCaseBase<CreateMusicianUseCaseForm, UuidHolderDTO> {
 }

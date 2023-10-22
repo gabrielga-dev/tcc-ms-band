@@ -22,4 +22,6 @@ public interface MusicianRepository extends JpaRepository<Musician, String> {
     boolean existsByUuidAndBandUuid(String uuid, String bandUuid);
 
     List<Musician> findByBandUuidAndActiveTrue(String bandUuid);
+
+    Optional<Musician> findByUuidAndBand_UuidAndActiveTrue(String musicianUuid, String bandUuid);
 }

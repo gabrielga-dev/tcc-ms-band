@@ -1,6 +1,7 @@
 package br.com.events.band.application.useCase.musician;
 
 import br.com.events.band.application.useCase.band.exception.BandNotFoundException;
+import br.com.events.band.domain.io.UuidHolderDTO;
 import br.com.events.band.domain.io.musician.create.useCase.in.CreateMusicianUseCaseForm;
 import br.com.events.band.domain.mapper.musician.CreateMusicianMapper;
 import br.com.events.band.domain.repository.BandRepository;
@@ -24,7 +25,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
     private final CreateMusicianValidator createMusicianValidator;
 
     @Override
-    public Void execute(CreateMusicianUseCaseForm param) {
+    public UuidHolderDTO execute(CreateMusicianUseCaseForm param) {
         createMusicianValidator.callProcesses(param);
 
         var toSave = CreateMusicianMapper.toEntity(param);
@@ -33,7 +34,8 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
                         .orElseThrow(BandNotFoundException::new)
         );
 
-        musicianRepository.save(toSave);
-        return null;
+        var saved = musicianRepository.save(toSave);
+
+        return new UuidHolderDTO(saved.getUuid());
     }
 }

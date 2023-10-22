@@ -14,6 +14,7 @@ public class MusicianFindBandByUuidUseCaseResult {
     private String uuid;
     private String firstName;
     private String lastName;
+    private String avatarUuid;
     private Integer age;
     private LocalDateTime creationDate;
 }
