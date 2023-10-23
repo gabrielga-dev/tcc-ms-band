@@ -1,8 +1,8 @@
 package br.com.events.band.domain.entity;
 
 import br.com.events.band.domain.entity.address.MusicianAddress;
+import br.com.events.band.domain.io._new.musician.form.MusicianForm;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +27,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "musician")
@@ -35,7 +34,7 @@ public class Musician {
 
     @Id
     @Column(name = "uuid")
-    private String uuid = UUID.randomUUID().toString();
+    private final String uuid = UUID.randomUUID().toString();
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -70,4 +69,27 @@ public class Musician {
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "musician", cascade = CascadeType.ALL)
     private MusicianAddress address;
+
+    public Musician(MusicianForm musicianForm) {
+        this.firstName = musicianForm.getFirstName();
+        this.lastName = musicianForm.getLastName();
+        this.birthday = musicianForm.getBirthday();
+        this.cpf = musicianForm.getCpf();
+        this.email = musicianForm.getEmail();
+        this.creationDate = LocalDateTime.now();
+
+        var newAddress = new MusicianAddress(musicianForm.getAddress());
+        newAddress.setMusician(this);
+        this.address = newAddress;
+    }
+
+    public void transferData(MusicianForm musicianForm){
+        this.firstName = musicianForm.getFirstName();
+        this.lastName = musicianForm.getLastName();
+        this.birthday = musicianForm.getBirthday();
+        this.cpf = musicianForm.getCpf();
+        this.email = musicianForm.getEmail();
+        this.creationDate = LocalDateTime.now();
+        this.address.transferData(musicianForm.getAddress());
+    }
 }

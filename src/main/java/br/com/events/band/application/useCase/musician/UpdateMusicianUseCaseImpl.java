@@ -1,10 +1,11 @@
 package br.com.events.band.application.useCase.musician;
 
 import br.com.events.band.application.process.musician.exception.MusicianNotPresentOnBandException;
-import br.com.events.band.domain.io.musician.update.useCase.in.UpdateMusicianUseCaseForm;
-import br.com.events.band.domain.mapper.musician.UpdateMusicianMapper;
+import br.com.events.band.domain.io._new.musician.dto.MusicianValidationDto;
+import br.com.events.band.domain.io._new.musician.form.MusicianForm;
 import br.com.events.band.domain.repository.MusicianRepository;
-import br.com.events.band.infrastructure.process.musician.update.UpdateMusicianValidator;
+import br.com.events.band.domain.type.MethodValidationType;
+import br.com.events.band.infrastructure.process.musician.MusicianMethodValidator;
 import br.com.events.band.infrastructure.useCase.musician.UpdateMusicianUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,18 +15,19 @@ import org.springframework.stereotype.Component;
 public class UpdateMusicianUseCaseImpl implements UpdateMusicianUseCase {
 
     private final MusicianRepository musicianRepository;
-    private final UpdateMusicianValidator updateMusicianValidator;
+
+    private final MusicianMethodValidator musicianMethodValidator;
 
     @Override
-    public Void execute(UpdateMusicianUseCaseForm param) {
-        updateMusicianValidator.callProcesses(param);
+    public void execute(String bandUuid, String musicianUuid, MusicianForm form) {
+        var validationDto = new MusicianValidationDto(bandUuid, MethodValidationType.EDIT, musicianUuid, form);
+        musicianMethodValidator.callProcesses(validationDto);
 
-        var musician = musicianRepository.findById(param.getMusicianUuid())
+        var musician = musicianRepository.findById(musicianUuid)
                 .orElseThrow(MusicianNotPresentOnBandException::new);
 
-        UpdateMusicianMapper.transferData(musician, param);
+        musician.transferData(form);
 
         musicianRepository.save(musician);
-        return null;
     }
 }

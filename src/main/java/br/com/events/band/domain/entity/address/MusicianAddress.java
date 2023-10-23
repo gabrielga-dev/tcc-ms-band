@@ -1,11 +1,12 @@
 package br.com.events.band.domain.entity.address;
 
 import br.com.events.band.domain.entity.Musician;
+import br.com.events.band.domain.io._new.address.form.AddressForm;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "musician_address")
@@ -33,7 +34,7 @@ public class MusicianAddress {
 
     @Id
     @Column(name = "uuid", nullable = false)
-    private String uuid = UUID.randomUUID().toString();
+    private final String uuid = UUID.randomUUID().toString();
 
     @Column(name = "street", nullable = false)
     private String street;
@@ -65,4 +66,26 @@ public class MusicianAddress {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "musician_uuid")
     private Musician musician;
+
+    public MusicianAddress(AddressForm address) {
+        this.street = address.getStreet();
+        this.neighbour = address.getNeighbour();
+        this.complement = address.getComplement();
+        this.city = address.getCityId();
+        this.state = address.getStateIso();
+        this.country = address.getCountryIso();
+        this.zipCode = address.getZipCode();
+        this.latitude = null;
+        this.longitude = null;
+    }
+
+    public void transferData(AddressForm address) {
+        this.setStreet(address.getStreet());
+        this.setNeighbour(address.getNeighbour());
+        this.setComplement(address.getComplement());
+        this.setCity(address.getCityId());
+        this.setState(address.getStateIso());
+        this.setCountry(address.getCountryIso());
+        this.setZipCode(address.getZipCode());
+    }
 }

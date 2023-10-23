@@ -6,8 +6,6 @@ import br.com.events.band.infrastructure.process.address.cityName.GetCityNameByI
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 /**
  * This process get the city's name by its id at MS-LOCATION
  *
@@ -25,8 +23,6 @@ public class GetCityNameByIdProcessImpl implements GetCityNameByIdProcess {
                 param.getCountryIso(), param.getStateIso(), param.getCityId()
         );
 
-        var city = Objects.requireNonNull(response.getBody());
-
-        return city.getName();
+        return response.getName();
     }
 }

@@ -28,7 +28,7 @@ public interface LocationFeignClient {
     );
 
     @GetMapping("/v1/location/country/{countryIso}/state/{stateIso}/city/{cityId}")
-    ResponseEntity<GetCityByIdAndStateAndCountryIsoMsLocationResponse> getCityByIdAndStateAndCountryIso(
+    GetCityByIdAndStateAndCountryIsoMsLocationResponse getCityByIdAndStateAndCountryIso(
             @PathVariable("countryIso") String countryIso,
             @PathVariable("stateIso") String stateIso,
             @PathVariable("cityId") Long cityId

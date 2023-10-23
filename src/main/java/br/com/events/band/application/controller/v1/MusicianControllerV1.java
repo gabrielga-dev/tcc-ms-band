@@ -1,14 +1,8 @@
 package br.com.events.band.application.controller.v1;
 
 import br.com.events.band.domain.io.UuidHolderDTO;
-import br.com.events.band.domain.io.musician.create.rest.in.CreateMusicianRestForm;
-import br.com.events.band.domain.io.musician.list.rest.out.ListMusiciansRestResult;
-import br.com.events.band.domain.io.musician.update.rest.in.UpdateMusicianRestForm;
-import br.com.events.band.domain.io.musician.uploadAvatar.out.UploadMusicianAvatarResult;
-import br.com.events.band.domain.mapper.musician.CreateMusicianMapper;
-import br.com.events.band.domain.mapper.musician.DeleteMusicianMapper;
-import br.com.events.band.domain.mapper.musician.ListMusicianMapper;
-import br.com.events.band.domain.mapper.musician.UpdateMusicianMapper;
+import br.com.events.band.domain.io._new.musician.form.MusicianForm;
+import br.com.events.band.domain.io._new.musician.response.MusicianResponse;
 import br.com.events.band.infrastructure.controller.v1.MusicianControllerV1Doc;
 import br.com.events.band.infrastructure.useCase.musician.CreateMusicianUseCase;
 import br.com.events.band.infrastructure.useCase.musician.DeleteMusiciansUseCase;
@@ -30,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -50,35 +43,29 @@ public class MusicianControllerV1 implements MusicianControllerV1Doc {
     @PostMapping("/band/{bandUuid}")
     public ResponseEntity<UuidHolderDTO> create(
             @PathVariable("bandUuid") String bandUuid,
-            @RequestBody @Valid CreateMusicianRestForm form
+            @RequestBody MusicianForm musician
     ) {
-        var mappedForm = CreateMusicianMapper.from(form, bandUuid);
-
-        var response = createMusicianUseCase.execute(mappedForm);
+        var response = createMusicianUseCase.execute(musician, bandUuid);
 
         return ResponseEntity.ok(response);
     }
 
     @Override
     @GetMapping("/band/{bandUuid}/{musicianUuid}")
-    public ResponseEntity<ListMusiciansRestResult> findByUuid(
+    public ResponseEntity<MusicianResponse> findByUuid(
             @PathVariable String bandUuid, @PathVariable String musicianUuid
     ) {
-        var result = findMusicianByUuidUseCase.execute(bandUuid, musicianUuid);
+        var response = findMusicianByUuidUseCase.execute(bandUuid, musicianUuid);
 
-        var mappedResult = ListMusicianMapper.from(result);
-
-        return ResponseEntity.ok(mappedResult);
+        return ResponseEntity.ok(response);
     }
 
     @Override
     @GetMapping("/band/{bandUuid}")
-    public ResponseEntity<List<ListMusiciansRestResult>> list(@PathVariable("bandUuid") String bandUuid) {
+    public ResponseEntity<List<MusicianResponse>> list(@PathVariable("bandUuid") String bandUuid) {
         var result = listMusiciansUseCase.execute(bandUuid);
 
-        var mappedResult = ListMusicianMapper.fromUseCaseResult(result);
-
-        return ResponseEntity.ok(mappedResult);
+        return ResponseEntity.ok(result);
     }
 
     @Override
@@ -87,8 +74,8 @@ public class MusicianControllerV1 implements MusicianControllerV1Doc {
             @PathVariable("bandUuid") String bandUuid,
             @PathVariable("musicianUuid") String musicianUuid
     ) {
-        var form = DeleteMusicianMapper.from(bandUuid, musicianUuid);
-        deleteMusiciansUseCase.execute(form);
+        deleteMusiciansUseCase.execute(bandUuid, musicianUuid);
+
         return ResponseEntity.ok().build();
     }
 
@@ -97,16 +84,15 @@ public class MusicianControllerV1 implements MusicianControllerV1Doc {
     public ResponseEntity<Void> update(
             @PathVariable("bandUuid") String bandUuid,
             @PathVariable("musicianUuid") String musicianUuid,
-            @RequestBody UpdateMusicianRestForm musicianRestForm
+            @RequestBody MusicianForm musicianForm
     ) {
-        var mappedForm = UpdateMusicianMapper.from(musicianRestForm, bandUuid, musicianUuid);
-        updateMusicianUseCase.execute(mappedForm);
+        updateMusicianUseCase.execute(bandUuid, musicianUuid, musicianForm);
         return ResponseEntity.ok().build();
     }
 
     @Override
     @PostMapping("/{musicianUuid}/avatar")
-    public ResponseEntity<UploadMusicianAvatarResult> uploadMusicianAvatar(
+    public ResponseEntity<UuidHolderDTO> uploadMusicianAvatar(
             @PathVariable("musicianUuid") String uuid,
             @RequestParam("avatar") MultipartFile file
     ) {

@@ -1,12 +1,14 @@
 package br.com.events.band.application.useCase.musician;
 
 import br.com.events.band.application.useCase.band.exception.BandNotFoundException;
+import br.com.events.band.domain.entity.Musician;
 import br.com.events.band.domain.io.UuidHolderDTO;
-import br.com.events.band.domain.io.musician.create.useCase.in.CreateMusicianUseCaseForm;
-import br.com.events.band.domain.mapper.musician.CreateMusicianMapper;
+import br.com.events.band.domain.io._new.musician.form.MusicianForm;
+import br.com.events.band.domain.io._new.musician.dto.MusicianValidationDto;
 import br.com.events.band.domain.repository.BandRepository;
 import br.com.events.band.domain.repository.MusicianRepository;
-import br.com.events.band.infrastructure.process.musician.create.CreateMusicianValidator;
+import br.com.events.band.domain.type.MethodValidationType;
+import br.com.events.band.infrastructure.process.musician.MusicianMethodValidator;
 import br.com.events.band.infrastructure.useCase.musician.CreateMusicianUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,17 +24,17 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
 
     private final BandRepository bandRepository;
     private final MusicianRepository musicianRepository;
-    private final CreateMusicianValidator createMusicianValidator;
+
+    private final MusicianMethodValidator musicianMethodValidator;
 
     @Override
-    public UuidHolderDTO execute(CreateMusicianUseCaseForm param) {
-        createMusicianValidator.callProcesses(param);
+    public UuidHolderDTO execute(MusicianForm musicianForm, String bandUuid) {
+        var validationDto = new MusicianValidationDto(bandUuid, MethodValidationType.CREATE, musicianForm);
+        musicianMethodValidator.callProcesses(validationDto);
 
-        var toSave = CreateMusicianMapper.toEntity(param);
-        toSave.setBand(
-                bandRepository.findById(param.getBandUuid())
-                        .orElseThrow(BandNotFoundException::new)
-        );
+        var toSave = new Musician(musicianForm);
+
+        toSave.setBand(bandRepository.findById(bandUuid).orElseThrow(BandNotFoundException::new));
 
         var saved = musicianRepository.save(toSave);
 
