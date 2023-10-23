@@ -1,11 +1,14 @@
 package br.com.events.band.domain.entity;
 
 import br.com.events.band.domain.entity.address.BandAddress;
+import br.com.events.band.domain.io._new.band.form.BandForm;
+import br.com.events.band.domain.io.auth.AuthenticatedPerson;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +21,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * This class represents the band's database table
@@ -69,4 +73,23 @@ public class Band {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "band", cascade = CascadeType.ALL)
     private List<Music> musics;
+
+    public Band(BandForm form) {
+        this.active = true;
+        this.creationDate = LocalDateTime.now();
+        this.name = form.getName();
+        this.description = form.getDescription();
+        this.address = new BandAddress(form.getAddress());
+        this.address.setBand(this);
+        this.ownerUuid = ((AuthenticatedPerson) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+                .getUuid();
+        this.contacts = form.getContacts()
+                .stream()
+                .map(c -> {
+                    var newContact = new Contact(c);
+                    newContact.setBand(this);
+                    return newContact;
+                })
+                .collect(Collectors.toList());
+    }
 }

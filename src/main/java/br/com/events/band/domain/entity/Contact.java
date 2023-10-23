@@ -1,6 +1,7 @@
 package br.com.events.band.domain.entity;
 
 import br.com.events.band.domain.entity.type.ContactType;
+import br.com.events.band.domain.io._new.contact.form.ContactForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,4 +51,10 @@ public class Contact {
 
     @Column(name = "update_date")
     private LocalDateTime updateDate;
+
+    public Contact(ContactForm form) {
+        this.type = form.getType();
+        this.content = form.getContent();
+        this.creationDate = LocalDateTime.now();
+    }
 }

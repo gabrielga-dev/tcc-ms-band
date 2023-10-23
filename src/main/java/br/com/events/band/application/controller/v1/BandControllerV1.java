@@ -1,14 +1,13 @@
 package br.com.events.band.application.controller.v1;
 
 import br.com.events.band.domain.io.UuidHolderDTO;
-import br.com.events.band.domain.io.band.create.rest.in.CreateBandRestForm;
+import br.com.events.band.domain.io._new.band.form.BandForm;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.in.FindAuthenticatedPersonBandsRestFilters;
 import br.com.events.band.domain.io.band.findAuthenticatedPersonBands.rest.out.FindAuthenticatedPersonBandsRestResult;
 import br.com.events.band.domain.io.band.findBands.rest.in.FindBandsRestFilters;
 import br.com.events.band.domain.io.band.findBands.rest.out.FindBandsRestResult;
 import br.com.events.band.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
 import br.com.events.band.domain.io.band.update.rest.in.UpdateBandRestForm;
-import br.com.events.band.domain.mapper.band.CreateBandMapper;
 import br.com.events.band.domain.mapper.band.FindAuthenticatedPersonBandsMapper;
 import br.com.events.band.domain.mapper.band.FindBandByUuidMapper;
 import br.com.events.band.domain.mapper.band.FindBandsMapper;
@@ -66,14 +65,14 @@ public class BandControllerV1 implements BandControllerV1Doc {
 
     @Override
     @PostMapping
-    public ResponseEntity<URI> create(@RequestBody @Valid CreateBandRestForm bandRestForm) {
-        var mappedForm = CreateBandMapper.toUseCaseForm(bandRestForm);
+    public ResponseEntity<URI> create(@RequestBody @Valid BandForm bandForm) {
+        var result = createBandUseCase.execute(bandForm);
 
-        var result = createBandUseCase.execute(mappedForm);
-
-        var mappedResult = CreateBandMapper.toRestResult(result);
-
-        var uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{uuid}").buildAndExpand(mappedResult).toUri();
+        var uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{uuid}")
+                .buildAndExpand(result.getUuid())
+                .toUri();
         return ResponseEntity.created(uri).build();
     }
 

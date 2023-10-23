@@ -1,11 +1,12 @@
 package br.com.events.band.domain.entity.address;
 
 import br.com.events.band.domain.entity.Band;
+import br.com.events.band.domain.io._new.address.form.AddressForm;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "band_address")
@@ -64,4 +65,14 @@ public class BandAddress {
     @OneToOne
     @JoinColumn(name = "band_uuid", referencedColumnName = "uuid")
     private Band band;
+
+    public BandAddress(AddressForm address) {
+        this.street = (address.getStreet());
+        this.neighbour = (address.getNeighbour());
+        this.complement = (address.getComplement());
+        this.city = (address.getCityId());
+        this.state = (address.getStateIso());
+        this.country = (address.getCountryIso());
+        this.zipCode = (address.getZipCode());
+    }
 }
