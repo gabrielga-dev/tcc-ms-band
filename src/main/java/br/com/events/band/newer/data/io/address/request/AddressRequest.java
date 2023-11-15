@@ -1,4 +1,4 @@
-package br.com.events.band.older.domain.io._new.address.form;
+package br.com.events.band.newer.data.io.address.request;
 
 import br.com.events.band.newer.data.io.address.IAddress;
 import lombok.Builder;
@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Builder
-public class AddressForm implements IAddress {
+public class AddressRequest implements IAddress {
 
     @NotNull(message = "O campo do nome da rua não pode ser nulo.")
     @NotBlank(message = "O campo do nome da rua não pode estar vazio.")

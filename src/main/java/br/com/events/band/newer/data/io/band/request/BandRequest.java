@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.io.band.request;
 
 import br.com.events.band.newer.data.io.band.IBandRequest;
-import br.com.events.band.older.domain.io._new.address.form.AddressForm;
+import br.com.events.band.newer.data.io.address.request.AddressRequest;
 import br.com.events.band.newer.data.io.contact.request.ContactForm;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class BandRequest implements IBandRequest {
     private String description;
 
     @Valid
-    private AddressForm address;
+    private AddressRequest address;
 
     @Valid
     @Builder.Default

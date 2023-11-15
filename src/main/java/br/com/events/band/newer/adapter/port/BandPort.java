@@ -5,9 +5,8 @@ import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.newer.data.io.band.response.BandResponse;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
-import br.com.events.band.older.domain.io.band.findBands.rest.out.FindBandsRestResult;
 import br.com.events.band.older.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
-import br.com.events.band.older.domain.io.band.update.rest.in.UpdateBandRestForm;
+import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -67,7 +66,7 @@ public interface BandPort {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<Void> update(String bandUuid, UpdateBandRestForm form);
+    ResponseEntity<Void> update(String bandUuid, MultipartFile profilePicture, UpdateBandRequest request);
 
     @ApiOperation(value = "Searches for a band by its uuid")
     @ApiImplicitParam(

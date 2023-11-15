@@ -4,22 +4,20 @@ import br.com.events.band.newer.adapter.port.BandPort;
 import br.com.events.band.newer.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.newer.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
 import br.com.events.band.newer.business.use_case.band.FindBandsUseCase;
+import br.com.events.band.newer.business.use_case.band.UpdateBandUseCase;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.response.BandResponse;
 import br.com.events.band.older.domain.io.UuidHolderDTO;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
-import br.com.events.band.older.domain.io.band.findBands.rest.out.FindBandsRestResult;
 import br.com.events.band.older.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
-import br.com.events.band.older.domain.io.band.update.rest.in.UpdateBandRestForm;
+import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.older.domain.mapper.band.FindAuthenticatedPersonBandsMapper;
 import br.com.events.band.older.domain.mapper.band.FindBandByUuidMapper;
 import br.com.events.band.older.domain.mapper.band.FindBandsMapper;
-import br.com.events.band.older.domain.mapper.band.UpdateBandMapper;
 import br.com.events.band.older.infrastructure.useCase.band.FindBandByUuidUseCase;
 import br.com.events.band.older.infrastructure.useCase.band.RemoveBandProfilePictureUseCase;
 import br.com.events.band.older.infrastructure.useCase.band.ToggleBandActivityFlagUseCase;
-import br.com.events.band.older.infrastructure.useCase.band.UpdateBandUseCase;
 import br.com.events.band.older.infrastructure.useCase.band.UploadBandProfilePictureUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,7 +29,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -102,11 +99,11 @@ public class BandControllerV1 implements BandPort {
     @Override
     @PutMapping("/{bandUuid}")
     public ResponseEntity<Void> update(
-            @PathVariable("bandUuid") String bandUuid, @RequestBody @Valid UpdateBandRestForm form
+            @PathVariable("bandUuid") String bandUuid,
+            @RequestPart("profilePicture") MultipartFile profilePicture,
+            @ModelAttribute @Valid UpdateBandRequest request
     ) {
-        var mappedForm = UpdateBandMapper.toUseCaseForm(bandUuid, form);
-
-        updateBandUseCase.execute(mappedForm);
+        updateBandUseCase.execute(bandUuid, request, profilePicture);
 
         return ResponseEntity.noContent().build();
     }

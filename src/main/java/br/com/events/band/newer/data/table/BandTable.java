@@ -2,6 +2,7 @@ package br.com.events.band.newer.data.table;
 
 import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.band.IBandResponse;
+import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.older.domain.entity.address.BandAddress;
 import br.com.events.band.newer.data.io.band.request.BandRequest;
 import lombok.AllArgsConstructor;
@@ -85,5 +86,12 @@ public class BandTable implements IBandResponse {
                     return newContact;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public void update(UpdateBandRequest request) {
+        this.name = request.getName();
+        this.description = request.getDescription();
+        this.address.update(request.getAddress());
+        this.updateDate = LocalDateTime.now();
     }
 }

@@ -4,7 +4,7 @@ import br.com.events.band.newer.business.command.band.AssignBandToPersonCommand;
 import br.com.events.band.newer.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.newer.business.command.address.CheckAddressCommand;
 import br.com.events.band.newer.business.command.band.SaveBandCommand;
-import br.com.events.band.newer.business.command.file.SaveFileCommand;
+import br.com.events.band.newer.business.command.file.UploadFileCommand;
 import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.file.FileType;
 import br.com.events.band.newer.data.table.BandTable;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class CreateBandUseCaseImpl implements CreateBandUseCase {
     private final SaveBandCommand saveBandCommand;
     private final AssignBandToPersonCommand assignBandToPersonCommand;
 
-    private final SaveFileCommand saveFileCommand;
+    private final UploadFileCommand uploadFileCommand;
 
     @Override
     @Transactional
@@ -35,15 +36,17 @@ public class CreateBandUseCaseImpl implements CreateBandUseCase {
         var toSave = new BandTable(bandForm);
         toSave = saveBandCommand.execute(toSave);
 
-        var savedPicture = saveFileCommand.execute(
-                FileOriginType.BAND.name(),
-                toSave.getUuid(),
-                FileType.IMAGE,
-                profilePicture
-        );
+        if (Objects.nonNull(profilePicture)){
+            var savedPicture = uploadFileCommand.execute(
+                    FileOriginType.BAND.name(),
+                    toSave.getUuid(),
+                    FileType.IMAGE,
+                    profilePicture
+            );
 
-        toSave.setProfilePictureUuid(savedPicture.getUuid());
-        toSave = saveBandCommand.execute(toSave);
+            toSave.setProfilePictureUuid(savedPicture.getUuid());
+            toSave = saveBandCommand.execute(toSave);
+        }
 
         assignBandToPersonCommand.execute(toSave.getUuid());
 

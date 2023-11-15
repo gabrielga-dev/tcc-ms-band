@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.entity.address;
 
 import br.com.events.band.older.domain.entity.Musician;
-import br.com.events.band.older.domain.io._new.address.form.AddressForm;
+import br.com.events.band.newer.data.io.address.request.AddressRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -67,7 +67,7 @@ public class MusicianAddress {
     @JoinColumn(name = "musician_uuid")
     private Musician musician;
 
-    public MusicianAddress(AddressForm address) {
+    public MusicianAddress(AddressRequest address) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();
@@ -79,7 +79,7 @@ public class MusicianAddress {
         this.longitude = null;
     }
 
-    public void transferData(AddressForm address) {
+    public void transferData(AddressRequest address) {
         this.setStreet(address.getStreet());
         this.setNeighbour(address.getNeighbour());
         this.setComplement(address.getComplement());

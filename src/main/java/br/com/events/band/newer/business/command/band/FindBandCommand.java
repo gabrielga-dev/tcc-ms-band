@@ -9,11 +9,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class FindBandCommand {
 
     private final BandRepository bandRepository;
+
+    public Optional<BandTable> byUuidAndOwnerUuid(String bandUuid, String ownerUuid){
+        return bandRepository.findByUuidAndOwnerUuid(bandUuid, ownerUuid);
+    }
+
+    public Optional<BandTable> byUuid(String bandUuid){
+        return bandRepository.findById(bandUuid);
+    }
 
     public Page<BandTable> byPerson(
             String personUuid,

@@ -4,7 +4,7 @@ package br.com.events.band.older.domain.mapper.band;
 import br.com.events.band.newer.data.table.BandTable;
 import br.com.events.band.older.domain.entity.address.BandAddress;
 import br.com.events.band.older.domain.io.band.update.rest.in.AddressUpdateBandRestForm;
-import br.com.events.band.older.domain.io.band.update.rest.in.UpdateBandRestForm;
+import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.older.domain.io.band.update.useCase.in.AddressUpdateBandUseCaseForm;
 import br.com.events.band.older.domain.io.band.update.useCase.in.UpdateBandUseCaseForm;
 import br.com.events.band.older.domain.io.process.band.update.UpdateBandProcessDTO;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UpdateBandMapper {
 
-    public static UpdateBandUseCaseForm toUseCaseForm(String bandUuid, UpdateBandRestForm form) {
+    public static UpdateBandUseCaseForm toUseCaseForm(String bandUuid, UpdateBandRequest form) {
         return UpdateBandUseCaseForm
                 .builder()
                 .uuid(bandUuid)

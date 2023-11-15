@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.entity.address;
 
 import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.older.domain.io._new.address.form.AddressForm;
+import br.com.events.band.newer.data.io.address.request.AddressRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -66,13 +66,23 @@ public class BandAddress {
     @JoinColumn(name = "band_uuid", referencedColumnName = "uuid")
     private BandTable band;
 
-    public BandAddress(AddressForm address) {
-        this.street = (address.getStreet());
-        this.neighbour = (address.getNeighbour());
-        this.complement = (address.getComplement());
-        this.city = (address.getCityId());
-        this.state = (address.getStateIso());
-        this.country = (address.getCountryIso());
-        this.zipCode = (address.getZipCode());
+    public BandAddress(AddressRequest address) {
+        this.street = address.getStreet();
+        this.neighbour = address.getNeighbour();
+        this.complement = address.getComplement();
+        this.city = address.getCityId();
+        this.state = address.getStateIso();
+        this.country = address.getCountryIso();
+        this.zipCode = address.getZipCode();
+    }
+
+    public void update(AddressRequest address) {
+        this.street = address.getStreet();
+        this.neighbour = address.getNeighbour();
+        this.complement = address.getComplement();
+        this.city = address.getCityId();
+        this.state = address.getStateIso();
+        this.country = address.getCountryIso();
+        this.zipCode = address.getZipCode();
     }
 }

@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.io._new.musician.form;
 
-import br.com.events.band.older.domain.io._new.address.form.AddressForm;
+import br.com.events.band.newer.data.io.address.request.AddressRequest;
 import br.com.events.band.older.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,7 +50,7 @@ public class MusicianForm {
 
     @Valid
     @NotNull(message = "É necessário inserir um endereço.")
-    private AddressForm address;
+    private AddressRequest address;
 
     public LocalDateTime getBirthday(){
         return DateUtil.millisecondsToLocalDateTime(this.birthday);

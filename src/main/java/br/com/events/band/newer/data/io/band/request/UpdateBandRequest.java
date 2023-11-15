@@ -1,5 +1,7 @@
-package br.com.events.band.older.domain.io.band.update.rest.in;
+package br.com.events.band.newer.data.io.band.request;
 
+import br.com.events.band.newer.data.io.address.request.AddressRequest;
+import br.com.events.band.older.domain.io.band.update.rest.in.AddressUpdateBandRestForm;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +19,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Builder
-public class UpdateBandRestForm {
+public class UpdateBandRequest {
 
     @NotNull(message = "O campo do nome da banda não pode ser nulo.")
     @NotBlank(message = "O campo do nome da banda não pode estar vazio.")
@@ -30,5 +32,5 @@ public class UpdateBandRestForm {
     private String description;
 
     @Valid
-    private AddressUpdateBandRestForm address;
+    private AddressRequest address;
 }

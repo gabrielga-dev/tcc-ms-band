@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public interface BandRepository {
 
@@ -28,4 +29,7 @@ public interface BandRepository {
             String stateIso,
             String countryIso
     );
+
+    Optional<BandTable> findById(String bandUuid);
+    Optional<BandTable> findByUuidAndOwnerUuid(String uuid, String ownerUuid);
 }

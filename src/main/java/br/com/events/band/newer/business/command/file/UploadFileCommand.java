@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 @RequiredArgsConstructor
-public class SaveFileCommand {
+public class UploadFileCommand {
 
     private final MsFileFeign msFileFeign;
 
