@@ -3,6 +3,7 @@ package br.com.events.band.newer.adapter.port.rest.v1;
 import br.com.events.band.newer.adapter.port.BandPort;
 import br.com.events.band.newer.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.newer.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
+import br.com.events.band.newer.business.use_case.band.FindBandProfileUseCase;
 import br.com.events.band.newer.business.use_case.band.FindBandsUseCase;
 import br.com.events.band.newer.business.use_case.band.UpdateBandUseCase;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
@@ -10,7 +11,7 @@ import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.response.BandResponse;
 import br.com.events.band.older.domain.io.UuidHolderDTO;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
-import br.com.events.band.older.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
+import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.older.domain.mapper.band.FindAuthenticatedPersonBandsMapper;
 import br.com.events.band.older.domain.mapper.band.FindBandByUuidMapper;
@@ -51,16 +52,12 @@ public class BandControllerV1 implements BandPort {
     private final CreateBandUseCase createBandUseCase;
     private final FindAuthenticatedPersonBandsUseCase findAuthenticatedPersonBandsUseCase;
     private final FindBandsUseCase findBandsUseCase;
-
     private final UpdateBandUseCase updateBandUseCase;
-    private final FindBandByUuidUseCase findBandByUuidUseCase;
+    private final FindBandProfileUseCase findBandProfileUseCase;
+
     private final ToggleBandActivityFlagUseCase toggleBandActivityFlagUseCase;
     private final UploadBandProfilePictureUseCase uploadBandProfilePictureUseCase;
     private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
-
-    private final FindAuthenticatedPersonBandsMapper findAuthenticatedPersonBandsMapper;
-    private final FindBandsMapper findBandsMapper;
-    private final FindBandByUuidMapper findBandByUuidMapper;
 
     @Override
     @PostMapping(consumes = "multipart/form-data")
@@ -109,13 +106,11 @@ public class BandControllerV1 implements BandPort {
     }
 
     @Override
-    @GetMapping("/uuid/{bandUuid}")
-    public ResponseEntity<FindBandByUuidRestResult> findByUuid(@PathVariable("bandUuid") String bandUuid) {
-        var result = findBandByUuidUseCase.execute(bandUuid);
+    @GetMapping("/profile/{bandUuid}")
+    public ResponseEntity<BandProfileResponse> findProfile(@PathVariable("bandUuid") String bandUuid) {
+        var result = findBandProfileUseCase.execute(bandUuid);
 
-        var mappedResult = findBandByUuidMapper.from(result);
-
-        return ResponseEntity.ok(mappedResult);
+        return ResponseEntity.ok(result);
     }
 
     @Override

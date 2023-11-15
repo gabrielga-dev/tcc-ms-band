@@ -1,7 +1,7 @@
 package br.com.events.band.older.application.useCase.musician;
 
 import br.com.events.band.older.application.useCase.band.exception.BandNotFoundException;
-import br.com.events.band.older.domain.entity.Musician;
+import br.com.events.band.newer.data.table.MusicianTable;
 import br.com.events.band.older.domain.io.UuidHolderDTO;
 import br.com.events.band.older.domain.io._new.musician.form.MusicianForm;
 import br.com.events.band.older.domain.io._new.musician.dto.MusicianValidationDto;
@@ -32,7 +32,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
         var validationDto = new MusicianValidationDto(bandUuid, MethodValidationType.CREATE, musicianForm);
         musicianMethodValidator.callProcesses(validationDto);
 
-        var toSave = new Musician(musicianForm);
+        var toSave = new MusicianTable(musicianForm);
 
         toSave.setBand(bandRepository.findById(bandUuid).orElseThrow(BandNotFoundException::new));
 

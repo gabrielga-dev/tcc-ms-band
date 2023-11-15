@@ -1,6 +1,6 @@
 package br.com.events.band.older.application.useCase.address;
 
-import br.com.events.band.older.domain.entity.address.MusicianAddress;
+import br.com.events.band.newer.data.table.addresses.MusicianAddressTable;
 import br.com.events.band.older.domain.io._new.address.response.AddressResponse;
 import br.com.events.band.newer.adapter.feign.client.MsLocationFeignClient;
 import br.com.events.band.older.infrastructure.useCase.address.BuildAddressResponseUseCase;
@@ -14,7 +14,7 @@ public class BuildAddressResponseUseCaseImpl implements BuildAddressResponseUseC
     private final MsLocationFeignClient locationFeignClient;
 
     @Override
-    public AddressResponse execute(MusicianAddress address) {
+    public AddressResponse execute(MusicianAddressTable address) {
         var city = locationFeignClient.getCityByIdAndStateAndCountryIso(
                 address.getCountry(), address.getState(), address.getCity()
         );

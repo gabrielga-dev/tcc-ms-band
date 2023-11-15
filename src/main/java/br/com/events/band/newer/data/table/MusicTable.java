@@ -1,6 +1,6 @@
-package br.com.events.band.older.domain.entity;
+package br.com.events.band.newer.data.table;
 
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.older.domain.entity.SheetMusic;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +32,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "music")
-public class Music {
+public class MusicTable {
 
     @Id
     @Column(name = "uuid")
@@ -40,7 +40,7 @@ public class Music {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "band_uuid")
-    private BandTable band;
+    private BandTable contributingBand;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -56,7 +56,4 @@ public class Music {
 
     @Column(name = "update_date")
     private LocalDateTime updateDate;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "music", cascade = CascadeType.ALL)
-    private List<SheetMusic> sheets;
 }

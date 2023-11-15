@@ -5,7 +5,7 @@ import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.newer.data.io.band.response.BandResponse;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
-import br.com.events.band.older.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
+import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -75,7 +75,7 @@ public interface BandPort {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<FindBandByUuidRestResult> findByUuid(String bandUuid);
+    ResponseEntity<BandProfileResponse> findProfile(String bandUuid);
 
     @ApiOperation(value = "Toggle band's activity flag")
     @ApiImplicitParam(

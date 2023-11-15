@@ -2,7 +2,7 @@ package br.com.events.band.older.domain.mapper.band;
 
 import br.com.events.band.newer.data.table.BandTable;
 import br.com.events.band.newer.data.table.ContactTable;
-import br.com.events.band.older.domain.entity.address.BandAddress;
+import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import br.com.events.band.older.domain.io.auth.AuthenticatedPerson;
 import br.com.events.band.older.domain.io.band.create.rest.in.AddressCreateBandRestForm;
 import br.com.events.band.older.domain.io.band.create.rest.in.ContactCreateBandRestForm;
@@ -77,10 +77,10 @@ public final class CreateBandMapper {
         return band;
     }
 
-    private static BandAddress address(
+    private static BandAddressTable address(
             final BandTable band, final AddressCreateBandUseCaseForm address
     ) {
-        var bandAddress = new BandAddress();
+        var bandAddress = new BandAddressTable();
         bandAddress.setStreet(address.getStreet());
         bandAddress.setNeighbour(address.getNeighbour());
         bandAddress.setComplement(address.getComplement());

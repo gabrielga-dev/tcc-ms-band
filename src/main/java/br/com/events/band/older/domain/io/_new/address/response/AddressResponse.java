@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.io._new.address.response;
 
-import br.com.events.band.older.domain.entity.address.MusicianAddress;
+import br.com.events.band.newer.data.table.addresses.MusicianAddressTable;
 import br.com.events.band.newer.data.io.address.city.CityResponse;
 import lombok.Getter;
 
@@ -15,7 +15,7 @@ public class AddressResponse {
     private final String country;
     private final String zipCode;
 
-    public AddressResponse(MusicianAddress address, CityResponse city) {
+    public AddressResponse(MusicianAddressTable address, CityResponse city) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();

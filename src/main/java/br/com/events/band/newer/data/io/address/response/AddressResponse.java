@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.io.address.response;
 
 import br.com.events.band.newer.data.io.address.city.CityResponse;
-import br.com.events.band.older.domain.entity.address.BandAddress;
+import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +23,7 @@ public class AddressResponse {
     private BigDecimal latitude;
     private BigDecimal longitude;
 
-    public AddressResponse(BandAddress address, CityResponse city) {
+    public AddressResponse(BandAddressTable address, CityResponse city) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();

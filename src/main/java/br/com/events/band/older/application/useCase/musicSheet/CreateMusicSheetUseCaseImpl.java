@@ -1,7 +1,7 @@
 package br.com.events.band.older.application.useCase.musicSheet;
 
 import br.com.events.band.newer.core.exception.music.MusicNonExistenceException;
-import br.com.events.band.older.domain.entity.Music;
+import br.com.events.band.newer.data.table.MusicTable;
 import br.com.events.band.older.domain.entity.SheetMusic;
 import br.com.events.band.newer.data.io.file.FileType;
 import br.com.events.band.newer.data.io.file.FileDTO;
@@ -48,7 +48,7 @@ public class CreateMusicSheetUseCaseImpl implements CreateMusicSheetUseCase {
     }
 
     private SheetMusic generateSheetEntity(
-            Music music, CreateSheetMusicUseCaseForm param, FileDTO result
+            MusicTable music, CreateSheetMusicUseCaseForm param, FileDTO result
     ) {
         var sheetMusic = new SheetMusic();
 

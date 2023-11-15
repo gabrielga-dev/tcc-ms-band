@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.mapper.musician;
 
-import br.com.events.band.older.domain.entity.Musician;
-import br.com.events.band.older.domain.entity.address.MusicianAddress;
+import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.table.addresses.MusicianAddressTable;
 import br.com.events.band.older.domain.io.musician.update.rest.in.AddressUpdateMusicianRestForm;
 import br.com.events.band.older.domain.io.musician.update.rest.in.UpdateMusicianRestForm;
 import br.com.events.band.older.domain.io.musician.update.useCase.in.AddressUpdateMusicianUseCaseForm;
@@ -42,7 +42,7 @@ public final class UpdateMusicianMapper {
                 .build();
     }
 
-    public static void transferData(Musician musician, UpdateMusicianUseCaseForm data) {
+    public static void transferData(MusicianTable musician, UpdateMusicianUseCaseForm data) {
         musician.setFirstName(data.getFirstName());
         musician.setLastName(data.getLastName());
         musician.setBirthday(data.getBirthday());
@@ -53,7 +53,7 @@ public final class UpdateMusicianMapper {
     }
 
     private static void transferData(
-            MusicianAddress musicianAddress, AddressUpdateMusicianUseCaseForm address
+            MusicianAddressTable musicianAddress, AddressUpdateMusicianUseCaseForm address
     ) {
         musicianAddress.setStreet(address.getStreet());
         musicianAddress.setNeighbour(address.getNeighbour());

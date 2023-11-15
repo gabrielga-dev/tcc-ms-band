@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.mapper.musician;
 
-import br.com.events.band.older.domain.entity.Musician;
+import br.com.events.band.newer.data.table.MusicianTable;
 import br.com.events.band.older.domain.io.musician.list.rest.out.ListMusiciansRestResult;
 import br.com.events.band.older.domain.io.musician.list.useCase.out.ListMusiciansUseCaseResult;
 import br.com.events.band.older.util.DateUtil;
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ListMusicianMapper {
 
-    public static List<ListMusiciansUseCaseResult> from(List<Musician> musicians) {
+    public static List<ListMusiciansUseCaseResult> from(List<MusicianTable> musicians) {
         return musicians.stream().map(ListMusicianMapper::from).collect(Collectors.toList());
     }
 
-    public static ListMusiciansUseCaseResult from(Musician musician) {
+    public static ListMusiciansUseCaseResult from(MusicianTable musician) {
         return ListMusiciansUseCaseResult
                 .builder()
                 .uuid(musician.getUuid())

@@ -1,7 +1,7 @@
 package br.com.events.band.older.application.useCase.music;
 
 import br.com.events.band.newer.core.exception.music.MusicNonExistenceException;
-import br.com.events.band.older.domain.entity.Music;
+import br.com.events.band.newer.data.table.MusicTable;
 import br.com.events.band.older.domain.io.music.create.out.CreateMusicResult;
 import br.com.events.band.older.domain.io.music.update.in.UpdateMusicUseCaseForm;
 import br.com.events.band.older.domain.repository.MusicRepository;
@@ -31,7 +31,7 @@ public class UpdateMusicUseCaseImpl implements UpdateMusicUseCase {
         return new CreateMusicResult(music.getUuid());
     }
 
-    private void setFields(Music music, UpdateMusicUseCaseForm param) {
+    private void setFields(MusicTable music, UpdateMusicUseCaseForm param) {
         music.setName(param.getName());
         music.setObservation(param.getObservation());
     }

@@ -1,7 +1,6 @@
-package br.com.events.band.older.domain.entity;
+package br.com.events.band.newer.data.table;
 
-import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.older.domain.entity.address.MusicianAddress;
+import br.com.events.band.newer.data.table.addresses.MusicianAddressTable;
 import br.com.events.band.older.domain.io._new.musician.form.MusicianForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +14,11 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,7 +32,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "musician")
-public class Musician {
+public class MusicianTable {
 
     @Id
     @Column(name = "uuid")
@@ -57,7 +58,10 @@ public class Musician {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "band_uuid", nullable = false)
-    private BandTable band;
+    private BandTable bandThatInserted;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "musician", cascade = CascadeType.ALL)
+    private List<BandMusicianTable> bands;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
@@ -69,9 +73,9 @@ public class Musician {
     private String avatarUuid;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "musician", cascade = CascadeType.ALL)
-    private MusicianAddress address;
+    private MusicianAddressTable address;
 
-    public Musician(MusicianForm musicianForm) {
+    public MusicianTable(MusicianForm musicianForm) {
         this.firstName = musicianForm.getFirstName();
         this.lastName = musicianForm.getLastName();
         this.birthday = musicianForm.getBirthday();
@@ -79,7 +83,7 @@ public class Musician {
         this.email = musicianForm.getEmail();
         this.creationDate = LocalDateTime.now();
 
-        var newAddress = new MusicianAddress(musicianForm.getAddress());
+        var newAddress = new MusicianAddressTable(musicianForm.getAddress());
         newAddress.setMusician(this);
         this.address = newAddress;
     }

@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.io._new.musician.response;
 
-import br.com.events.band.older.domain.entity.Musician;
+import br.com.events.band.newer.data.table.MusicianTable;
 import br.com.events.band.older.domain.io._new.address.response.AddressResponse;
 import br.com.events.band.older.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,7 +27,7 @@ public class MusicianResponse {
         this.address = address;
     }
 
-    public MusicianResponse(Musician musician) {
+    public MusicianResponse(MusicianTable musician) {
         this.uuid = musician.getUuid();
         this.firstName = musician.getFirstName();
         this.lastName = musician.getLastName();

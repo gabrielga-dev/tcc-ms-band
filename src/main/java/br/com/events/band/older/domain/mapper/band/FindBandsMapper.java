@@ -1,8 +1,8 @@
 package br.com.events.band.older.domain.mapper.band;
 
 import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.older.domain.entity.Musician;
-import br.com.events.band.older.domain.entity.address.BandAddress;
+import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
 import br.com.events.band.older.domain.io.band.findBands.rest.out.BandAddressFindBandsRestResult;
 import br.com.events.band.older.domain.io.band.findBands.rest.out.FindBandsRestResult;
@@ -47,12 +47,12 @@ public class FindBandsMapper {
                 .description(band.getDescription())
                 .profilePictureUuid(band.getProfilePictureUuid())
                 .address(mappedAddress)
-                .numberOfMusicians((int) band.getMusicians().stream().filter(Musician::getActive).count())
+                .numberOfMusicians((int) band.getMusicians().stream().filter(MusicianTable::getActive).count())
                 .numberOfMusics(band.getMusics().size())
                 .build();
     }
 
-    private static BandAddressFindBandsUseCaseResult toUseCaseResult(BandAddress address) {
+    private static BandAddressFindBandsUseCaseResult toUseCaseResult(BandAddressTable address) {
         return BandAddressFindBandsUseCaseResult
                 .builder()
                 .street(address.getStreet())

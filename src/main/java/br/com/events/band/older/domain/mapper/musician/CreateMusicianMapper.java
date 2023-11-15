@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.mapper.musician;
 
-import br.com.events.band.older.domain.entity.Musician;
-import br.com.events.band.older.domain.entity.address.MusicianAddress;
+import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.table.addresses.MusicianAddressTable;
 import br.com.events.band.older.domain.io.musician.create.rest.in.AddressCreateMusicianRestForm;
 import br.com.events.band.older.domain.io.musician.create.rest.in.CreateMusicianRestForm;
 import br.com.events.band.older.domain.io.musician.create.useCase.in.AddressCreateMusicianUseCaseForm;
@@ -46,8 +46,8 @@ public final class CreateMusicianMapper {
                 .build();
     }
 
-    public static Musician toEntity(CreateMusicianUseCaseForm form) {
-        var toReturn = new Musician();
+    public static MusicianTable toEntity(CreateMusicianUseCaseForm form) {
+        var toReturn = new MusicianTable();
 
         toReturn.setFirstName(form.getFirstName());
         toReturn.setLastName(form.getLastName());
@@ -63,8 +63,8 @@ public final class CreateMusicianMapper {
         return toReturn;
     }
 
-    private static MusicianAddress toEntity(AddressCreateMusicianUseCaseForm address) {
-        var toReturn = new MusicianAddress();
+    private static MusicianAddressTable toEntity(AddressCreateMusicianUseCaseForm address) {
+        var toReturn = new MusicianAddressTable();
         toReturn.setStreet(address.getStreet());
         toReturn.setNeighbour(address.getNeighbour());
         toReturn.setComplement(address.getComplement());

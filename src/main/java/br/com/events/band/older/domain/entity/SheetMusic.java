@@ -1,5 +1,6 @@
 package br.com.events.band.older.domain.entity;
 
+import br.com.events.band.newer.data.table.MusicTable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class SheetMusic {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "music_uuid")
-    private Music music;
+    private MusicTable music;
 
     @Column(name = "file_uuid", nullable = false)
     private String fileUuid;

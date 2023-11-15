@@ -1,6 +1,6 @@
-package br.com.events.band.older.domain.entity.address;
+package br.com.events.band.newer.data.table.addresses;
 
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.table.MusicianTable;
 import br.com.events.band.newer.data.io.address.request.AddressRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -28,12 +29,12 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "band_address")
-public class BandAddress {
+@Table(name = "musician_address")
+public class MusicianAddressTable {
 
     @Id
     @Column(name = "uuid", nullable = false)
-    private String uuid = UUID.randomUUID().toString();
+    private final String uuid = UUID.randomUUID().toString();
 
     @Column(name = "street", nullable = false)
     private String street;
@@ -62,11 +63,11 @@ public class BandAddress {
     @Column(name = "longitude", nullable = false)
     private BigDecimal longitude;
 
-    @OneToOne
-    @JoinColumn(name = "band_uuid", referencedColumnName = "uuid")
-    private BandTable band;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "musician_uuid")
+    private MusicianTable musician;
 
-    public BandAddress(AddressRequest address) {
+    public MusicianAddressTable(AddressRequest address) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();
@@ -74,15 +75,17 @@ public class BandAddress {
         this.state = address.getStateIso();
         this.country = address.getCountryIso();
         this.zipCode = address.getZipCode();
+        this.latitude = null;
+        this.longitude = null;
     }
 
-    public void update(AddressRequest address) {
-        this.street = address.getStreet();
-        this.neighbour = address.getNeighbour();
-        this.complement = address.getComplement();
-        this.city = address.getCityId();
-        this.state = address.getStateIso();
-        this.country = address.getCountryIso();
-        this.zipCode = address.getZipCode();
+    public void transferData(AddressRequest address) {
+        this.setStreet(address.getStreet());
+        this.setNeighbour(address.getNeighbour());
+        this.setComplement(address.getComplement());
+        this.setCity(address.getCityId());
+        this.setState(address.getStateIso());
+        this.setCountry(address.getCountryIso());
+        this.setZipCode(address.getZipCode());
     }
 }

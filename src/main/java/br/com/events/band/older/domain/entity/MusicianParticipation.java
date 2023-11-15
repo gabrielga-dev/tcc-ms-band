@@ -1,5 +1,6 @@
 package br.com.events.band.older.domain.entity;
 
+import br.com.events.band.newer.data.table.MusicianTable;
 import br.com.events.band.older.domain.entity.type.PaymentMethodType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,7 +44,7 @@ public class MusicianParticipation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "musician_uuid", nullable = false)
-    private Musician musician;
+    private MusicianTable musician;
 
     @Column(name = "value", nullable = false)
     private BigDecimal value;

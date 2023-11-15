@@ -3,7 +3,7 @@ package br.com.events.band.newer.data.table;
 import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.band.IBandResponse;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
-import br.com.events.band.older.domain.entity.address.BandAddress;
+import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import br.com.events.band.newer.data.io.band.request.BandRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,17 +64,26 @@ public class BandTable implements IBandResponse {
     private LocalDateTime updateDate;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
-    private BandAddress address;
+    private BandAddressTable address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
     private List<ContactTable> contacts;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
+    private List<MusicianTable> insertedMusicians;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
+    private List<BandMusicianTable> musicians;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
+    private List<MusicTable> contributedMusics;
 
     public BandTable(BandRequest form) {
         this.active = true;
         this.creationDate = LocalDateTime.now();
         this.name = form.getName();
         this.description = form.getDescription();
-        this.address = new BandAddress(form.getAddress());
+        this.address = new BandAddressTable(form.getAddress());
         this.address.setBand(this);
         this.ownerUuid = AuthUtil.getAuthenticatedPersonUuid();
 

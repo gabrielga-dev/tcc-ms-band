@@ -2,11 +2,11 @@ package br.com.events.band.older.domain.mapper.band;
 
 import br.com.events.band.newer.data.table.BandTable;
 import br.com.events.band.newer.data.table.ContactTable;
-import br.com.events.band.older.domain.entity.Musician;
-import br.com.events.band.older.domain.entity.address.BandAddress;
+import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import br.com.events.band.older.domain.io.band.findByUuid.rest.out.BandAddressFindBandByUuidRestResult;
 import br.com.events.band.older.domain.io.band.findByUuid.rest.out.ContactFindBandByUuidRestResult;
-import br.com.events.band.older.domain.io.band.findByUuid.rest.out.FindBandByUuidRestResult;
+import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
 import br.com.events.band.older.domain.io.band.findByUuid.rest.out.MusicianFindBandByUuidRestResult;
 import br.com.events.band.older.domain.io.band.findByUuid.useCase.out.BandAddressFindBandByUuidUseCaseResult;
 import br.com.events.band.older.domain.io.band.findByUuid.useCase.out.ContactFindBandByUuidUseCaseResult;
@@ -30,7 +30,7 @@ public class FindBandByUuidMapper {
     public static FindBandByUuidUseCaseResult from(BandTable band) {
         var mappedMusicians = band.getMusicians()
                 .stream()
-                .filter(Musician::getActive)
+                .filter(MusicianTable::getActive)
                 .map(FindBandByUuidMapper::toUseCaseResult)
                 .collect(Collectors.toList());
 
@@ -66,7 +66,7 @@ public class FindBandByUuidMapper {
                 .build();
     }
 
-    private static BandAddressFindBandByUuidUseCaseResult toUseCaseResult(BandAddress address) {
+    private static BandAddressFindBandByUuidUseCaseResult toUseCaseResult(BandAddressTable address) {
         return BandAddressFindBandByUuidUseCaseResult
                 .builder()
                 .street(address.getStreet())
@@ -81,7 +81,7 @@ public class FindBandByUuidMapper {
                 .build();
     }
 
-    private static MusicianFindBandByUuidUseCaseResult toUseCaseResult(Musician musician) {
+    private static MusicianFindBandByUuidUseCaseResult toUseCaseResult(MusicianTable musician) {
         return MusicianFindBandByUuidUseCaseResult
                 .builder()
                 .uuid(musician.getUuid())
@@ -94,12 +94,12 @@ public class FindBandByUuidMapper {
     }
 
 
-    public FindBandByUuidRestResult from(FindBandByUuidUseCaseResult band) {
+    public BandProfileResponse from(FindBandByUuidUseCaseResult band) {
         var mappedAddress = toUseCaseResult(band.getAddress());
         var mappedMusicians = toRestResult(band.getMusicians());
         var mappedContacts = toRestResultContacts(band.getContacts());
 
-        return FindBandByUuidRestResult
+        return BandProfileResponse
                 .builder()
                 .uuid(band.getUuid())
                 .name(band.getName())

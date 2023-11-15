@@ -1,7 +1,6 @@
 package br.com.events.band.newer.business.command.band;
 
-import br.com.events.band.newer.adapter.feign.MsLocationFeign;
-import br.com.events.band.newer.data.io.address.response.AddressResponse;
+import br.com.events.band.newer.business.command.address.BuildAddressResponseCommand;
 import br.com.events.band.newer.data.io.band.response.BandResponse;
 import br.com.events.band.newer.data.table.BandTable;
 import lombok.RequiredArgsConstructor;
@@ -11,16 +10,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BuildBandResponseCommand {
 
-    private final MsLocationFeign msLocationFeign;
+    private final BuildAddressResponseCommand buildAddressResponseCommand;
 
     public BandResponse execute(BandTable band) {
-        var city = msLocationFeign.getCityByIdAndStateAndCountryIso(
-                band.getAddress().getCountry(),
-                band.getAddress().getState(),
-                band.getAddress().getCity()
-        );
-
-        var address = new AddressResponse(band.getAddress(), city);
+        var address = buildAddressResponseCommand.execute(band.getAddress());
 
         var toReturn = new BandResponse(band);
         toReturn.setAddress(address);

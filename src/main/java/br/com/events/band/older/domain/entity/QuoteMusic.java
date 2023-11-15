@@ -1,5 +1,6 @@
 package br.com.events.band.older.domain.entity;
 
+import br.com.events.band.newer.data.table.MusicTable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public class QuoteMusic {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "music_uuid", nullable = false)
-    private Music music;
+    private MusicTable music;
 
     @Column(name = "play_order", nullable = false)
     private Integer playOrder;

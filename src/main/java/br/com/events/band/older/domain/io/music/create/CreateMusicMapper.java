@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.io.music.create;
 
 import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.older.domain.entity.Music;
+import br.com.events.band.newer.data.table.MusicTable;
 import br.com.events.band.older.domain.io.music.create.in.CreateMusicForm;
 import br.com.events.band.older.domain.io.music.create.in.CreateMusicUseCaseForm;
 import lombok.AccessLevel;
@@ -21,8 +21,8 @@ public final class CreateMusicMapper {
                 .build();
     }
 
-    public static Music from(CreateMusicUseCaseForm param, BandTable band) {
-        var toReturn = new Music();
+    public static MusicTable from(CreateMusicUseCaseForm param, BandTable band) {
+        var toReturn = new MusicTable();
 
         toReturn.setName(param.getName());
         toReturn.setObservation(param.getObservation());

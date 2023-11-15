@@ -2,7 +2,7 @@ package br.com.events.band.older.domain.mapper.band;
 
 
 import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.older.domain.entity.address.BandAddress;
+import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import br.com.events.band.older.domain.io.band.update.rest.in.AddressUpdateBandRestForm;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.older.domain.io.band.update.useCase.in.AddressUpdateBandUseCaseForm;
@@ -58,7 +58,7 @@ public final class UpdateBandMapper {
         UpdateBandMapper.transferData(toUpdate.getAddress(), data.getAddress());
     }
 
-    private static void transferData(BandAddress address, AddressUpdateBandUseCaseForm data) {
+    private static void transferData(BandAddressTable address, AddressUpdateBandUseCaseForm data) {
         address.setStreet(data.getStreet());
         address.setNeighbour(data.getNeighbour());
         address.setComplement(data.getComplement());

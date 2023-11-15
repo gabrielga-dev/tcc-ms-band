@@ -2,8 +2,8 @@ package br.com.events.band.older.domain.mapper.band;
 
 import br.com.events.band.newer.data.table.BandTable;
 import br.com.events.band.newer.data.table.ContactTable;
-import br.com.events.band.older.domain.entity.Musician;
-import br.com.events.band.older.domain.entity.address.BandAddress;
+import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.newer.data.io.address.response.AddressResponse;
 import br.com.events.band.newer.data.io.contact.response.ContactResponse;
@@ -149,7 +149,7 @@ public class FindAuthenticatedPersonBandsMapper {
     public static FindAuthenticatedPersonBandsUseCaseResult toUseCaseResult(BandTable band) {
         var mappedMusicians = band.getMusicians()
                 .stream()
-                .filter(Musician::getActive)
+                .filter(MusicianTable::getActive)
                 .map(FindAuthenticatedPersonBandsMapper::toUseCaseResult)
                 .collect(Collectors.toList());
 
@@ -184,7 +184,7 @@ public class FindAuthenticatedPersonBandsMapper {
                 .build();
     }
 
-    private static BandAddressFindAuthenticatedPersonBandsUseCaseResult toUseCaseResult(BandAddress address) {
+    private static BandAddressFindAuthenticatedPersonBandsUseCaseResult toUseCaseResult(BandAddressTable address) {
         return BandAddressFindAuthenticatedPersonBandsUseCaseResult
                 .builder()
                 .street(address.getStreet())
@@ -199,7 +199,7 @@ public class FindAuthenticatedPersonBandsMapper {
                 .build();
     }
 
-    private static MusicianFindAuthenticatedPersonBandsUseCaseResult toUseCaseResult(Musician musician) {
+    private static MusicianFindAuthenticatedPersonBandsUseCaseResult toUseCaseResult(MusicianTable musician) {
         return MusicianFindAuthenticatedPersonBandsUseCaseResult
                 .builder()
                 .uuid(musician.getUuid())
