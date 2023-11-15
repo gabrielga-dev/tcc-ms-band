@@ -1,7 +1,7 @@
-package br.com.events.band.older.infrastructure.useCase.contact;
+package br.com.events.band.newer.business.use_case.contact;
 
+import br.com.events.band.newer.data.io.contact.response.ContactResponse;
 import br.com.events.band.older.domain.io.contact.listBandContact.useCase.out.ListBandContactUseCaseResult;
-import br.com.events.band.older.infrastructure.useCase.UseCaseBase;
 
 import java.util.List;
 
@@ -10,5 +10,7 @@ import java.util.List;
  *
  * @author Gabriel Guimarães de Almeida
  */
-public interface ListBandContactUseCase extends UseCaseBase<String, List<ListBandContactUseCaseResult>> {
+public interface ListBandContactUseCase {
+
+    List<ContactResponse> execute(String bandUuid);
 }

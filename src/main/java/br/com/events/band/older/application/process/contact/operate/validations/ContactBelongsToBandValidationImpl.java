@@ -3,7 +3,7 @@ package br.com.events.band.older.application.process.contact.operate.validations
 import br.com.events.band.older.application.process.contact.exception.BandContactNonExistenceException;
 import br.com.events.band.older.application.process.contact.exception.ContactDoesNotBelongsToBandException;
 import br.com.events.band.older.domain.io.process.contact.operate.OperateBandContactDTO;
-import br.com.events.band.older.domain.repository.ContactRepository;
+import br.com.events.band.newer.adapter.reporitory.jpa.ContactJpaRepository;
 import br.com.events.band.older.infrastructure.process.contact.operate.OperateBandContactValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ContactBelongsToBandValidationImpl implements OperateBandContactValidation {
 
-    private final ContactRepository contactRepository;
+    private final ContactJpaRepository contactRepository;
 
     @Override
     public boolean matches(OperateBandContactDTO param) {

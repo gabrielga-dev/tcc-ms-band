@@ -2,7 +2,7 @@ package br.com.events.band.newer.data.io.band.request;
 
 import br.com.events.band.newer.data.io.band.IBandRequest;
 import br.com.events.band.newer.data.io.address.request.AddressRequest;
-import br.com.events.band.newer.data.io.contact.request.ContactForm;
+import br.com.events.band.newer.data.io.contact.request.ContactRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,5 +39,5 @@ public class BandRequest implements IBandRequest {
 
     @Valid
     @Builder.Default
-    private List<ContactForm> contacts = new ArrayList<>();
+    private List<ContactRequest> contacts = new ArrayList<>();
 }

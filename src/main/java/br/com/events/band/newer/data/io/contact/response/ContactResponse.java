@@ -11,10 +11,12 @@ import lombok.Setter;
 @Builder
 public class ContactResponse {
 
+    private String uuid;
     private ContactType type;
     private String content;
 
     public ContactResponse(ContactTable contactTable) {
+        this.uuid = contactTable.getUuid();
         this.type = contactTable.getType();
         this.content = contactTable.getContent();
     }

@@ -41,7 +41,7 @@ import java.net.URI;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/band")
-public class BandControllerV1 implements BandPort {
+public class BandRestControllerV1 implements BandPort {
 
     private final CreateBandUseCase createBandUseCase;
     private final FindAuthenticatedPersonBandsUseCase findAuthenticatedPersonBandsUseCase;

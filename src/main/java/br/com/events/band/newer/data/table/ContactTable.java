@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.table;
 
 import br.com.events.band.older.domain.entity.type.ContactType;
-import br.com.events.band.newer.data.io.contact.request.ContactForm;
+import br.com.events.band.newer.data.io.contact.request.ContactRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,9 +52,16 @@ public class ContactTable {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    public ContactTable(ContactForm form) {
-        this.type = form.getType();
-        this.content = form.getContent();
+    public ContactTable(ContactRequest request, BandTable band) {
+        this.type = request.getType();
+        this.content = request.getContent();
         this.creationDate = LocalDateTime.now();
+        this.setBand(band);
+    }
+
+    public void update(ContactRequest request) {
+        this.type = request.getType();
+        this.content = request.getContent();
+        this.updateDate = LocalDateTime.now();
     }
 }

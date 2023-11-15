@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Builder
-public class ContactForm {
+public class ContactRequest {
 
     @NotNull(message = "O campo do tipo do contato não pode ser nulo.")
     private ContactType type;

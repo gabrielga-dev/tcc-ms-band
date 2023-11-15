@@ -89,11 +89,7 @@ public class BandTable implements IBandResponse {
 
         this.contacts = form.getContacts()
                 .stream()
-                .map(c -> {
-                    var newContact = new ContactTable(c);
-                    newContact.setBand(this);
-                    return newContact;
-                })
+                .map(c -> new ContactTable(c, this))
                 .collect(Collectors.toList());
     }
 
