@@ -1,12 +1,11 @@
 package br.com.events.band.newer.adapter.port;
 
-import br.com.events.band.older.domain.io.UuidHolderDTO;
-import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
-import br.com.events.band.newer.data.io.band.response.BandResponse;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
-import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
+import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
+import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
+import br.com.events.band.newer.data.io.band.response.BandResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -86,16 +85,6 @@ public interface BandPort {
             dataTypeClass = String.class
     )
     ResponseEntity<Void> toggleBandActivity(String bandUuid);
-
-    @ApiOperation(value = "Uploads a new profile picture to thegiven band")
-    @ApiImplicitParam(
-            name = "Authorization",
-            value = "Authorization token",
-            required = true,
-            paramType = "header",
-            dataTypeClass = String.class
-    )
-    ResponseEntity<UuidHolderDTO> uploadProfilePicture(String bandUuid, MultipartFile file);
 
     @ApiOperation(value = "Remove the profile picture of the given band")
     @ApiImplicitParam(

@@ -5,21 +5,15 @@ import br.com.events.band.newer.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.newer.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
 import br.com.events.band.newer.business.use_case.band.FindBandProfileUseCase;
 import br.com.events.band.newer.business.use_case.band.FindBandsUseCase;
+import br.com.events.band.newer.business.use_case.band.RemoveBandProfilePictureUseCase;
+import br.com.events.band.newer.business.use_case.band.ToggleBandActivityFlagUseCase;
 import br.com.events.band.newer.business.use_case.band.UpdateBandUseCase;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
-import br.com.events.band.newer.data.io.band.request.BandRequest;
-import br.com.events.band.newer.data.io.band.response.BandResponse;
-import br.com.events.band.older.domain.io.UuidHolderDTO;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
-import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
+import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
-import br.com.events.band.older.domain.mapper.band.FindAuthenticatedPersonBandsMapper;
-import br.com.events.band.older.domain.mapper.band.FindBandByUuidMapper;
-import br.com.events.band.older.domain.mapper.band.FindBandsMapper;
-import br.com.events.band.older.infrastructure.useCase.band.FindBandByUuidUseCase;
-import br.com.events.band.older.infrastructure.useCase.band.RemoveBandProfilePictureUseCase;
-import br.com.events.band.older.infrastructure.useCase.band.ToggleBandActivityFlagUseCase;
-import br.com.events.band.older.infrastructure.useCase.band.UploadBandProfilePictureUseCase;
+import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
+import br.com.events.band.newer.data.io.band.response.BandResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -54,9 +48,7 @@ public class BandControllerV1 implements BandPort {
     private final FindBandsUseCase findBandsUseCase;
     private final UpdateBandUseCase updateBandUseCase;
     private final FindBandProfileUseCase findBandProfileUseCase;
-
     private final ToggleBandActivityFlagUseCase toggleBandActivityFlagUseCase;
-    private final UploadBandProfilePictureUseCase uploadBandProfilePictureUseCase;
     private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
 
     @Override
@@ -118,15 +110,6 @@ public class BandControllerV1 implements BandPort {
     public ResponseEntity<Void> toggleBandActivity(@PathVariable("bandUuid") String bandUuid) {
         toggleBandActivityFlagUseCase.execute(bandUuid);
         return ResponseEntity.noContent().build();
-    }
-
-    @Override
-    @PostMapping(value = "/uuid/{bandUuid}/picture", consumes = "multipart/form-data")
-    public ResponseEntity<UuidHolderDTO> uploadProfilePicture(
-            @PathVariable String bandUuid, @RequestPart("picture") MultipartFile file
-    ) {
-        var response = uploadBandProfilePictureUseCase.execute(bandUuid, file);
-        return ResponseEntity.ok(response);
     }
 
     @Override

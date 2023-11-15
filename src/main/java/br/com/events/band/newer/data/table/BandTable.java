@@ -2,9 +2,9 @@ package br.com.events.band.newer.data.table;
 
 import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.band.IBandResponse;
+import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.newer.data.table.addresses.BandAddressTable;
-import br.com.events.band.newer.data.io.band.request.BandRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -102,5 +102,13 @@ public class BandTable implements IBandResponse {
         this.description = request.getDescription();
         this.address.update(request.getAddress());
         this.updateDate = LocalDateTime.now();
+    }
+
+    public void toggleActive() {
+        this.active = !this.active;
+    }
+
+    public void removeProfilePicture() {
+        this.profilePictureUuid = null;
     }
 }
