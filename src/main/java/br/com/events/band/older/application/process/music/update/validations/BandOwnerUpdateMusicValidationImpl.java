@@ -5,7 +5,7 @@ import br.com.events.band.newer.core.exception.band.BandOwnerException;
 import br.com.events.band.newer.core.exception.music.MusicNonExistenceException;
 import br.com.events.band.older.domain.io.music.update.in.UpdateMusicUseCaseForm;
 import br.com.events.band.older.domain.repository.BandRepository;
-import br.com.events.band.older.domain.repository.MusicRepository;
+import br.com.events.band.newer.adapter.repository.jpa.MusicJpaRepository;
 import br.com.events.band.older.infrastructure.process.music.update.UpdateMusicValidation;
 import br.com.events.band.older.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BandOwnerUpdateMusicValidationImpl implements UpdateMusicValidation {
 
-    private final MusicRepository musicRepository;
+    private final MusicJpaRepository musicRepository;
     private final BandRepository bandRepository;
 
     @Override

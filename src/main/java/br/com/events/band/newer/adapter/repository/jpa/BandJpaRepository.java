@@ -1,6 +1,6 @@
-package br.com.events.band.newer.adapter.reporitory.jpa;
+package br.com.events.band.newer.adapter.repository.jpa;
 
-import br.com.events.band.newer.adapter.reporitory.BandRepository;
+import br.com.events.band.newer.adapter.repository.BandRepository;
 import br.com.events.band.newer.data.table.BandTable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

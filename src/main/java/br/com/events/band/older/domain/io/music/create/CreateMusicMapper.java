@@ -2,7 +2,7 @@ package br.com.events.band.older.domain.io.music.create;
 
 import br.com.events.band.newer.data.table.BandTable;
 import br.com.events.band.newer.data.table.MusicTable;
-import br.com.events.band.older.domain.io.music.create.in.CreateMusicForm;
+import br.com.events.band.newer.data.io.music.request.MusicRequest;
 import br.com.events.band.older.domain.io.music.create.in.CreateMusicUseCaseForm;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CreateMusicMapper {
 
-    public static CreateMusicUseCaseForm from(String bandUuid, CreateMusicForm createMusicForm){
+    public static CreateMusicUseCaseForm from(String bandUuid, MusicRequest createMusicForm){
         return CreateMusicUseCaseForm
                 .builder()
                 .name(createMusicForm.getName())

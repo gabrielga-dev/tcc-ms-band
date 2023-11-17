@@ -1,6 +1,6 @@
 package br.com.events.band.newer.business.command.contact;
 
-import br.com.events.band.newer.adapter.reporitory.ContactRepository;
+import br.com.events.band.newer.adapter.repository.ContactRepository;
 import br.com.events.band.newer.data.table.ContactTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

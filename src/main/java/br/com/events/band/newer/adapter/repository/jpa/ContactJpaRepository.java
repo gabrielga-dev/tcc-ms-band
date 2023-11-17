@@ -1,6 +1,6 @@
-package br.com.events.band.newer.adapter.reporitory.jpa;
+package br.com.events.band.newer.adapter.repository.jpa;
 
-import br.com.events.band.newer.adapter.reporitory.ContactRepository;
+import br.com.events.band.newer.adapter.repository.ContactRepository;
 import br.com.events.band.newer.data.table.ContactTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

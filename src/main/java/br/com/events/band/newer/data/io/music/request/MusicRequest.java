@@ -1,4 +1,4 @@
-package br.com.events.band.older.domain.io.music.create.in;
+package br.com.events.band.newer.data.io.music.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +13,16 @@ import javax.validation.constraints.Size;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateMusicForm {
+public class MusicRequest {
 
     @Size(min = 2, max = 45, message = "O campo do nome da música deve ter entre 2 e 45 caracteres.")
     private String name;
+
+    @Size(min = 2, max = 60, message = "O campo do nome do autor música deve ter entre 2 e 45 caracteres.")
+    private String author;
+
+    @Size(min = 2, max = 60, message = "O campo do nome do autor música deve ter entre 2 e 45 caracteres.")
+    private String artist;
 
     @Size(max = 1000, message = "O campo de observação da música deve ter, no máximo 1000 caracteres.")
     private String observation;

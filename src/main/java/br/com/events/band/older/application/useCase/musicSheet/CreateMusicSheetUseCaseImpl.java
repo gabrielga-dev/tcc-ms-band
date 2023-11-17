@@ -7,7 +7,7 @@ import br.com.events.band.newer.data.io.file.FileType;
 import br.com.events.band.newer.data.io.file.FileDTO;
 import br.com.events.band.older.domain.io.musicSheet.create.rest.out.CreateMusicSheetResult;
 import br.com.events.band.older.domain.io.musicSheet.create.useCase.in.CreateSheetMusicUseCaseForm;
-import br.com.events.band.older.domain.repository.MusicRepository;
+import br.com.events.band.newer.adapter.repository.jpa.MusicJpaRepository;
 import br.com.events.band.newer.data.io.file.FileOriginType;
 import br.com.events.band.older.infrastructure.feign.msFile.FileFeignClient;
 import br.com.events.band.older.infrastructure.process.sheetMusic.create.CreateSheetMusicValidator;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateMusicSheetUseCaseImpl implements CreateMusicSheetUseCase {
 
     private final CreateSheetMusicValidator createSheetMusicValidator;
-    private final MusicRepository musicRepository;
+    private final MusicJpaRepository musicRepository;
     private final FileFeignClient fileFeignClient;
 
     @Override

@@ -1,4 +1,4 @@
-package br.com.events.band.newer.adapter.reporitory;
+package br.com.events.band.newer.adapter.repository;
 
 import br.com.events.band.newer.data.table.ContactTable;
 
