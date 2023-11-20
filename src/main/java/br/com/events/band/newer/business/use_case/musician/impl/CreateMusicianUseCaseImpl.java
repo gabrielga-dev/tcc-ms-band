@@ -6,7 +6,9 @@ import br.com.events.band.newer.business.command.musician.FindMusicianCommand;
 import br.com.events.band.newer.business.command.musician.SaveMusicianCommand;
 import br.com.events.band.newer.business.use_case.musician.CreateMusicianUseCase;
 import br.com.events.band.newer.core.exception.band.BandNonExistenceException;
+import br.com.events.band.newer.core.exception.band.BandNotFoundException;
 import br.com.events.band.newer.core.exception.band.BandOwnerException;
+import br.com.events.band.newer.core.exception.musician.MusicianBelowAgeException;
 import br.com.events.band.newer.core.exception.musician.MusicianExistsException;
 import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.commom.UuidHolderDTO;
@@ -14,8 +16,6 @@ import br.com.events.band.newer.data.io.file.FileOriginType;
 import br.com.events.band.newer.data.io.file.FileType;
 import br.com.events.band.newer.data.io.musician.request.MusicianRequest;
 import br.com.events.band.newer.data.model.table.MusicianTable;
-import br.com.events.band.older.application.process.musician.exception.MusicianBelowAgeException;
-import br.com.events.band.older.application.useCase.band.exception.BandNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -60,7 +60,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
         );
 
         if (request.getAge() < minimumAge) {
-            throw new MusicianBelowAgeException(minimumAge);
+            throw new MusicianBelowAgeException(request.getAge(), minimumAge);
         }
 
         var toSave = new MusicianTable(request);

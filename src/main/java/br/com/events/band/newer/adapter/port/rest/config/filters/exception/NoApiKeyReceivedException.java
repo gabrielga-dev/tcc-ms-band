@@ -1,6 +1,6 @@
 package br.com.events.band.newer.adapter.port.rest.config.filters.exception;
 
-import br.com.events.band.older.infrastructure.exception.badRequest.BadRequestException;
+import br.com.events.band.newer.adapter.port.rest.config.exception.bad_request.BadRequestException;
 
 /**
  * This exception is called when a request with no api-ey is received

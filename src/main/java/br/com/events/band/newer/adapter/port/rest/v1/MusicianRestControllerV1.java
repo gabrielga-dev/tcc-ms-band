@@ -7,13 +7,12 @@ import br.com.events.band.newer.business.use_case.musician.DeleteMusiciansUseCas
 import br.com.events.band.newer.business.use_case.musician.FindMusicianByCpfUseCase;
 import br.com.events.band.newer.business.use_case.musician.FindMusicianByUuidUseCase;
 import br.com.events.band.newer.business.use_case.musician.FindMusiciansByCriteriaUseCase;
+import br.com.events.band.newer.business.use_case.musician.RemoveMusicianAvatarUseCase;
 import br.com.events.band.newer.business.use_case.musician.UpdateMusicianUseCase;
 import br.com.events.band.newer.data.io.commom.UuidHolderDTO;
 import br.com.events.band.newer.data.io.musician.criteria.MusicianCriteria;
 import br.com.events.band.newer.data.io.musician.request.MusicianRequest;
 import br.com.events.band.newer.data.io.musician.response.MusicianWithAddressResponse;
-import br.com.events.band.newer.business.use_case.musician.RemoveMusicianAvatarUseCase;
-import br.com.events.band.older.infrastructure.useCase.musician.UploadMusicianAvatarUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,8 +41,6 @@ public class MusicianRestControllerV1 implements MusicianPort {
     private final FindMusiciansByCriteriaUseCase findMusiciansByCriteriaUseCase;
     private final DeleteMusiciansUseCase deleteMusiciansUseCase;
     private final UpdateMusicianUseCase updateMusicianUseCase;
-
-    private final UploadMusicianAvatarUseCase uploadMusicianAvatarUseCase;
     private final RemoveMusicianAvatarUseCase removeMusicianAvatarUseCase;
 
     @Override

@@ -1,6 +1,6 @@
 package br.com.events.band.newer.core.util;
 
-import br.com.events.band.older.domain.io.auth.AuthenticatedPerson;
+import br.com.events.band.newer.data.io.auth.AuthenticatedPerson;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

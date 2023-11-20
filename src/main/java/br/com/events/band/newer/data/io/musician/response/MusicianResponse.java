@@ -2,7 +2,7 @@ package br.com.events.band.newer.data.io.musician.response;
 
 import br.com.events.band.newer.data.model.table.BandMusicianTable;
 import br.com.events.band.newer.data.model.table.MusicianTable;
-import br.com.events.band.older.util.DateUtil;
+import br.com.events.band.newer.core.util.DateUtil;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.io.band;
 
 import br.com.events.band.newer.data.io.address.IAddress;
-import br.com.events.band.older.util.DateUtil;
+import br.com.events.band.newer.core.util.DateUtil;
 
 import java.time.LocalDateTime;
 

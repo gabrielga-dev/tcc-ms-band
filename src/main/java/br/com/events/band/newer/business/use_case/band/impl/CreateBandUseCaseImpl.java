@@ -1,15 +1,15 @@
 package br.com.events.band.newer.business.use_case.band.impl;
 
-import br.com.events.band.newer.business.command.band.AssignBandToPersonCommand;
-import br.com.events.band.newer.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.newer.business.command.address.CheckAddressCommand;
+import br.com.events.band.newer.business.command.band.AssignBandToPersonCommand;
 import br.com.events.band.newer.business.command.band.SaveBandCommand;
 import br.com.events.band.newer.business.command.file.UploadFileCommand;
+import br.com.events.band.newer.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.newer.data.io.band.request.BandRequest;
+import br.com.events.band.newer.data.io.commom.UuidHolderDTO;
+import br.com.events.band.newer.data.io.file.FileOriginType;
 import br.com.events.band.newer.data.io.file.FileType;
 import br.com.events.band.newer.data.model.table.BandTable;
-import br.com.events.band.older.domain.io.UuidHolderDTO;
-import br.com.events.band.newer.data.io.file.FileOriginType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +36,7 @@ public class CreateBandUseCaseImpl implements CreateBandUseCase {
         var toSave = new BandTable(bandForm);
         toSave = saveBandCommand.execute(toSave);
 
-        if (Objects.nonNull(profilePicture)){
+        if (Objects.nonNull(profilePicture)) {
             var savedPicture = uploadFileCommand.execute(
                     FileOriginType.BAND.name(),
                     toSave.getUuid(),

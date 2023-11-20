@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.io.musician.request;
 
 import br.com.events.band.newer.data.io.address.request.AddressRequest;
-import br.com.events.band.older.util.DateUtil;
+import br.com.events.band.newer.core.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

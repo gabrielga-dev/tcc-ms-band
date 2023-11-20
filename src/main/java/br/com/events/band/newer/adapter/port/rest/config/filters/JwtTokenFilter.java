@@ -2,10 +2,10 @@ package br.com.events.band.newer.adapter.port.rest.config.filters;
 
 import br.com.events.band.newer.adapter.feign.MsAuthFeign;
 import br.com.events.band.newer.adapter.port.rest.config.filters.exception.NoTokenReceivedException;
-import br.com.events.band.newer.data.io.person.response.PersonResponse;
-import br.com.events.band.older.domain.mapper.auth.AuthenticatedPersonMapper;
 import br.com.events.band.newer.core.exception.BusinessException;
-import br.com.events.band.older.util.FilterExceptionUtil;
+import br.com.events.band.newer.core.util.FilterExceptionUtil;
+import br.com.events.band.newer.data.io.auth.AuthenticatedPerson;
+import br.com.events.band.newer.data.io.person.response.PersonResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +36,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
         log.info("Filtering by jwt token");
 
         var token = request.getHeader("Authorization");
@@ -61,11 +61,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private void authenticate(final PersonResponse person) {
-        var mappedPerson = AuthenticatedPersonMapper.convertToAuthenticatedPerson(person);
+        var mappedPerson = new AuthenticatedPerson(person);
         var authentication = new UsernamePasswordAuthenticationToken(
-            mappedPerson,
-            null,
-            mappedPerson.getAuthorities());
+                mappedPerson,
+                null,
+                mappedPerson.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

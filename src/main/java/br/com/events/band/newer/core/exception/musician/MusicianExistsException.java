@@ -1,6 +1,6 @@
 package br.com.events.band.newer.core.exception.musician;
 
-import br.com.events.band.older.infrastructure.exception.badRequest.NotFoundException;
+import br.com.events.band.newer.adapter.port.rest.config.exception.bad_request.NotFoundException;
 
 public class MusicianExistsException extends NotFoundException {
     public MusicianExistsException() {

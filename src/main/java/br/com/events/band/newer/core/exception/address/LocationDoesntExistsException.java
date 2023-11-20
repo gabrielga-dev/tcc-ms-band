@@ -1,6 +1,6 @@
 package br.com.events.band.newer.core.exception.address;
 
-import br.com.events.band.older.infrastructure.exception.badRequest.NotFoundException;
+import br.com.events.band.newer.adapter.port.rest.config.exception.bad_request.NotFoundException;
 
 /**
  * This exception is thrown when, at event creation feature, the location is not found

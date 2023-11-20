@@ -10,7 +10,7 @@ import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.newer.data.io.file.FileOriginType;
 import br.com.events.band.newer.data.io.file.FileType;
-import br.com.events.band.older.application.useCase.band.exception.BandNotFoundException;
+import br.com.events.band.newer.core.exception.band.BandNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

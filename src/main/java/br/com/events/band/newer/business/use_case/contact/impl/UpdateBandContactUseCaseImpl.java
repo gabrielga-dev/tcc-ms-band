@@ -7,7 +7,7 @@ import br.com.events.band.newer.core.exception.band.BandNonExistenceException;
 import br.com.events.band.newer.core.exception.band.BandOwnerException;
 import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.contact.request.ContactRequest;
-import br.com.events.band.older.application.process.contact.exception.BandContactNonExistenceException;
+import br.com.events.band.newer.core.exception.band.BandContactNonExistenceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
