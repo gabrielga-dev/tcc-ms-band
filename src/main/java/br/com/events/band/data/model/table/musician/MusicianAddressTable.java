@@ -39,6 +39,9 @@ public class MusicianAddressTable implements IAddress {
     @Column(name = "street", nullable = false)
     private String street;
 
+    @Column(name = "number", nullable = false)
+    private Integer number;
+
     @Column(name = "neighbour", nullable = false)
     private String neighbour;
 

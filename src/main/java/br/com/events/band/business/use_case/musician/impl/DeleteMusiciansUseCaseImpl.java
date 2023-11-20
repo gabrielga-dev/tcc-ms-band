@@ -30,24 +30,19 @@ public class DeleteMusiciansUseCaseImpl implements DeleteMusiciansUseCase {
                         person -> this.deleteWhenMusicianIsPerson(person, musician),
                         () -> this.deleteWhenMusicianIsNotPerson(musician)
                 );
+        musician.deactivate();
+        saveMusicianCommand.execute(musician);
     }
 
     private void deleteWhenMusicianIsPerson(PersonResponse person, MusicianTable musician) {
         if (!AuthUtil.getAuthenticatedPerson().getCpf().equals(person.getCpf())) {
             throw new MusicianHasAnAccountException();
         }
-        this.delete(musician);
     }
 
     private void deleteWhenMusicianIsNotPerson(MusicianTable musician) {
         if (!AuthUtil.getAuthenticatedPersonUuid().equals(musician.getBandThatInserted().getOwnerUuid())) {
             throw new BandOwnerException();
         }
-        this.delete(musician);
-    }
-
-    private void delete(MusicianTable musician) {
-        musician.toggleActivity();
-        saveMusicianCommand.execute(musician);
     }
 }

@@ -9,6 +9,7 @@ import br.com.events.band.data.io.music.request.MusicRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,7 +49,7 @@ public class MusicRestControllerV1 implements MusicPort {
     }
 
     @Override
-    @PutMapping("/{musicUuid}/band/{bandUuid}")
+    @DeleteMapping("/{musicUuid}/band/{bandUuid}")
     public ResponseEntity<Void> deleteMusic(@PathVariable String bandUuid, @PathVariable String musicUuid) {
         deleteMusicUseCase.execute(bandUuid, musicUuid);
         return ResponseEntity.noContent().build();

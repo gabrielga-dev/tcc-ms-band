@@ -8,7 +8,7 @@ CREATE TABLE band
     owner_uuid          varchar(36)             not null,
     creation_date       timestamp               not null,
     update_date         timestamp,
-    avatar_picture_uuid varchar(36)             not null
+    avatar_picture_uuid varchar(36)
 );
 
 create table band_address
@@ -60,7 +60,7 @@ create table musician
     creation_date       timestamp               not null,
     update_date         timestamp,
     active              boolean                 not null default false,
-    avatar_picture_uuid varchar(36)             not null,
+    avatar_picture_uuid varchar(36),
     FOREIGN KEY (band_uuid) REFERENCES band (uuid)
 );
 
@@ -110,6 +110,7 @@ create table music
     observation   varchar(1000),
     creation_date timestamp               not null,
     update_date   timestamp,
+    active        boolean                 not null default true,
     FOREIGN KEY (band_uuid) REFERENCES band (uuid)
 );
 

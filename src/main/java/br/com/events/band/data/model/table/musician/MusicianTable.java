@@ -74,7 +74,7 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    @Column(name = "avatar_uuid")
+    @Column(name = "avatar_picture_uuid")
     private String profilePictureUuid;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "musician", cascade = CascadeType.ALL)

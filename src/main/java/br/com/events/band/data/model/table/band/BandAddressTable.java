@@ -2,6 +2,7 @@ package br.com.events.band.data.model.table.band;
 
 import br.com.events.band.data.io.address.IAddress;
 import br.com.events.band.data.io.address.request.AddressRequest;
+import br.com.events.band.data.model.UpdatableTable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "band_address")
-public class BandAddressTable implements IAddress {
+public class BandAddressTable implements IAddress, UpdatableTable<AddressRequest> {
 
     @Id
     @Column(name = "uuid", nullable = false)
@@ -35,6 +36,9 @@ public class BandAddressTable implements IAddress {
 
     @Column(name = "street", nullable = false)
     private String street;
+
+    @Column(name = "number", nullable = false)
+    private Integer number;
 
     @Column(name = "neighbour", nullable = false)
     private String neighbour;
@@ -66,6 +70,7 @@ public class BandAddressTable implements IAddress {
 
     public BandAddressTable(AddressRequest address) {
         this.street = address.getStreet();
+        this.number = address.getNumber();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();
         this.city = address.getCityId();
@@ -74,8 +79,10 @@ public class BandAddressTable implements IAddress {
         this.zipCode = address.getZipCode();
     }
 
+    @Override
     public void update(AddressRequest address) {
         this.street = address.getStreet();
+        this.number = address.getNumber();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();
         this.city = address.getCityId();

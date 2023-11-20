@@ -5,22 +5,22 @@ import br.com.events.band.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
 import br.com.events.band.business.use_case.band.FindBandProfileUseCase;
 import br.com.events.band.business.use_case.band.FindBandsUseCase;
+import br.com.events.band.business.use_case.band.RemoveBandProfilePictureUseCase;
+import br.com.events.band.business.use_case.band.ToggleBandActivityFlagUseCase;
 import br.com.events.band.business.use_case.band.UpdateBandUseCase;
+import br.com.events.band.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.data.io.band.criteria.FindBandsCriteria;
 import br.com.events.band.data.io.band.request.BandRequest;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.data.io.band.response.BandProfileResponse;
 import br.com.events.band.data.io.band.response.BandResponse;
-import br.com.events.band.business.use_case.band.RemoveBandProfilePictureUseCase;
-import br.com.events.band.business.use_case.band.ToggleBandActivityFlagUseCase;
-import br.com.events.band.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -55,7 +55,7 @@ public class BandRestControllerV1 implements BandPort {
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<URI> create(
             @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
-            @RequestPart("request") @ModelAttribute @Valid BandRequest request
+            @RequestPart("request") @Valid BandRequest request
     ) {
         var result = createBandUseCase.execute(request, profilePicture);
 
@@ -89,8 +89,8 @@ public class BandRestControllerV1 implements BandPort {
     @PutMapping("/{bandUuid}")
     public ResponseEntity<Void> update(
             @PathVariable("bandUuid") String bandUuid,
-            @RequestPart("profilePicture") MultipartFile profilePicture,
-            @ModelAttribute @Valid UpdateBandRequest request
+            @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
+            @RequestPart("request") @Valid UpdateBandRequest request
     ) {
         updateBandUseCase.execute(bandUuid, request, profilePicture);
 
@@ -98,7 +98,7 @@ public class BandRestControllerV1 implements BandPort {
     }
 
     @Override
-    @GetMapping("/profile/{bandUuid}")
+    @GetMapping("/{bandUuid}/profile")
     public ResponseEntity<BandProfileResponse> findProfile(@PathVariable("bandUuid") String bandUuid) {
         var result = findBandProfileUseCase.execute(bandUuid);
 
@@ -106,14 +106,14 @@ public class BandRestControllerV1 implements BandPort {
     }
 
     @Override
-    @DeleteMapping("/uuid/{bandUuid}")
+    @PatchMapping("/{bandUuid}/toggle")
     public ResponseEntity<Void> toggleBandActivity(@PathVariable("bandUuid") String bandUuid) {
         toggleBandActivityFlagUseCase.execute(bandUuid);
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    @DeleteMapping("/uuid/{bandUuid}/picture")
+    @DeleteMapping("/{bandUuid}/picture")
     public ResponseEntity<Void> removeProfilePicture(@PathVariable String bandUuid) {
         removeBandProfilePictureUseCase.execute(bandUuid);
         return ResponseEntity.noContent().build();

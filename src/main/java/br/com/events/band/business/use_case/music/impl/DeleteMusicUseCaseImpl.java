@@ -1,11 +1,11 @@
 package br.com.events.band.business.use_case.music.impl;
 
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.business.command.music.FindMusicCommand;
 import br.com.events.band.business.command.music.SaveMusicCommand;
 import br.com.events.band.business.use_case.music.DeleteMusicUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.music.MusicNonExistenceException;
+import br.com.events.band.core.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,9 @@ public class DeleteMusicUseCaseImpl implements DeleteMusicUseCase {
         var music = findMusicCommand.byUuidAndBandUuid(musicUuid, bandUuid)
                 .orElseThrow(MusicNonExistenceException::new);
 
-        if (!music.getContributingBand().getOwnerUuid().equals(AuthUtil.getAuthenticatedPersonUuid())) {
+        if (!music.isActive()) {
+            throw new MusicNonExistenceException();
+        } else if (!music.getContributingBand().getOwnerUuid().equals(AuthUtil.getAuthenticatedPersonUuid())) {
             throw new BandOwnerException();
         }
 

@@ -1,6 +1,8 @@
 package br.com.events.band.data.model.table.music;
 
 import br.com.events.band.data.io.music.request.MusicRequest;
+import br.com.events.band.data.model.ActionableTable;
+import br.com.events.band.data.model.UpdatableTable;
 import br.com.events.band.data.model.table.band.BandTable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +30,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "music")
-public class MusicTable {
+public class MusicTable implements ActionableTable, UpdatableTable<MusicRequest> {
 
     @Id
     @Column(name = "uuid")
@@ -68,16 +70,12 @@ public class MusicTable {
         this.contributingBand = band;
     }
 
+    @Override
     public void update(MusicRequest request) {
         this.name = request.getName();
         this.author = request.getAuthor();
         this.artist = request.getArtist();
         this.observation = request.getObservation();
         this.updateDate = LocalDateTime.now();
-    }
-
-    public void deactivate() {
-        this.updateDate = LocalDateTime.now();
-        this.active = Boolean.FALSE;
     }
 }

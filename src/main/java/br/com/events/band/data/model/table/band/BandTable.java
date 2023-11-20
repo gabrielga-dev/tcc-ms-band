@@ -60,7 +60,7 @@ public class BandTable implements
     @Column(name = "owner_uuid", nullable = false)
     private String ownerUuid;
 
-    @Column(name = "profile_picture_uuid", nullable = false)
+    @Column(name = "avatar_picture_uuid")
     private String profilePictureUuid;
 
     @Column(name = "creation_date", nullable = false)

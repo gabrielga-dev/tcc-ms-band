@@ -47,9 +47,6 @@ public class ContactTable {
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
-    @Column(name = "update_date")
-    private LocalDateTime updateDate;
-
     public ContactTable(ContactRequest request, BandTable band) {
         this.type = request.getType();
         this.content = request.getContent();
@@ -59,7 +56,6 @@ public class ContactTable {
 
     public void update(ContactRequest request) {
         this.type = request.getType();
-        this.content = request.getContent();
-        this.updateDate = LocalDateTime.now();
+        this.content = request.getContent();;
     }
 }

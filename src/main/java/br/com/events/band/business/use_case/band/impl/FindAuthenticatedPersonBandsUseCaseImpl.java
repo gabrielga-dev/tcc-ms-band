@@ -1,5 +1,6 @@
 package br.com.events.band.business.use_case.band.impl;
 
+import br.com.events.band.business.command.band.BuildBandResponseCommand;
 import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.business.command.band.FindBandCommand;
 import br.com.events.band.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class FindAuthenticatedPersonBandsUseCaseImpl implements FindAuthenticatedPersonBandsUseCase {
 
     private final FindBandCommand findBandCommand;
+    private final BuildBandResponseCommand buildBandResponseCommand;
 
     @Override
     public Page<BandResponse> execute(AuthenticatedPersonBandsCriteria criteria, Pageable pageable) {
@@ -22,6 +24,6 @@ public class FindAuthenticatedPersonBandsUseCaseImpl implements FindAuthenticate
 
         var bands = findBandCommand.byPerson(authenticatedPersonUuid, criteria, pageable);
 
-        return bands.map(BandResponse::new);
+        return bands.map(buildBandResponseCommand::execute);
     }
 }

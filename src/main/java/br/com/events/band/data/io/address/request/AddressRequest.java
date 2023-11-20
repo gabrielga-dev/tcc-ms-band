@@ -24,6 +24,9 @@ public class AddressRequest implements IAddress {
     @Size(min = 3, max = 50, message = "O campo do nome da rua deve conter, pelo menos, 3 caracteres e no máximo 50.")
     private String street;
 
+    @NotNull(message = "O campo do número da rua não pode ser nulo.")
+    private Integer number;
+
     @NotNull(message = "O campo do nome do bairro não pode ser nulo.")
     @NotBlank(message = "O campo do nome do bairro não pode estar vazio.")
     @Size(min = 3, max = 50, message = "O campo do nome do bairro deve conter, pelo menos, 3 caracteres e no máximo 50.")
