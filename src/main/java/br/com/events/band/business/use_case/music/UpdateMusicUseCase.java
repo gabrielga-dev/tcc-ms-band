@@ -5,5 +5,5 @@ import br.com.events.band.data.io.music.request.MusicRequest;
 
 public interface UpdateMusicUseCase {
 
-    UuidHolderDTO execute(String bandUuid, String musicUuid, MusicRequest request);
+    UuidHolderDTO execute(String musicUuid, MusicRequest request);
 }

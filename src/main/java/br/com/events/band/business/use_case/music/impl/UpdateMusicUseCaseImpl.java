@@ -19,9 +19,8 @@ public class UpdateMusicUseCaseImpl implements UpdateMusicUseCase {
     private final SaveMusicCommand saveMusicCommand;
 
     @Override
-    public UuidHolderDTO execute(String bandUuid, String musicUuid, MusicRequest request) {
-        var music = findMusicCommand.byUuidAndBandUuid(musicUuid, bandUuid)
-                .orElseThrow(MusicNonExistenceException::new);
+    public UuidHolderDTO execute(String musicUuid, MusicRequest request) {
+        var music = findMusicCommand.byUuid(musicUuid).orElseThrow(MusicNonExistenceException::new);
 
         if (!music.getContributingBand().getOwnerUuid().equals(AuthUtil.getAuthenticatedPersonUuid())) {
             throw new BandOwnerException();

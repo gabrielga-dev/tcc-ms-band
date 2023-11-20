@@ -13,6 +13,10 @@ public class FindMusicCommand {
 
     private final MusicRepository musicRepository;
 
+    public Optional<MusicTable> byUuid(String musicUuid){
+        return this.musicRepository.findById(musicUuid);
+    }
+
     public Optional<MusicTable> byUuidAndBandUuid(String musicUuid, String bandUuid){
         return this.musicRepository.findByUuidAndBandUuid(musicUuid, bandUuid);
     }

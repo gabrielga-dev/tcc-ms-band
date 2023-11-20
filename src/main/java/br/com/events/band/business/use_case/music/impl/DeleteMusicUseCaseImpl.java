@@ -17,9 +17,8 @@ public class DeleteMusicUseCaseImpl implements DeleteMusicUseCase {
     private final SaveMusicCommand saveMusicCommand;
 
     @Override
-    public void execute(String bandUuid, String musicUuid) {
-        var music = findMusicCommand.byUuidAndBandUuid(musicUuid, bandUuid)
-                .orElseThrow(MusicNonExistenceException::new);
+    public void execute(String musicUuid) {
+        var music = findMusicCommand.byUuid(musicUuid).orElseThrow(MusicNonExistenceException::new);
 
         if (!music.isActive()) {
             throw new MusicNonExistenceException();

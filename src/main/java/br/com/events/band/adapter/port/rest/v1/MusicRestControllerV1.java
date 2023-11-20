@@ -40,18 +40,18 @@ public class MusicRestControllerV1 implements MusicPort {
     }
 
     @Override
-    @PutMapping("/{musicUuid}/band/{bandUuid}")
+    @PutMapping("/{musicUuid}")
     public ResponseEntity<UuidHolderDTO> update(
-            @PathVariable String bandUuid, @PathVariable String musicUuid, @RequestBody @Valid MusicRequest music
+            @PathVariable String musicUuid, @RequestBody @Valid MusicRequest music
     ) {
-        var result = updateMusicUseCase.execute(bandUuid, musicUuid, music);
+        var result = updateMusicUseCase.execute(musicUuid, music);
         return ResponseEntity.ok(result);
     }
 
     @Override
-    @DeleteMapping("/{musicUuid}/band/{bandUuid}")
-    public ResponseEntity<Void> deleteMusic(@PathVariable String bandUuid, @PathVariable String musicUuid) {
-        deleteMusicUseCase.execute(bandUuid, musicUuid);
+    @DeleteMapping("/{musicUuid}")
+    public ResponseEntity<Void> deleteMusic(@PathVariable String musicUuid) {
+        deleteMusicUseCase.execute(musicUuid);
         return ResponseEntity.noContent().build();
     }
 }

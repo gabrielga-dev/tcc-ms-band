@@ -9,4 +9,6 @@ public interface MusicRepository {
     MusicTable save(MusicTable music);
 
     Optional<MusicTable> findByUuidAndBandUuid(String musicUuid, String bandUuid);
+
+    Optional<MusicTable> findById(String musicUuid);
 }

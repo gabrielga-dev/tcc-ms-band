@@ -28,7 +28,7 @@ public interface MusicPort {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<UuidHolderDTO> update(String bandUuid, String musicUuid, MusicRequest music);
+    ResponseEntity<UuidHolderDTO> update(String musicUuid, MusicRequest music);
 
 
     @ApiOperation(value = "Delete music")
@@ -39,5 +39,5 @@ public interface MusicPort {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<Void> deleteMusic(String bandUuid, String musicUuid);
+    ResponseEntity<Void> deleteMusic(String musicUuid);
 }
