@@ -1,2 +1,0 @@
-ALTER TABLE band_address MODIFY COLUMN city BIGINT;
-ALTER TABLE musician_address MODIFY COLUMN city BIGINT;

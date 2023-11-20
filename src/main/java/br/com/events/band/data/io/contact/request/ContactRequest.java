@@ -1,6 +1,6 @@
 package br.com.events.band.data.io.contact.request;
 
-import br.com.events.band.data.model.table.type.ContactType;
+import br.com.events.band.data.model.table.band.contact.ContactType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

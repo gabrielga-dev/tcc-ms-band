@@ -1,4 +1,4 @@
-package br.com.events.band.data.model.table.type;
+package br.com.events.band.data.model.table.band.contact;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

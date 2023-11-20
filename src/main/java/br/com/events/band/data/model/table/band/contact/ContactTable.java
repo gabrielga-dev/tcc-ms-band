@@ -1,9 +1,8 @@
-package br.com.events.band.data.model.table;
+package br.com.events.band.data.model.table.band.contact;
 
-import br.com.events.band.data.model.table.type.ContactType;
 import br.com.events.band.data.io.contact.request.ContactRequest;
+import br.com.events.band.data.model.table.band.BandTable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +25,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "contact")

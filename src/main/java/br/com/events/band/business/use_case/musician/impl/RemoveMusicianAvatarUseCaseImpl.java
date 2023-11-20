@@ -1,15 +1,15 @@
 package br.com.events.band.business.use_case.musician.impl;
 
-import br.com.events.band.business.use_case.musician.RemoveMusicianAvatarUseCase;
-import br.com.events.band.core.util.AuthUtil;
-import br.com.events.band.data.model.table.MusicianTable;
 import br.com.events.band.business.command.musician.FindMusicianCommand;
 import br.com.events.band.business.command.musician.FindPersonMusicianCommand;
 import br.com.events.band.business.command.musician.SaveMusicianCommand;
+import br.com.events.band.business.use_case.musician.RemoveMusicianAvatarUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.musician.MusicianDoesNotExistException;
 import br.com.events.band.core.exception.musician.MusicianHasAnAccountException;
+import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.person.response.PersonResponse;
+import br.com.events.band.data.model.table.musician.MusicianTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ public class RemoveMusicianAvatarUseCaseImpl implements RemoveMusicianAvatarUseC
     }
 
     private void isSamePerson(PersonResponse musician) {
-        if (!musician.getUuid().equals(AuthUtil.getAuthenticatedPersonUuid())) {
+        if (!musician.getCpf().equals(AuthUtil.getAuthenticatedPerson().getCpf())) {
             throw new MusicianHasAnAccountException();
         }
     }

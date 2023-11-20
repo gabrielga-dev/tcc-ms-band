@@ -1,8 +1,8 @@
-package br.com.events.band.data.model.table;
+package br.com.events.band.data.model.table.music;
 
 import br.com.events.band.data.io.music.request.MusicRequest;
+import br.com.events.band.data.model.table.band.BandTable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +25,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "music")

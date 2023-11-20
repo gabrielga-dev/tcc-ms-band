@@ -1,8 +1,8 @@
 package br.com.events.band.data.io.musician.response;
 
 import br.com.events.band.core.util.DateUtil;
-import br.com.events.band.data.model.table.BandMusicianTable;
-import br.com.events.band.data.model.table.MusicianTable;
+import br.com.events.band.data.model.table.band.BandMusicianTable;
+import br.com.events.band.data.model.table.musician.MusicianTable;
 import lombok.Getter;
 import lombok.Setter;
 

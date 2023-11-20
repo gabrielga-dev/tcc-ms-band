@@ -1,14 +1,12 @@
 package br.com.events.band.data.io.contact.response;
 
-import br.com.events.band.data.model.table.ContactTable;
-import br.com.events.band.data.model.table.type.ContactType;
-import lombok.Builder;
+import br.com.events.band.data.model.table.band.contact.ContactTable;
+import br.com.events.band.data.model.table.band.contact.ContactType;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 public class ContactResponse {
 
     private String uuid;

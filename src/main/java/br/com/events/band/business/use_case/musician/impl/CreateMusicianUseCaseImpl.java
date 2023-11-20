@@ -8,7 +8,7 @@ import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.commom.UuidHolderDTO;
 import br.com.events.band.data.io.file.FileOriginType;
 import br.com.events.band.data.io.musician.request.MusicianRequest;
-import br.com.events.band.data.model.table.MusicianTable;
+import br.com.events.band.data.model.table.musician.MusicianTable;
 import br.com.events.band.business.command.band.FindBandCommand;
 import br.com.events.band.business.command.musician.FindMusicianCommand;
 import br.com.events.band.business.command.musician.SaveMusicianCommand;

@@ -9,7 +9,7 @@ import br.com.events.band.data.io.band.request.BandRequest;
 import br.com.events.band.data.io.commom.UuidHolderDTO;
 import br.com.events.band.data.io.file.FileOriginType;
 import br.com.events.band.data.io.file.FileType;
-import br.com.events.band.data.model.table.BandTable;
+import br.com.events.band.data.model.table.band.BandTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

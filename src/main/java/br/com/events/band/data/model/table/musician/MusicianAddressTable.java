@@ -1,8 +1,7 @@
-package br.com.events.band.data.model.table.addresses;
+package br.com.events.band.data.model.table.musician;
 
 import br.com.events.band.data.io.address.IAddress;
 import br.com.events.band.data.io.address.request.AddressRequest;
-import br.com.events.band.data.model.table.BandTable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -29,12 +29,12 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "band_address")
-public class BandAddressTable implements IAddress {
+@Table(name = "musician_address")
+public class MusicianAddressTable implements IAddress {
 
     @Id
     @Column(name = "uuid", nullable = false)
-    private String uuid = UUID.randomUUID().toString();
+    private final String uuid = UUID.randomUUID().toString();
 
     @Column(name = "street", nullable = false)
     private String street;
@@ -63,11 +63,11 @@ public class BandAddressTable implements IAddress {
     @Column(name = "longitude", nullable = false)
     private BigDecimal longitude;
 
-    @OneToOne
-    @JoinColumn(name = "band_uuid", referencedColumnName = "uuid")
-    private BandTable band;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "musician_uuid")
+    private MusicianTable musician;
 
-    public BandAddressTable(AddressRequest address) {
+    public MusicianAddressTable(AddressRequest address) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();
@@ -75,16 +75,18 @@ public class BandAddressTable implements IAddress {
         this.state = address.getStateIso();
         this.country = address.getCountryIso();
         this.zipCode = address.getZipCode();
+        this.latitude = null;
+        this.longitude = null;
     }
 
-    public void update(AddressRequest address) {
-        this.street = address.getStreet();
-        this.neighbour = address.getNeighbour();
-        this.complement = address.getComplement();
-        this.city = address.getCityId();
-        this.state = address.getStateIso();
-        this.country = address.getCountryIso();
-        this.zipCode = address.getZipCode();
+    public void transferData(AddressRequest address) {
+        this.setStreet(address.getStreet());
+        this.setNeighbour(address.getNeighbour());
+        this.setComplement(address.getComplement());
+        this.setCity(address.getCityId());
+        this.setState(address.getStateIso());
+        this.setCountry(address.getCountryIso());
+        this.setZipCode(address.getZipCode());
     }
 
     @Override
@@ -94,7 +96,7 @@ public class BandAddressTable implements IAddress {
 
     @Override
     public String getStateIso() {
-        return this.state;
+        return state;
     }
 
     @Override

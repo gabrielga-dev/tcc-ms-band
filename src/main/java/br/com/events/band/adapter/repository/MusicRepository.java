@@ -1,6 +1,6 @@
 package br.com.events.band.adapter.repository;
 
-import br.com.events.band.data.model.table.MusicTable;
+import br.com.events.band.data.model.table.music.MusicTable;
 
 import java.util.Optional;
 

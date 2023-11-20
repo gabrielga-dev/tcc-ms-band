@@ -1,17 +1,14 @@
-package br.com.events.band.data.model.table.addresses;
+package br.com.events.band.data.model.table.band;
 
 import br.com.events.band.data.io.address.IAddress;
 import br.com.events.band.data.io.address.request.AddressRequest;
-import br.com.events.band.data.model.table.MusicianTable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -27,15 +24,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "musician_address")
-public class MusicianAddressTable implements IAddress {
+@Table(name = "band_address")
+public class BandAddressTable implements IAddress {
 
     @Id
     @Column(name = "uuid", nullable = false)
-    private final String uuid = UUID.randomUUID().toString();
+    private String uuid = UUID.randomUUID().toString();
 
     @Column(name = "street", nullable = false)
     private String street;
@@ -64,11 +60,11 @@ public class MusicianAddressTable implements IAddress {
     @Column(name = "longitude", nullable = false)
     private BigDecimal longitude;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "musician_uuid")
-    private MusicianTable musician;
+    @OneToOne
+    @JoinColumn(name = "band_uuid", referencedColumnName = "uuid")
+    private BandTable band;
 
-    public MusicianAddressTable(AddressRequest address) {
+    public BandAddressTable(AddressRequest address) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();
@@ -76,18 +72,16 @@ public class MusicianAddressTable implements IAddress {
         this.state = address.getStateIso();
         this.country = address.getCountryIso();
         this.zipCode = address.getZipCode();
-        this.latitude = null;
-        this.longitude = null;
     }
 
-    public void transferData(AddressRequest address) {
-        this.setStreet(address.getStreet());
-        this.setNeighbour(address.getNeighbour());
-        this.setComplement(address.getComplement());
-        this.setCity(address.getCityId());
-        this.setState(address.getStateIso());
-        this.setCountry(address.getCountryIso());
-        this.setZipCode(address.getZipCode());
+    public void update(AddressRequest address) {
+        this.street = address.getStreet();
+        this.neighbour = address.getNeighbour();
+        this.complement = address.getComplement();
+        this.city = address.getCityId();
+        this.state = address.getStateIso();
+        this.country = address.getCountryIso();
+        this.zipCode = address.getZipCode();
     }
 
     @Override
@@ -97,7 +91,7 @@ public class MusicianAddressTable implements IAddress {
 
     @Override
     public String getStateIso() {
-        return state;
+        return this.state;
     }
 
     @Override

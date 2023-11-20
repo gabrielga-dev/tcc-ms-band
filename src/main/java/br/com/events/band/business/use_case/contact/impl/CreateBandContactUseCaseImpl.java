@@ -4,7 +4,7 @@ import br.com.events.band.business.command.contact.SaveContactCommand;
 import br.com.events.band.business.use_case.contact.CreateBandContactUseCase;
 import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.contact.request.ContactRequest;
-import br.com.events.band.data.model.table.ContactTable;
+import br.com.events.band.data.model.table.band.contact.ContactTable;
 import br.com.events.band.business.command.band.FindBandCommand;
 import br.com.events.band.core.exception.band.BandNonExistenceException;
 import br.com.events.band.data.io.contact.response.ContactResponse;

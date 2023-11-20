@@ -22,12 +22,14 @@ public class AuthenticatedPerson implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
+    private String cpf;
 
     public AuthenticatedPerson(PersonResponse person) {
         this.uuid = person.getUuid();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.email = person.getEmail();
+        this.cpf = person.getCpf();
     }
 
 

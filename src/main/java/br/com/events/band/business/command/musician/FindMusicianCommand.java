@@ -1,6 +1,6 @@
 package br.com.events.band.business.command.musician;
 
-import br.com.events.band.data.model.table.MusicianTable;
+import br.com.events.band.data.model.table.musician.MusicianTable;
 import br.com.events.band.adapter.repository.MusicianRepository;
 import br.com.events.band.data.io.musician.criteria.MusicianCriteria;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package br.com.events.band.adapter.repository;
 
-import br.com.events.band.data.model.table.BandTable;
+import br.com.events.band.data.model.table.band.BandTable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

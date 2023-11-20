@@ -1,15 +1,17 @@
-package br.com.events.band.data.model.table;
+package br.com.events.band.data.model.table.band;
 
-import br.com.events.band.data.model.ActionableTable;
-import br.com.events.band.data.model.TableWithProfilePicture;
-import br.com.events.band.data.model.UpdatableTable;
 import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.band.IBandResponse;
 import br.com.events.band.data.io.band.request.BandRequest;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
-import br.com.events.band.data.model.table.addresses.BandAddressTable;
+import br.com.events.band.data.model.ActionableTable;
+import br.com.events.band.data.model.TableWithProfilePicture;
+import br.com.events.band.data.model.UpdatableTable;
+import br.com.events.band.data.model.table.band.contact.ContactTable;
+import br.com.events.band.data.model.table.music.MusicTable;
+import br.com.events.band.data.model.table.musician.MusicianTable;
+import br.com.events.band.data.model.table.quote_request.QuoteRequestTable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +38,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "band")
@@ -74,14 +75,17 @@ public class BandTable implements
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
     private List<ContactTable> contacts = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bandThatInserted", cascade = CascadeType.ALL)
     private List<MusicianTable> insertedMusicians = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
     private List<BandMusicianTable> musicians = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributingBand", cascade = CascadeType.ALL)
     private List<MusicTable> contributedMusics = new ArrayList<>();
+
+    @OneToMany(mappedBy = "band", fetch = FetchType.LAZY)
+    private List<QuoteRequestTable> quoteRequests;
 
     public BandTable(BandRequest form) {
         this.active = true;

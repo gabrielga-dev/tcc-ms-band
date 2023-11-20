@@ -1,15 +1,15 @@
 package br.com.events.band.business.use_case.musician.impl;
 
-import br.com.events.band.business.use_case.musician.DeleteMusiciansUseCase;
-import br.com.events.band.core.util.AuthUtil;
-import br.com.events.band.data.model.table.MusicianTable;
 import br.com.events.band.business.command.musician.FindMusicianCommand;
 import br.com.events.band.business.command.musician.FindPersonMusicianCommand;
 import br.com.events.band.business.command.musician.SaveMusicianCommand;
+import br.com.events.band.business.use_case.musician.DeleteMusiciansUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.musician.MusicianExistsException;
 import br.com.events.band.core.exception.musician.MusicianHasAnAccountException;
+import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.person.response.PersonResponse;
+import br.com.events.band.data.model.table.musician.MusicianTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +33,7 @@ public class DeleteMusiciansUseCaseImpl implements DeleteMusiciansUseCase {
     }
 
     private void deleteWhenMusicianIsPerson(PersonResponse person, MusicianTable musician) {
-        if (!AuthUtil.getAuthenticatedPersonUuid().equals(person.getUuid())) {
+        if (!AuthUtil.getAuthenticatedPerson().getCpf().equals(person.getCpf())) {
             throw new MusicianHasAnAccountException();
         }
         this.delete(musician);

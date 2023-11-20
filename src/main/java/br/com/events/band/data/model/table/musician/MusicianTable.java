@@ -1,10 +1,11 @@
-package br.com.events.band.data.model.table;
+package br.com.events.band.data.model.table.musician;
 
+import br.com.events.band.data.io.musician.request.MusicianRequest;
 import br.com.events.band.data.model.ActionableTable;
 import br.com.events.band.data.model.TableWithProfilePicture;
 import br.com.events.band.data.model.UpdatableTable;
-import br.com.events.band.data.io.musician.request.MusicianRequest;
-import br.com.events.band.data.model.table.addresses.MusicianAddressTable;
+import br.com.events.band.data.model.table.band.BandMusicianTable;
+import br.com.events.band.data.model.table.band.BandTable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -60,7 +62,7 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
     private Boolean active = Boolean.TRUE;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "band_uuid", nullable = false)
+    @JoinColumn(name = "band_uuid")
     private BandTable bandThatInserted;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "musician", cascade = CascadeType.ALL)
@@ -77,6 +79,9 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "musician", cascade = CascadeType.ALL)
     private MusicianAddressTable address;
+
+    @ManyToMany
+    private List<MusicianTypeTable> types;
 
     public MusicianTable(MusicianRequest musicianForm) {
         this.firstName = musicianForm.getFirstName();

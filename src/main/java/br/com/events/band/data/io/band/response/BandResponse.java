@@ -1,6 +1,6 @@
 package br.com.events.band.data.io.band.response;
 
-import br.com.events.band.data.model.table.BandTable;
+import br.com.events.band.data.model.table.band.BandTable;
 import br.com.events.band.data.io.address.response.AddressResponse;
 import lombok.Getter;
 import lombok.Setter;
