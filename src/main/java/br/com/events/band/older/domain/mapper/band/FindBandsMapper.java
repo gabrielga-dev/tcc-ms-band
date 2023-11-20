@@ -1,8 +1,8 @@
 package br.com.events.band.older.domain.mapper.band;
 
-import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.newer.data.table.MusicianTable;
-import br.com.events.band.newer.data.table.addresses.BandAddressTable;
+import br.com.events.band.newer.data.model.table.BandTable;
+import br.com.events.band.newer.data.model.table.MusicianTable;
+import br.com.events.band.newer.data.model.table.addresses.BandAddressTable;
 import br.com.events.band.newer.data.io.band.criteria.FindBandsCriteria;
 import br.com.events.band.older.domain.io.band.findBands.rest.out.BandAddressFindBandsRestResult;
 import br.com.events.band.older.domain.io.band.findBands.rest.out.FindBandsRestResult;

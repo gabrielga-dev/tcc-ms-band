@@ -2,7 +2,7 @@ package br.com.events.band.older.infrastructure.feign.msAuth;
 
 import br.com.events.band.newer.adapter.feign.client.config.MyEventFeignClientConfiguration;
 import br.com.events.band.newer.data.io.band.ServiceType;
-import br.com.events.band.older.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
+import br.com.events.band.newer.data.io.person.response.PersonResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public interface PersonMsAuthFeignClient {
 
     @GetMapping("/v1/person")
-    ResponseEntity<GetAuthenticatedPersonInformationResult> getAuthenticatedPersonInformation(
+    ResponseEntity<PersonResponse> getAuthenticatedPersonInformation(
         @RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken
     );
 

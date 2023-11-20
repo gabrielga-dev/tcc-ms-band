@@ -1,6 +1,6 @@
 package br.com.events.band.older.infrastructure.exception.badRequest;
 
-import br.com.events.band.older.infrastructure.exception.BusinessException;
+import br.com.events.band.newer.core.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 
 /**

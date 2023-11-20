@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.io._new.musician.response;
 
-import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.model.table.MusicianTable;
 import br.com.events.band.older.domain.io._new.address.response.AddressResponse;
 import br.com.events.band.older.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,6 +37,6 @@ public class MusicianResponse {
         this.age = DateUtil.calculateAgeByBirthday(musician.getBirthday());
         this.creationDateMilliseconds = DateUtil.localDateTimeToMilliseconds(musician.getCreationDate());
 
-        this.avatarUuid = musician.getAvatarUuid();
+        this.avatarUuid = musician.getProfilePictureUuid();
     }
 }

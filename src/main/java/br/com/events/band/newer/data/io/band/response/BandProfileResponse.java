@@ -4,7 +4,7 @@ import br.com.events.band.newer.data.io.address.response.AddressResponse;
 import br.com.events.band.newer.data.io.contact.response.ContactResponse;
 import br.com.events.band.newer.data.io.music.response.MusicResponse;
 import br.com.events.band.newer.data.io.musician.response.MusicianResponse;
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,7 +39,10 @@ public class BandProfileResponse {
 
         this.contacts = band.getContacts().stream().map(ContactResponse::new).collect(Collectors.toList());
 
-        this.musicians = band.getInsertedMusicians().stream().map(MusicianResponse::new).collect(Collectors.toList());
+        this.musicians = band.getInsertedMusicians()
+                .stream()
+                .map(m -> new MusicianResponse(m, Boolean.TRUE))
+                .collect(Collectors.toList());
         var addedMusicians = this.musicians
                 .stream()
                 .map(MusicianResponse::getUuid)

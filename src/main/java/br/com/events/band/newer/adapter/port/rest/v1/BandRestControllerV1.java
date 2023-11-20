@@ -54,10 +54,10 @@ public class BandRestControllerV1 implements BandPort {
     @Override
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<URI> create(
-            @RequestPart("profilePicture") MultipartFile profilePicture,
-            @ModelAttribute @Valid BandRequest bandForm
+            @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
+            @RequestPart("request") @ModelAttribute @Valid BandRequest request
     ) {
-        var result = createBandUseCase.execute(bandForm, profilePicture);
+        var result = createBandUseCase.execute(request, profilePicture);
 
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

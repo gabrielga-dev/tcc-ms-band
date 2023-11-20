@@ -1,6 +1,6 @@
 package br.com.events.band.older.util;
 
-import br.com.events.band.older.infrastructure.exception.BusinessException;
+import br.com.events.band.newer.core.exception.BusinessException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

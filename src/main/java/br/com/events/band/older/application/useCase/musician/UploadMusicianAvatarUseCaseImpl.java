@@ -4,7 +4,7 @@ import br.com.events.band.newer.core.exception.musician.MusicianDoesNotExistExce
 import br.com.events.band.older.domain.io.UuidHolderDTO;
 import br.com.events.band.older.domain.io._new.musician.dto.MusicianValidationDto;
 import br.com.events.band.newer.data.io.file.FileType;
-import br.com.events.band.older.domain.repository.MusicianRepository;
+import br.com.events.band.newer.adapter.repository.jpa.MusicianJpaRepository;
 import br.com.events.band.newer.data.io.file.FileOriginType;
 import br.com.events.band.older.domain.type.MethodValidationType;
 import br.com.events.band.older.infrastructure.feign.msFile.FileFeignClient;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UploadMusicianAvatarUseCaseImpl implements UploadMusicianAvatarUseCase {
 
-    private final MusicianRepository musicianRepository;
+    private final MusicianJpaRepository musicianRepository;
     private final FileFeignClient fileFeignClient;
 
     private final MusicianMethodValidator musicianMethodValidator;
@@ -40,7 +40,7 @@ public class UploadMusicianAvatarUseCaseImpl implements UploadMusicianAvatarUseC
                 file
         );
 
-        musician.setAvatarUuid(response.getUuid());
+        musician.setProfilePictureUuid(response.getUuid());
         musician.setUpdateDate(LocalDateTime.now());
 
         musicianRepository.save(musician);

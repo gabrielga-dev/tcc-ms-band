@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.repository;
 
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

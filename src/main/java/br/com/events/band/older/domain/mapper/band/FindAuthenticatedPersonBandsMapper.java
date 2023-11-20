@@ -1,9 +1,9 @@
 package br.com.events.band.older.domain.mapper.band;
 
-import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.newer.data.table.ContactTable;
-import br.com.events.band.newer.data.table.MusicianTable;
-import br.com.events.band.newer.data.table.addresses.BandAddressTable;
+import br.com.events.band.newer.data.model.table.BandTable;
+import br.com.events.band.newer.data.model.table.ContactTable;
+import br.com.events.band.newer.data.model.table.MusicianTable;
+import br.com.events.band.newer.data.model.table.addresses.BandAddressTable;
 import br.com.events.band.newer.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.newer.data.io.address.response.AddressResponse;
 import br.com.events.band.newer.data.io.contact.response.ContactResponse;
@@ -207,7 +207,7 @@ public class FindAuthenticatedPersonBandsMapper {
                 .lastName(musician.getLastName())
                 .age(DateUtil.calculateAgeByBirthday(musician.getBirthday()))
                 .creationDate(musician.getCreationDate())
-                .avatarUuid(musician.getAvatarUuid())
+                .avatarUuid(musician.getProfilePictureUuid())
                 .build();
     }
 }

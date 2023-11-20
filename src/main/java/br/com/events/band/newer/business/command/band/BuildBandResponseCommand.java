@@ -2,7 +2,7 @@ package br.com.events.band.newer.business.command.band;
 
 import br.com.events.band.newer.business.command.address.BuildAddressResponseCommand;
 import br.com.events.band.newer.data.io.band.response.BandResponse;
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

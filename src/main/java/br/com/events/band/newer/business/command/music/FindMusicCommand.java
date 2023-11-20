@@ -1,7 +1,7 @@
 package br.com.events.band.newer.business.command.music;
 
 import br.com.events.band.newer.adapter.repository.MusicRepository;
-import br.com.events.band.newer.data.table.MusicTable;
+import br.com.events.band.newer.data.model.table.MusicTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

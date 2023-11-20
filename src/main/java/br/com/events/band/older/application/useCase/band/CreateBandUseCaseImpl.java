@@ -1,6 +1,6 @@
 package br.com.events.band.older.application.useCase.band;
 
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import br.com.events.band.older.domain.io.UuidHolderDTO;
 import br.com.events.band.older.domain.io._new.band.dto.BandValidationDto;
 import br.com.events.band.newer.data.io.band.request.BandRequest;

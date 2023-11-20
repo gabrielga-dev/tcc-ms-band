@@ -2,10 +2,9 @@ package br.com.events.band.newer.adapter.port.rest.config.filters;
 
 import br.com.events.band.newer.adapter.feign.MsAuthFeign;
 import br.com.events.band.newer.adapter.port.rest.config.filters.exception.NoTokenReceivedException;
-import br.com.events.band.older.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
+import br.com.events.band.newer.data.io.person.response.PersonResponse;
 import br.com.events.band.older.domain.mapper.auth.AuthenticatedPersonMapper;
-import br.com.events.band.older.infrastructure.exception.BusinessException;
-import br.com.events.band.older.infrastructure.feign.msAuth.PersonMsAuthFeignClient;
+import br.com.events.band.newer.core.exception.BusinessException;
 import br.com.events.band.older.util.FilterExceptionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +60,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
     }
 
-    private void authenticate(final GetAuthenticatedPersonInformationResult person) {
+    private void authenticate(final PersonResponse person) {
         var mappedPerson = AuthenticatedPersonMapper.convertToAuthenticatedPerson(person);
         var authentication = new UsernamePasswordAuthenticationToken(
             mappedPerson,

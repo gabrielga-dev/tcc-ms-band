@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.mapper.musician;
 
-import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.model.table.MusicianTable;
 import br.com.events.band.older.domain.io.musician.list.rest.out.ListMusiciansRestResult;
 import br.com.events.band.older.domain.io.musician.list.useCase.out.ListMusiciansUseCaseResult;
 import br.com.events.band.older.util.DateUtil;
@@ -25,7 +25,7 @@ public final class ListMusicianMapper {
                 .lastName(musician.getLastName())
                 .age(DateUtil.calculateAgeByBirthday(musician.getBirthday()))
                 .creationDateMilliseconds(DateUtil.localDateTimeToMilliseconds(musician.getCreationDate()))
-                .avatarUuid(musician.getAvatarUuid())
+                .avatarUuid(musician.getProfilePictureUuid())
                 .build();
     }
 

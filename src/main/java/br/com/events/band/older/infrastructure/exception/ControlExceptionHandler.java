@@ -1,5 +1,6 @@
 package br.com.events.band.older.infrastructure.exception;
 
+import br.com.events.band.newer.core.exception.BusinessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.io.band.response;
 
 import br.com.events.band.newer.data.io.address.response.AddressResponse;
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import lombok.Getter;
 import lombok.Setter;
 

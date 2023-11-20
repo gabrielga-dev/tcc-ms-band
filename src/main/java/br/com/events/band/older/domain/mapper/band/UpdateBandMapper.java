@@ -1,8 +1,8 @@
 package br.com.events.band.older.domain.mapper.band;
 
 
-import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.newer.data.table.addresses.BandAddressTable;
+import br.com.events.band.newer.data.model.table.BandTable;
+import br.com.events.band.newer.data.model.table.addresses.BandAddressTable;
 import br.com.events.band.older.domain.io.band.update.rest.in.AddressUpdateBandRestForm;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.older.domain.io.band.update.useCase.in.AddressUpdateBandUseCaseForm;

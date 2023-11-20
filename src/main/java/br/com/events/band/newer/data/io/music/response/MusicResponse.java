@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.io.music.response;
 
 
-import br.com.events.band.newer.data.table.MusicTable;
+import br.com.events.band.newer.data.model.table.MusicTable;
 import br.com.events.band.older.util.DateUtil;
 import lombok.Getter;
 

@@ -1,7 +1,7 @@
 package br.com.events.band.newer.data.io.address.response;
 
+import br.com.events.band.newer.data.io.address.IAddress;
 import br.com.events.band.newer.data.io.address.city.CityResponse;
-import br.com.events.band.newer.data.table.addresses.BandAddressTable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,13 +23,13 @@ public class AddressResponse {
     private BigDecimal latitude;
     private BigDecimal longitude;
 
-    public AddressResponse(BandAddressTable address, CityResponse city) {
+    public AddressResponse(IAddress address, CityResponse city) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
         this.complement = address.getComplement();
         this.city = city.getName();
-        this.state = address.getState();
-        this.country = address.getCountry();
+        this.state = address.getStateIso();
+        this.country = address.getCountryIso();
         this.zipCode = address.getZipCode();
     }
 }

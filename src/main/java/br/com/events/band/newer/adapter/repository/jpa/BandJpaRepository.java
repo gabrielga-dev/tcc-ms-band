@@ -1,7 +1,7 @@
 package br.com.events.band.newer.adapter.repository.jpa;
 
 import br.com.events.band.newer.adapter.repository.BandRepository;
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,6 +38,7 @@ public interface BandJpaRepository extends BandRepository, JpaRepository<BandTab
 
     @Query(
             "SELECT band FROM BandTable band JOIN band.address address WHERE " +
+                    "(band.active = :active) AND " +
                     "((:name IS NULL) OR (band.name LIKE CONCAT('%',:name,'%'))) AND " +
                     "((:cityId IS NULL) OR (address.city = :cityId)) AND " +
                     "((:stateIso IS NULL) OR (address.state = :stateIso)) AND " +
@@ -45,6 +46,7 @@ public interface BandJpaRepository extends BandRepository, JpaRepository<BandTab
     )
     Page<BandTable> findByCriteria(
             Pageable pageable,
+            @Param("active") boolean active,
             @Param("name") String name,
             @Param("cityId") Long cityId,
             @Param("stateIso") String stateIso,

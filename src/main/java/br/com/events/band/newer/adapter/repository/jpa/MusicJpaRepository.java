@@ -1,7 +1,7 @@
 package br.com.events.band.newer.adapter.repository.jpa;
 
 import br.com.events.band.newer.adapter.repository.MusicRepository;
-import br.com.events.band.newer.data.table.MusicTable;
+import br.com.events.band.newer.data.model.table.MusicTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

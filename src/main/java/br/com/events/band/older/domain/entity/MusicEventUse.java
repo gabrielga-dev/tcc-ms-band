@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.entity;
 
-import br.com.events.band.newer.data.table.MusicTable;
+import br.com.events.band.newer.data.model.table.MusicTable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

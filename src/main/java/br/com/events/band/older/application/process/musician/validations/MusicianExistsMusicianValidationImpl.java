@@ -2,7 +2,7 @@ package br.com.events.band.older.application.process.musician.validations;
 
 import br.com.events.band.newer.core.exception.musician.MusicianDoesNotExistException;
 import br.com.events.band.older.domain.io._new.musician.dto.MusicianValidationDto;
-import br.com.events.band.older.domain.repository.MusicianRepository;
+import br.com.events.band.newer.adapter.repository.jpa.MusicianJpaRepository;
 import br.com.events.band.older.infrastructure.process.musician.MusicianMethodValidation;
 import br.com.events.band.older.domain.type.MethodValidationType;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MusicianExistsMusicianValidationImpl implements MusicianMethodValidation {
 
-    private final MusicianRepository musicianRepository;
+    private final MusicianJpaRepository musicianRepository;
 
     @Override
     public boolean matches(MusicianValidationDto dto) {

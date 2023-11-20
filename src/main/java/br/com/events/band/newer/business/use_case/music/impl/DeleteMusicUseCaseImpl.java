@@ -3,6 +3,7 @@ package br.com.events.band.newer.business.use_case.music.impl;
 import br.com.events.band.newer.business.command.music.FindMusicCommand;
 import br.com.events.band.newer.business.command.music.SaveMusicCommand;
 import br.com.events.band.newer.business.use_case.music.DeleteMusicUseCase;
+import br.com.events.band.newer.core.exception.band.BandNonExistenceException;
 import br.com.events.band.newer.core.exception.band.BandOwnerException;
 import br.com.events.band.newer.core.exception.music.MusicNonExistenceException;
 import br.com.events.band.newer.core.util.AuthUtil;

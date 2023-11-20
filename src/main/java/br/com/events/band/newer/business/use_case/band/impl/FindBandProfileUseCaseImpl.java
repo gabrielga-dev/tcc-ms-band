@@ -4,6 +4,7 @@ import br.com.events.band.newer.business.command.address.BuildAddressResponseCom
 import br.com.events.band.newer.business.command.band.FindBandCommand;
 import br.com.events.band.newer.business.use_case.band.FindBandProfileUseCase;
 import br.com.events.band.newer.core.exception.band.BandNonExistenceException;
+import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.band.response.BandProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,10 @@ public class FindBandProfileUseCaseImpl implements FindBandProfileUseCase {
     @Override
     public BandProfileResponse execute(String bandUuid) {
         var band = findBandCommand.byUuid(bandUuid).orElseThrow(BandNonExistenceException::new);
+        if (!AuthUtil.getAuthenticatedPersonUuid().equals(band.getOwnerUuid()) && !band.isActive()) {
+            throw new BandNonExistenceException();
+        }
+
         var address = buildAddressResponseCommand.execute(band.getAddress());
 
         return new BandProfileResponse(band, address);

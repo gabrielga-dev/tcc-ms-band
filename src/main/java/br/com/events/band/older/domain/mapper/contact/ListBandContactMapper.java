@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.mapper.contact;
 
-import br.com.events.band.newer.data.table.ContactTable;
+import br.com.events.band.newer.data.model.table.ContactTable;
 import br.com.events.band.older.domain.io.contact.listBandContact.rest.out.ListBandContactRestResult;
 import br.com.events.band.older.domain.io.contact.listBandContact.useCase.out.ListBandContactUseCaseResult;
 import br.com.events.band.older.util.AuthUtil;

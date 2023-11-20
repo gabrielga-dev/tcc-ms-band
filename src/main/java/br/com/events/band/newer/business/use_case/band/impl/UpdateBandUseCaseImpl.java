@@ -5,6 +5,7 @@ import br.com.events.band.newer.business.command.band.FindBandCommand;
 import br.com.events.band.newer.business.command.band.SaveBandCommand;
 import br.com.events.band.newer.business.command.file.UploadFileCommand;
 import br.com.events.band.newer.business.use_case.band.UpdateBandUseCase;
+import br.com.events.band.newer.core.exception.band.BandNonExistenceException;
 import br.com.events.band.newer.core.util.AuthUtil;
 import br.com.events.band.newer.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.newer.data.io.file.FileOriginType;
@@ -33,11 +34,15 @@ public class UpdateBandUseCaseImpl implements UpdateBandUseCase {
                 bandUuid, AuthUtil.getAuthenticatedPersonUuid()
         ).orElseThrow(BandNotFoundException::new);
 
+        if (!band.isActive()) {
+            throw new BandNonExistenceException();
+        }
+
         checkAddressCommand.execute(request.getAddress());
 
         band.update(request);
 
-        if (Objects.nonNull(profilePicture)){
+        if (Objects.nonNull(profilePicture)) {
             var savedPicture = uploadFileCommand.execute(
                     FileOriginType.BAND.name(),
                     bandUuid,

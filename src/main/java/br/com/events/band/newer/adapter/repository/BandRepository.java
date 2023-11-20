@@ -1,6 +1,6 @@
 package br.com.events.band.newer.adapter.repository;
 
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,6 +24,7 @@ public interface BandRepository {
 
     Page<BandTable> findByCriteria(
             Pageable pageable,
+            boolean active,
             String name,
             Long cityId,
             String stateIso,

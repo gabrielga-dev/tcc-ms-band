@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.mapper.musician;
 
-import br.com.events.band.newer.data.table.MusicianTable;
-import br.com.events.band.newer.data.table.addresses.MusicianAddressTable;
+import br.com.events.band.newer.data.model.table.MusicianTable;
+import br.com.events.band.newer.data.model.table.addresses.MusicianAddressTable;
 import br.com.events.band.older.domain.io.musician.create.rest.in.AddressCreateMusicianRestForm;
 import br.com.events.band.older.domain.io.musician.create.rest.in.CreateMusicianRestForm;
 import br.com.events.band.older.domain.io.musician.create.useCase.in.AddressCreateMusicianUseCaseForm;

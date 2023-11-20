@@ -1,6 +1,6 @@
 package br.com.events.band.newer.adapter.repository;
 
-import br.com.events.band.newer.data.table.ContactTable;
+import br.com.events.band.newer.data.model.table.ContactTable;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package br.com.events.band.older.application.useCase.address;
 
-import br.com.events.band.newer.data.table.addresses.MusicianAddressTable;
+import br.com.events.band.newer.data.model.table.addresses.MusicianAddressTable;
 import br.com.events.band.older.domain.io._new.address.response.AddressResponse;
 import br.com.events.band.newer.adapter.feign.client.MsLocationFeignClient;
 import br.com.events.band.older.infrastructure.useCase.address.BuildAddressResponseUseCase;

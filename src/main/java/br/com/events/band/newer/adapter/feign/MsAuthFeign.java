@@ -1,11 +1,13 @@
 package br.com.events.band.newer.adapter.feign;
 
 import br.com.events.band.newer.data.io.band.ServiceType;
-import br.com.events.band.older.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
+import br.com.events.band.newer.data.io.person.response.PersonResponse;
 
 public interface MsAuthFeign {
 
-    GetAuthenticatedPersonInformationResult getAuthenticatedPersonInformation(String jwtToken);
+    PersonResponse getAuthenticatedPersonInformation(String jwtToken);
+
+    PersonResponse findPersonInformationByCpf(String cpf);
 
     void addServiceToPerson(String serviceUuid, ServiceType serviceType);
 }

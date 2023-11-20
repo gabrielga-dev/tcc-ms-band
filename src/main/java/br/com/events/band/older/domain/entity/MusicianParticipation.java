@@ -1,6 +1,6 @@
 package br.com.events.band.older.domain.entity;
 
-import br.com.events.band.newer.data.table.MusicianTable;
+import br.com.events.band.newer.data.model.table.MusicianTable;
 import br.com.events.band.older.domain.entity.type.PaymentMethodType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

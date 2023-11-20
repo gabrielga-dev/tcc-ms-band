@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.mapper.auth;
 
 import br.com.events.band.older.domain.io.auth.AuthenticatedPerson;
-import br.com.events.band.older.domain.io.feign.msAuth.person.getAuthenticatedPerson.out.GetAuthenticatedPersonInformationResult;
+import br.com.events.band.newer.data.io.person.response.PersonResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 public final class AuthenticatedPersonMapper {
 
     /**
-     * This method maps a {@link GetAuthenticatedPersonInformationResult} into a {@link AuthenticatedPerson} object
+     * This method maps a {@link PersonResponse} into a {@link AuthenticatedPerson} object
      *
-     * @param result {@link GetAuthenticatedPersonInformationResult} object with the data to be mapped
+     * @param result {@link PersonResponse} object with the data to be mapped
      * @return {@link AuthenticatedPerson} object with the mapped information
      */
-    public static AuthenticatedPerson convertToAuthenticatedPerson(GetAuthenticatedPersonInformationResult result) {
+    public static AuthenticatedPerson convertToAuthenticatedPerson(PersonResponse result) {
         return AuthenticatedPerson
             .builder()
             .uuid(result.getUuid())

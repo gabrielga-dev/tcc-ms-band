@@ -1,7 +1,7 @@
 package br.com.events.band.older.domain.io.music.create;
 
-import br.com.events.band.newer.data.table.BandTable;
-import br.com.events.band.newer.data.table.MusicTable;
+import br.com.events.band.newer.data.model.table.BandTable;
+import br.com.events.band.newer.data.model.table.MusicTable;
 import br.com.events.band.newer.data.io.music.request.MusicRequest;
 import br.com.events.band.older.domain.io.music.create.in.CreateMusicUseCaseForm;
 import lombok.AccessLevel;

@@ -24,6 +24,9 @@ public class ListBandContactUseCaseImpl implements ListBandContactUseCase {
     @Override
     public List<ContactResponse> execute(String bandUuid) {
         var band = findBandCommand.byUuid(bandUuid).orElseThrow(BandNonExistenceException::new);
+        if (!band.isActive()) {
+            throw new BandNonExistenceException();
+        }
 
         return band.getContacts().stream().map(ContactResponse::new).collect(Collectors.toList());
     }

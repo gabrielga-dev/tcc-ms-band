@@ -7,7 +7,7 @@ import br.com.events.band.newer.business.command.band.SaveBandCommand;
 import br.com.events.band.newer.business.command.file.UploadFileCommand;
 import br.com.events.band.newer.data.io.band.request.BandRequest;
 import br.com.events.band.newer.data.io.file.FileType;
-import br.com.events.band.newer.data.table.BandTable;
+import br.com.events.band.newer.data.model.table.BandTable;
 import br.com.events.band.older.domain.io.UuidHolderDTO;
 import br.com.events.band.newer.data.io.file.FileOriginType;
 import lombok.RequiredArgsConstructor;

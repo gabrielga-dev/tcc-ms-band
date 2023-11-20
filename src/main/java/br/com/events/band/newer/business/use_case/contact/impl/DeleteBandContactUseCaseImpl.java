@@ -24,7 +24,12 @@ public class DeleteBandContactUseCaseImpl implements DeleteBandContactUseCase {
     public void execute(String bandUuid, String contactUuid) {
         findBandCommand.byUuidAndOwnerUuid(bandUuid, AuthUtil.getAuthenticatedPersonUuid())
                 .ifPresentOrElse(
-                        band -> deleteContactCommand.execute(contactUuid),
+                        band -> {
+                            if (!band.isActive()) {
+                                throw new BandNonExistenceException();
+                            }
+                            deleteContactCommand.execute(contactUuid);
+                        },
                         () -> {
                             throw new BandNonExistenceException();
                         }
