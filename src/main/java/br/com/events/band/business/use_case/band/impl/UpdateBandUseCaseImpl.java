@@ -1,16 +1,16 @@
 package br.com.events.band.business.use_case.band.impl;
 
 import br.com.events.band.business.command.address.CheckAddressCommand;
+import br.com.events.band.business.command.band.FindBandCommand;
+import br.com.events.band.business.command.band.SaveBandCommand;
 import br.com.events.band.business.command.file.UploadFileCommand;
 import br.com.events.band.business.use_case.band.UpdateBandUseCase;
+import br.com.events.band.core.exception.band.BandNonExistenceException;
+import br.com.events.band.core.exception.band.BandNotFoundException;
 import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.data.io.file.FileOriginType;
-import br.com.events.band.business.command.band.FindBandCommand;
-import br.com.events.band.business.command.band.SaveBandCommand;
-import br.com.events.band.core.exception.band.BandNonExistenceException;
 import br.com.events.band.data.io.file.FileType;
-import br.com.events.band.core.exception.band.BandNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,7 +50,7 @@ public class UpdateBandUseCaseImpl implements UpdateBandUseCase {
                     profilePicture
             );
 
-            band.setProfilePictureUuid(savedPicture.getUuid());
+            band.setProfilePicture(savedPicture);
         }
 
         saveBandCommand.execute(band);

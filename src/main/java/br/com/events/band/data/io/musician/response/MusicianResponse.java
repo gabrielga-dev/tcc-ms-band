@@ -1,10 +1,17 @@
 package br.com.events.band.data.io.musician.response;
 
 import br.com.events.band.core.util.DateUtil;
+import br.com.events.band.data.io.musician_type.response.MusicianTypeResponse;
 import br.com.events.band.data.model.table.band.BandMusicianTable;
 import br.com.events.band.data.model.table.musician.MusicianTable;
+import br.com.events.band.data.model.table.musician.MusicianTypeTable;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -17,24 +24,31 @@ public class MusicianResponse {
     private Long birthDay;
     private Long creationDateMilliseconds;
     private String avatarUuid;
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean hasStartedWithThisBand;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean active;
+    private List<MusicianTypeResponse> types;
 
     public MusicianResponse(BandMusicianTable assoc) {
-        this.uuid = assoc.getMusician().getUuid();
-        this.firstName = assoc.getMusician().getFirstName();
-        this.lastName = assoc.getMusician().getLastName();
-        this.age = DateUtil.calculateAgeByBirthday(assoc.getMusician().getBirthday());
-        this.birthDay = DateUtil.localDateTimeToMilliseconds(assoc.getMusician().getBirthday());
-        this.creationDateMilliseconds = DateUtil.localDateTimeToMilliseconds(assoc.getMusician().getCreationDate());
-        this.avatarUuid = assoc.getMusician().getProfilePictureUuid();
+        this.setBasicInformation(assoc.getMusician());
 
         var bandAssocUuid = assoc.getBand().getUuid();
-        var bandThatInsertedUuid = assoc.getMusician().getBandThatInserted().getUuid();
-        this.hasStartedWithThisBand = bandAssocUuid.equals(bandThatInsertedUuid);
+        var musicianBand = assoc.getMusician().getBandThatInserted();
+        this.hasStartedWithThisBand = Objects.nonNull(musicianBand) && bandAssocUuid.equals(musicianBand.getUuid());
+        this.active = assoc.getMusician().isActive();
+        this.setTypes(assoc.getMusician().getTypes());
     }
 
     public MusicianResponse(MusicianTable musician, Boolean hasStartedWithThisBand) {
+        this.setBasicInformation(musician);
+
+        this.hasStartedWithThisBand = hasStartedWithThisBand;
+        this.active = musician.isActive();
+        this.setTypes(musician.getTypes());
+    }
+
+    public void setBasicInformation(MusicianTable musician) {
         this.uuid = musician.getUuid();
         this.firstName = musician.getFirstName();
         this.lastName = musician.getLastName();
@@ -42,7 +56,9 @@ public class MusicianResponse {
         this.birthDay = DateUtil.localDateTimeToMilliseconds(musician.getBirthday());
         this.creationDateMilliseconds = DateUtil.localDateTimeToMilliseconds(musician.getCreationDate());
         this.avatarUuid = musician.getProfilePictureUuid();
+    }
 
-        this.hasStartedWithThisBand = hasStartedWithThisBand;
+    public void setTypes(List<MusicianTypeTable> types) {
+        this.types = types.stream().map(MusicianTypeResponse::new).collect(Collectors.toList());
     }
 }

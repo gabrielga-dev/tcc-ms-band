@@ -32,7 +32,7 @@ public class BusinessException extends RuntimeException {
 
     private final String description;
 
-    public boolean isRequestFault(){
+    public boolean isClientFault(){
         return HttpStatus.valueOf(this.code).is4xxClientError();
     }
 

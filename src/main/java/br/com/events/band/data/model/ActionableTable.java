@@ -31,7 +31,7 @@ public interface ActionableTable {
     }
 
     default void deactivate() {
-        if (this.isActive()) {
+        if (!this.isActive()) {
             throw new ResourceAlreadyDeactivatedException();
         }
         this.setActive(Boolean.FALSE);

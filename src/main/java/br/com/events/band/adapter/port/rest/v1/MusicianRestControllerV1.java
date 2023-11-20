@@ -1,17 +1,17 @@
 package br.com.events.band.adapter.port.rest.v1;
 
 import br.com.events.band.adapter.port.MusicianPort;
+import br.com.events.band.business.use_case.musician.AssociateCreatedMusicianUseCase;
 import br.com.events.band.business.use_case.musician.CreateMusicianUseCase;
 import br.com.events.band.business.use_case.musician.DeleteMusiciansUseCase;
+import br.com.events.band.business.use_case.musician.FindMusicianByCpfUseCase;
 import br.com.events.band.business.use_case.musician.FindMusicianByUuidUseCase;
 import br.com.events.band.business.use_case.musician.FindMusiciansByCriteriaUseCase;
 import br.com.events.band.business.use_case.musician.RemoveMusicianAvatarUseCase;
 import br.com.events.band.business.use_case.musician.UpdateMusicianUseCase;
 import br.com.events.band.data.io.commom.UuidHolderDTO;
-import br.com.events.band.data.io.musician.request.MusicianRequest;
-import br.com.events.band.business.use_case.musician.AssociateCreatedMusicianUseCase;
-import br.com.events.band.business.use_case.musician.FindMusicianByCpfUseCase;
 import br.com.events.band.data.io.musician.criteria.MusicianCriteria;
+import br.com.events.band.data.io.musician.request.MusicianRequest;
 import br.com.events.band.data.io.musician.response.MusicianWithAddressResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -44,7 +43,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     private final RemoveMusicianAvatarUseCase removeMusicianAvatarUseCase;
 
     @Override
-    @PostMapping("/band/{bandUuid}/associate-created")
+    @PostMapping("/band/{bandUuid}/associate")
     public ResponseEntity<UuidHolderDTO> associate(
             @PathVariable String bandUuid, @RequestParam String musicianCpf
     ) {
@@ -57,7 +56,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     public ResponseEntity<UuidHolderDTO> create(
             @PathVariable("bandUuid") String bandUuid,
             @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
-            @RequestPart("request") @RequestBody MusicianRequest musician
+            @RequestPart("request") MusicianRequest musician
     ) {
         var response = createMusicianUseCase.execute(profilePicture, musician, bandUuid);
 
@@ -92,22 +91,20 @@ public class MusicianRestControllerV1 implements MusicianPort {
 
     @Override
     @DeleteMapping("/{musicianUuid}")
-    public ResponseEntity<Void> delete(
-            @PathVariable("musicianUuid") String musicianUuid
-    ) {
+    public ResponseEntity<Void> delete(@PathVariable("musicianUuid") String musicianUuid) {
         deleteMusiciansUseCase.execute(musicianUuid);
 
         return ResponseEntity.ok().build();
     }
 
     @Override
-    @PutMapping("/{musicianUuid}")
+    @PutMapping(value = "/{musicianUuid}", consumes = "multipart/form-data")
     public ResponseEntity<Void> update(
             @PathVariable("musicianUuid") String musicianUuid,
             @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
-            @RequestBody MusicianRequest musicianForm
+            @RequestPart(value = "request") MusicianRequest request
     ) {
-        updateMusicianUseCase.execute(musicianUuid, musicianForm);
+        updateMusicianUseCase.execute(musicianUuid, request, profilePicture);
         return ResponseEntity.ok().build();
     }
 

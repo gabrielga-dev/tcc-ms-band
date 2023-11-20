@@ -1,5 +1,7 @@
 package br.com.events.band.data.model;
 
+import br.com.events.band.data.io.file.FileDTO;
+
 import java.time.LocalDateTime;
 
 public interface TableWithProfilePicture {
@@ -15,8 +17,8 @@ public interface TableWithProfilePicture {
         this.setUpdateDate(LocalDateTime.now());
     }
 
-    default void setProfilePicture(String uuid) {
-        this.setProfilePictureUuid(uuid);
+    default void setProfilePicture(FileDTO file) {
+        this.setProfilePictureUuid(file.getUuid());
         this.setUpdateDate(LocalDateTime.now());
     }
 }

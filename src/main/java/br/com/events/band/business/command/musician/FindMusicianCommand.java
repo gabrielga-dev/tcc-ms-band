@@ -30,13 +30,10 @@ public class FindMusicianCommand {
                 criteria.getName(),
                 criteria.getCpf(),
                 criteria.getEmail(),
-                criteria.getAddress().getStreet(),
-                criteria.getAddress().getNeighbour(),
-                criteria.getAddress().getComplement(),
-                criteria.getAddress().getCityId(),
-                criteria.getAddress().getStateIso(),
-                criteria.getAddress().getCountryIso(),
-                criteria.getAddress().getZipCode(),
+                criteria.getCityId(),
+                criteria.getStateIso(),
+                criteria.getCountryIso(),
+                criteria.getZipCode(),
                 pageable
         );
     }

@@ -1,6 +1,5 @@
 package br.com.events.band.data.model.table.musician;
 
-import br.com.events.band.data.model.table.musician.MusicianTable;
 import br.com.events.band.data.model.table.quote_request.QuoteRequestMusicianTypeTable;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,6 +33,11 @@ public class MusicianTypeTable {
     private String description;
 
     @ManyToMany
+    @JoinTable(
+            name = "musician_musician_type",
+            joinColumns = @JoinColumn(name = "musician_type_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "musician_uuid")
+    )
     private List<MusicianTable> musicians;
 
     @OneToMany(mappedBy = "musicianType", fetch = FetchType.LAZY)

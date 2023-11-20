@@ -1,21 +1,22 @@
 package br.com.events.band.business.use_case.musician.impl;
 
+import br.com.events.band.business.command.band.FindBandCommand;
 import br.com.events.band.business.command.file.UploadFileCommand;
+import br.com.events.band.business.command.musician.FindMusicianCommand;
+import br.com.events.band.business.command.musician.SaveMusicianCommand;
+import br.com.events.band.business.command.musician_type.FindMusicianTypeCommand;
 import br.com.events.band.business.use_case.musician.CreateMusicianUseCase;
+import br.com.events.band.core.exception.band.BandNonExistenceException;
 import br.com.events.band.core.exception.band.BandNotFoundException;
+import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.musician.MusicianBelowAgeException;
+import br.com.events.band.core.exception.musician.MusicianExistsException;
 import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.commom.UuidHolderDTO;
 import br.com.events.band.data.io.file.FileOriginType;
+import br.com.events.band.data.io.file.FileType;
 import br.com.events.band.data.io.musician.request.MusicianRequest;
 import br.com.events.band.data.model.table.musician.MusicianTable;
-import br.com.events.band.business.command.band.FindBandCommand;
-import br.com.events.band.business.command.musician.FindMusicianCommand;
-import br.com.events.band.business.command.musician.SaveMusicianCommand;
-import br.com.events.band.core.exception.band.BandNonExistenceException;
-import br.com.events.band.core.exception.band.BandOwnerException;
-import br.com.events.band.core.exception.musician.MusicianExistsException;
-import br.com.events.band.data.io.file.FileType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -39,6 +40,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
     private final FindMusicianCommand findMusicianCommand;
     private final FindBandCommand findBandCommand;
     private final SaveMusicianCommand saveMusicianCommand;
+    private final FindMusicianTypeCommand findMusicianTypeCommand;
     private final UploadFileCommand uploadFileCommand;
 
     @Override
@@ -48,8 +50,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
 
         if (!band.isActive()) {
             throw new BandNonExistenceException();
-        }
-        if (!band.getOwnerUuid().equals(AuthUtil.getAuthenticatedPersonUuid())) {
+        } else if (!band.getOwnerUuid().equals(AuthUtil.getAuthenticatedPersonUuid())) {
             throw new BandOwnerException();
         }
 
@@ -63,7 +64,8 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
             throw new MusicianBelowAgeException(request.getAge(), minimumAge);
         }
 
-        var toSave = new MusicianTable(request);
+        var types = findMusicianTypeCommand.byUuid(request.getTypeUuids());
+        var toSave = new MusicianTable(request, band, types);
         toSave = saveMusicianCommand.execute(toSave);
 
         if (Objects.nonNull(profilePicture)) {
@@ -74,7 +76,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
                     profilePicture
             );
 
-            toSave.setProfilePictureUuid(savedPicture.getUuid());
+            toSave.setProfilePicture(savedPicture);
             toSave = saveMusicianCommand.execute(toSave);
         }
 

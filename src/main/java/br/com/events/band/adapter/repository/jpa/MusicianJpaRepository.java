@@ -25,25 +25,19 @@ public interface MusicianJpaRepository extends MusicianRepository, JpaRepository
             "SELECT musician " +
                     "FROM MusicianTable musician JOIN musician.address address " +
                     "WHERE (musician.active = :active) " +
-                    "AND ((:name IS NOT NULL) OR (musician.firstName LIKE CONCAT('%',:name,'%')) OR (musician.lastName LIKE CONCAT('%',:name,'%'))) " +
-                    "AND ((:cpf IS NOT NULL) OR (musician.cpf = :cpf)) " +
-                    "AND ((:email IS NOT NULL) OR (musician.email = :email)) " +
-                    "AND ((:street IS NOT NULL) OR (address.street = :street)) " +
-                    "AND ((:neighbour IS NOT NULL) OR (address.neighbour = :neighbour)) " +
-                    "AND ((:complement IS NOT NULL) OR (address.complement = :complement)) " +
-                    "AND ((:cityId IS NOT NULL) OR (address.city = :cityId)) " +
-                    "AND ((:stateIso IS NOT NULL) OR (address.state = :stateIso)) " +
-                    "AND ((:countryIso IS NOT NULL) OR (address.country = :countryIso)) " +
-                    "AND ((:zipCode IS NOT NULL) OR (address.zipCode = :zipCode))"
+                    "AND ((:name IS NULL) OR (musician.firstName LIKE CONCAT('%',:name,'%')) OR (musician.lastName LIKE CONCAT('%',:name,'%'))) " +
+                    "AND ((:cpf IS NULL) OR (musician.cpf = :cpf)) " +
+                    "AND ((:email IS NULL) OR (musician.email LIKE CONCAT('%',:email,'%'))) " +
+                    "AND ((:cityId IS NULL) OR (address.city = :cityId)) " +
+                    "AND ((:stateIso IS NULL) OR (address.state = :stateIso)) " +
+                    "AND ((:countryIso IS NULL) OR (address.country = :countryIso)) " +
+                    "AND ((:zipCode IS NULL) OR (address.zipCode = :zipCode))"
     )
     Page<MusicianTable> findByCriteria(
             @Param("active") boolean active,
             @Param("name") String name,
             @Param("cpf") String cpf,
             @Param("email") String email,
-            @Param("street") String street,
-            @Param("neighbour") String neighbour,
-            @Param("complement") String complement,
             @Param("cityId") Long cityId,
             @Param("stateIso") String stateIso,
             @Param("countryIso") String countryIso,

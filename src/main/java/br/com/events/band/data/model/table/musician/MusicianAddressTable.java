@@ -73,6 +73,7 @@ public class MusicianAddressTable implements IAddress {
     public MusicianAddressTable(AddressRequest address) {
         this.street = address.getStreet();
         this.neighbour = address.getNeighbour();
+        this.number = address.getNumber();
         this.complement = address.getComplement();
         this.city = address.getCityId();
         this.state = address.getStateIso();

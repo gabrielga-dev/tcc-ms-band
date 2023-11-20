@@ -41,6 +41,7 @@ public class BandMusicianTable {
     private LocalDateTime creationDate;
 
     public BandMusicianTable(BandTable band, MusicianTable musician) {
+        this.pk = new BandMusicianTablePk(band, musician);
         this.band = band;
         this.musician = musician;
         this.creationDate = LocalDateTime.now();

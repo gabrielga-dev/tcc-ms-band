@@ -1,6 +1,5 @@
 package br.com.events.band.data.io.musician.criteria;
 
-import br.com.events.band.data.io.address.request.AddressRequest;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,5 +11,8 @@ public class MusicianCriteria {
     private final String cpf;
     private final String email;
     private final boolean active = true;
-    private final AddressRequest address;
+    private final Long cityId;
+    private final String stateIso;
+    private final String countryIso;
+    private final String zipCode;
 }

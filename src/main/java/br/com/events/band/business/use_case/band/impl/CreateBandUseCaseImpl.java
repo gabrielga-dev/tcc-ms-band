@@ -44,7 +44,7 @@ public class CreateBandUseCaseImpl implements CreateBandUseCase {
                     profilePicture
             );
 
-            toSave.setProfilePictureUuid(savedPicture.getUuid());
+            toSave.setProfilePicture(savedPicture);
             toSave = saveBandCommand.execute(toSave);
         }
 

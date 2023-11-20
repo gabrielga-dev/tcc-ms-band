@@ -2,6 +2,7 @@ package br.com.events.band.data.io.musician.request;
 
 import br.com.events.band.core.util.DateUtil;
 import br.com.events.band.data.io.address.request.AddressRequest;
+import br.com.events.band.data.io.musician_type.request.MusicianTypeRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +16,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -52,7 +55,14 @@ public class MusicianRequest {
     @NotNull(message = "É necessário inserir um endereço.")
     private AddressRequest address;
 
-    public LocalDateTime getBirthday(){
+    @Valid
+    private List<MusicianTypeRequest> types;
+
+    public List<String> getTypeUuids() {
+        return types.stream().map(MusicianTypeRequest::getUuid).collect(Collectors.toList());
+    }
+
+    public LocalDateTime getBirthday() {
         return DateUtil.millisecondsToLocalDateTime(this.birthday);
     }
 

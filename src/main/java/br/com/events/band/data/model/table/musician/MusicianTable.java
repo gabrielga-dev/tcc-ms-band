@@ -17,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,6 +25,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -81,9 +83,14 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
     private MusicianAddressTable address;
 
     @ManyToMany
+    @JoinTable(
+            name = "musician_musician_type",
+            joinColumns = @JoinColumn(name = "musician_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "musician_type_uuid")
+    )
     private List<MusicianTypeTable> types;
 
-    public MusicianTable(MusicianRequest musicianForm) {
+    public MusicianTable(MusicianRequest musicianForm, BandTable band, List<MusicianTypeTable> types) {
         this.firstName = musicianForm.getFirstName();
         this.lastName = musicianForm.getLastName();
         this.birthday = musicianForm.getBirthday();
@@ -94,6 +101,10 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
         var newAddress = new MusicianAddressTable(musicianForm.getAddress());
         newAddress.setMusician(this);
         this.address = newAddress;
+
+        this.bandThatInserted = band;
+
+        this.types = types;
     }
 
     @Override
@@ -105,5 +116,18 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
         this.email = data.getEmail();
         this.creationDate = LocalDateTime.now();
         this.address.transferData(data.getAddress());
+    }
+
+    public void updateTypes(List<MusicianTypeTable> types) {
+        this.types = types;
+        this.creationDate = LocalDateTime.now();
+    }
+
+    public boolean wasInsertedByBand() {
+        return Objects.nonNull(this.bandThatInserted);
+    }
+
+    public boolean belongsTo(BandTable band) {
+        return this.wasInsertedByBand() && this.getBandThatInserted().getUuid().equals(band.getUuid());
     }
 }

@@ -1,10 +1,11 @@
 package br.com.events.band.data.io.band.response;
 
-import br.com.events.band.data.model.table.band.BandTable;
+import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.address.response.AddressResponse;
 import br.com.events.band.data.io.contact.response.ContactResponse;
 import br.com.events.band.data.io.music.response.MusicResponse;
 import br.com.events.band.data.io.musician.response.MusicianResponse;
+import br.com.events.band.data.model.table.band.BandTable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,8 +40,17 @@ public class BandProfileResponse {
 
         this.contacts = band.getContacts().stream().map(ContactResponse::new).collect(Collectors.toList());
 
+        var isBandOwner = AuthUtil.isAuthenticated() &&
+                AuthUtil.getAuthenticatedPersonUuid().equals(band.getOwnerUuid());
+
         this.musicians = band.getInsertedMusicians()
                 .stream()
+                .filter(m -> {
+                    if (!isBandOwner) {
+                        return m.isActive();
+                    }
+                    return true;
+                })
                 .map(m -> new MusicianResponse(m, Boolean.TRUE))
                 .collect(Collectors.toList());
         var addedMusicians = this.musicians

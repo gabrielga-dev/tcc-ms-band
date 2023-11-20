@@ -18,7 +18,7 @@ public class FindPersonMusicianCommand {
         try {
             return Optional.of(msAuthFeign.findPersonInformationByCpf(musicianCpf));
         } catch (BusinessException businessException) {
-            if (!businessException.isRequestFault()) {
+            if (!businessException.isClientFault()) {
                 throw businessException;
             }
             return Optional.empty();
