@@ -1,9 +1,9 @@
 package br.com.events.band.business.command.band;
 
-import br.com.events.band.data.io.band.criteria.FindBandsCriteria;
-import br.com.events.band.data.model.table.band.BandTable;
 import br.com.events.band.adapter.repository.BandRepository;
 import br.com.events.band.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
+import br.com.events.band.data.io.band.criteria.FindBandsCriteria;
+import br.com.events.band.data.model.table.band.BandTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -3,7 +3,6 @@ package br.com.events.band.data.model.table.band;
 import br.com.events.band.data.model.table.musician.MusicianTable;
 import br.com.events.band.data.model.table.pk.BandMusicianTablePk;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "band_musician")

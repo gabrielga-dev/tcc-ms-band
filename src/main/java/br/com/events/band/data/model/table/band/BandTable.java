@@ -27,6 +27,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -79,7 +80,7 @@ public class BandTable implements
     private List<MusicianTable> insertedMusicians = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "band", cascade = CascadeType.ALL)
-    private List<BandMusicianTable> musicians = new ArrayList<>();
+    private List<BandMusicianTable> associatedMusicians = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributingBand", cascade = CascadeType.ALL)
     private List<MusicTable> contributedMusics = new ArrayList<>();
@@ -112,6 +113,17 @@ public class BandTable implements
 
     public void associate(MusicianTable musician) {
         var association = new BandMusicianTable(this, musician);
-        this.musicians.add(association);
+        this.associatedMusicians.add(association);
+    }
+
+    public boolean isAssociatedWith(MusicianTable musician) {
+        return this.getAssociation(musician).isPresent();
+    }
+
+    public Optional<BandMusicianTable> getAssociation(MusicianTable musician) {
+        return this.associatedMusicians
+                .stream()
+                .filter(assoc -> assoc.getMusician().getUuid().equals(musician.getUuid()))
+                .findFirst();
     }
 }

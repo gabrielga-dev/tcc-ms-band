@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * This class represents the musician's database table
@@ -68,7 +69,7 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
     private BandTable bandThatInserted;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "musician", cascade = CascadeType.ALL)
-    private List<BandMusicianTable> bands;
+    private List<BandMusicianTable> bandsAssociated;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
@@ -129,5 +130,12 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
 
     public boolean belongsTo(BandTable band) {
         return this.wasInsertedByBand() && this.getBandThatInserted().getUuid().equals(band.getUuid());
+    }
+
+    public void disassociate(BandTable band) {
+        this.bandsAssociated = this.bandsAssociated
+                .stream()
+                .filter(assoc -> !assoc.getBand().getUuid().equals(band.getUuid()))
+                .collect(Collectors.toList());
     }
 }

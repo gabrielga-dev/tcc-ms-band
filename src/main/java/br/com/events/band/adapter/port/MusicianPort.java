@@ -31,6 +31,16 @@ public interface MusicianPort {
     )
     ResponseEntity<UuidHolderDTO> associate(String bandUuid, String musicianCpf);
 
+    @ApiOperation(value = "Disassociate musician from a band")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> disassociate(String bandUuid, String musicianUuid);
+
     @ApiOperation(value = "Creates a new musician")
     @ApiImplicitParam(
             name = "Authorization",

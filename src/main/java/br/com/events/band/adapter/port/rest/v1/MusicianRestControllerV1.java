@@ -4,6 +4,7 @@ import br.com.events.band.adapter.port.MusicianPort;
 import br.com.events.band.business.use_case.musician.AssociateCreatedMusicianUseCase;
 import br.com.events.band.business.use_case.musician.CreateMusicianUseCase;
 import br.com.events.band.business.use_case.musician.DeleteMusiciansUseCase;
+import br.com.events.band.business.use_case.musician.DisassociateCreatedMusicianUseCase;
 import br.com.events.band.business.use_case.musician.FindMusicianByCpfUseCase;
 import br.com.events.band.business.use_case.musician.FindMusicianByUuidUseCase;
 import br.com.events.band.business.use_case.musician.FindMusiciansByCriteriaUseCase;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MusicianRestControllerV1 implements MusicianPort {
 
     private final AssociateCreatedMusicianUseCase associateCreatedMusicianUseCase;
+    private final DisassociateCreatedMusicianUseCase disassociateCreatedMusicianUseCase;
     private final CreateMusicianUseCase createMusicianUseCase;
     private final FindMusicianByUuidUseCase findMusicianByUuidUseCase;
     private final FindMusicianByCpfUseCase findMusicianByCpfUseCase;
@@ -43,12 +44,20 @@ public class MusicianRestControllerV1 implements MusicianPort {
     private final RemoveMusicianAvatarUseCase removeMusicianAvatarUseCase;
 
     @Override
-    @PostMapping("/band/{bandUuid}/associate")
+    @PostMapping("/{cpf}/band/{bandUuid}/associate")
     public ResponseEntity<UuidHolderDTO> associate(
-            @PathVariable String bandUuid, @RequestParam String musicianCpf
+            @PathVariable String bandUuid, @PathVariable("cpf") String musicianCpf
     ) {
         var result = associateCreatedMusicianUseCase.execute(bandUuid, musicianCpf);
         return ResponseEntity.ok(result);
+    }
+
+    @Override
+    @DeleteMapping("/{musicianUuid}/band/{bandUuid}/disassociate")
+    public ResponseEntity<Void> disassociate(@PathVariable String bandUuid, @PathVariable String musicianUuid) {
+        disassociateCreatedMusicianUseCase.execute(bandUuid, musicianUuid);
+
+        return ResponseEntity.noContent().build();
     }
 
     @Override

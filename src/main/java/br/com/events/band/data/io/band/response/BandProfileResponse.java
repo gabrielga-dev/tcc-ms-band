@@ -57,7 +57,7 @@ public class BandProfileResponse {
                 .stream()
                 .map(MusicianResponse::getUuid)
                 .collect(Collectors.toSet());
-        band.getMusicians().forEach(
+        band.getAssociatedMusicians().forEach(
                 musicianAssoc -> {
                     if (!addedMusicians.contains(musicianAssoc.getMusician().getUuid())) {
                         this.musicians.add(new MusicianResponse(musicianAssoc));
