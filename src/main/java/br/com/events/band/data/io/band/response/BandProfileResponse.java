@@ -50,8 +50,7 @@ public class BandProfileResponse {
                         return m.isActive();
                     }
                     return true;
-                })
-                .map(m -> new MusicianResponse(m, Boolean.TRUE))
+                }).map(m -> new MusicianResponse(m, Boolean.TRUE))
                 .collect(Collectors.toList());
         var addedMusicians = this.musicians
                 .stream()
@@ -68,7 +67,12 @@ public class BandProfileResponse {
 
         this.contributedMusics = band.getContributedMusics()
                 .stream()
-                .map(MusicResponse::new)
+                .filter(m -> {
+                    if (!isBandOwner) {
+                        return m.isActive();
+                    }
+                    return true;
+                }).map(MusicResponse::new)
                 .collect(Collectors.toList());
     }
 }

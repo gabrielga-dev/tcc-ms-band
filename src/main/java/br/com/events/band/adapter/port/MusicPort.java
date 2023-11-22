@@ -30,8 +30,7 @@ public interface MusicPort {
     )
     ResponseEntity<UuidHolderDTO> update(String musicUuid, MusicRequest music);
 
-
-    @ApiOperation(value = "Delete music")
+    @ApiOperation(value = "Deactivate music")
     @ApiImplicitParam(
             name = "Authorization",
             value = "Authorization token",
@@ -39,5 +38,15 @@ public interface MusicPort {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<Void> deleteMusic(String musicUuid);
+    ResponseEntity<Void> deactivate(String musicUuid);
+
+    @ApiOperation(value = "Activate music")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> activate(String musicUuid);
 }

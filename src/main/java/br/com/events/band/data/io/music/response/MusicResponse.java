@@ -12,11 +12,13 @@ public class MusicResponse {
     private final String name;
     private final String observation;
     private final Long creationDateTimestamp;
+    private final boolean active;
 
     public MusicResponse(MusicTable music) {
         this.uuid = music.getUuid();
         this.name = music.getName();
         this.observation = music.getObservation();
         this.creationDateTimestamp = DateUtil.localDateTimeToMilliseconds(music.getCreationDate());
+        this.active = music.isActive();
     }
 }
