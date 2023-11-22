@@ -3,7 +3,7 @@ package br.com.events.band.business.use_case.musician.impl;
 import br.com.events.band.business.command.musician.FindMusicianCommand;
 import br.com.events.band.business.command.musician.FindPersonMusicianCommand;
 import br.com.events.band.business.command.musician.SaveMusicianCommand;
-import br.com.events.band.business.use_case.musician.DeleteMusiciansUseCase;
+import br.com.events.band.business.use_case.musician.DeactivateMusiciansUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.musician.MusicianExistsException;
 import br.com.events.band.core.exception.musician.MusicianHasAnAccountException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DeleteMusiciansUseCaseImpl implements DeleteMusiciansUseCase {
+public class DeactivateMusiciansUseCaseImpl implements DeactivateMusiciansUseCase {
 
     private final FindMusicianCommand findMusicianCommand;
     private final FindPersonMusicianCommand findPersonMusicianCommand;

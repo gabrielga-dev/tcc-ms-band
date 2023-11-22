@@ -78,7 +78,7 @@ public interface MusicianPort {
     )
     ResponseEntity<Page<MusicianWithAddressResponse>> findByCriteria(Pageable pageable, MusicianCriteria criteria);
 
-    @ApiOperation(value = "Delete a musicians of a band")
+    @ApiOperation(value = "Deactivate a musicians of a band")
     @ApiImplicitParam(
             name = "Authorization",
             value = "Authorization token",
@@ -86,7 +86,17 @@ public interface MusicianPort {
             paramType = "header",
             dataTypeClass = String.class
     )
-    ResponseEntity<Void> delete(String musicianUuid);
+    ResponseEntity<Void> deactivate(String musicianUuid);
+
+    @ApiOperation(value = "Activate a musicians of a band")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Void> activate(String musicianUuid);
 
     @ApiOperation(value = "Updates a musician")
     @ApiImplicitParam(
