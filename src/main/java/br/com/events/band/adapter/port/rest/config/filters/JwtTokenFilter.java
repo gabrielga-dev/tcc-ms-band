@@ -1,11 +1,11 @@
 package br.com.events.band.adapter.port.rest.config.filters;
 
 import br.com.events.band.adapter.feign.MsAuthFeign;
+import br.com.events.band.adapter.port.rest.config.filters.exception.NoTokenReceivedException;
 import br.com.events.band.core.exception.BusinessException;
 import br.com.events.band.core.util.FilterExceptionUtil;
 import br.com.events.band.data.io.auth.AuthenticatedPerson;
-import br.com.events.band.adapter.port.rest.config.filters.exception.NoTokenReceivedException;
-import br.com.events.band.data.io.person.response.PersonResponse;
+import br.com.events.band.data.io.person.response.PersonWithRoleResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -60,12 +60,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
     }
 
-    private void authenticate(final PersonResponse person) {
+    private void authenticate(final PersonWithRoleResponse person) {
         var mappedPerson = new AuthenticatedPerson(person);
         var authentication = new UsernamePasswordAuthenticationToken(
                 mappedPerson,
-                null,
-                mappedPerson.getAuthorities());
+                mappedPerson,
+                mappedPerson.getAuthorities()
+        );
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

@@ -1,9 +1,11 @@
 package br.com.events.band.adapter.port.rest.config.exception;
 
 import br.com.events.band.core.exception.BusinessException;
+import br.com.events.band.core.exception.CustomAccessDeniedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +25,7 @@ public class ControllExceptionHandler {
     /**
      * This method handle any {@link BusinessException}
      *
-     * @param ex {@link BusinessException} object with the needed data to extract
+     * @param ex      {@link BusinessException} object with the needed data to extract
      * @param request {@link WebRequest} with the request's data
      * @return {@link ResponseEntity}<{@link Object}> response entity with the mapped exception
      */
@@ -35,9 +37,9 @@ public class ControllExceptionHandler {
 
     /**
      * This method handle any {@link MethodArgumentNotValidException}. These exceptions are thrown when a incoming data
-     * does not matches to the validation.
+     * does not match to the validation.
      *
-     * @param ex {@link MethodArgumentNotValidException} object with the needed data to extract
+     * @param ex      {@link MethodArgumentNotValidException} object with the needed data to extract
      * @param request {@link WebRequest} with the request's data
      * @return {@link ResponseEntity}<{@link Object}> response entity with the mapped exception
      */
@@ -45,17 +47,25 @@ public class ControllExceptionHandler {
     protected ResponseEntity<Object> handleException(MethodArgumentNotValidException ex, WebRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         var errorMessages = ex.getAllErrors().stream()
-            .map(
-                error -> String.format(Objects.requireNonNull(error.getDefaultMessage()))
-            ).collect(
-                Collectors.joining("\n")
-            );
+                .map(
+                        error -> String.format(Objects.requireNonNull(error.getDefaultMessage()))
+                ).collect(
+                        Collectors.joining("\n")
+                );
         var toReturn = BusinessException.BusinessExceptionBody.builder()
-            .code(HttpStatus.BAD_REQUEST.value())
-            .message("Campo(s) inválido(s)!")
-            .description(errorMessages.split("\n")[0])
-            .build();
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message("Campo(s) inválido(s)!")
+                .description(errorMessages.split("\n")[0])
+                .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).headers(responseHeaders).body(toReturn);
     }
 
+    @ExceptionHandler(value = {AccessDeniedException.class})
+    public ResponseEntity<Object> accessDeniedException() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .headers(responseHeaders)
+                .body(new CustomAccessDeniedException().getOnlyBody());
+    }
 }

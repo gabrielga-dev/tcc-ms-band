@@ -1,6 +1,7 @@
 package br.com.events.band.data.io.auth;
 
-import br.com.events.band.data.io.person.response.PersonResponse;
+import br.com.events.band.data.io.person.response.PersonWithRoleResponse;
+import br.com.events.band.data.io.role.response.RoleResponse;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,19 +24,21 @@ public class AuthenticatedPerson implements UserDetails {
     private String lastName;
     private String email;
     private String cpf;
+    private List<RoleResponse> roles;
 
-    public AuthenticatedPerson(PersonResponse person) {
+    public AuthenticatedPerson(PersonWithRoleResponse person) {
         this.uuid = person.getUuid();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.email = person.getEmail();
         this.cpf = person.getCpf();
+        this.roles = person.getRoles();
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.roles;
     }
 
     @Override

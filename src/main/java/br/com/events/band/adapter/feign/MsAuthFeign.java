@@ -2,10 +2,11 @@ package br.com.events.band.adapter.feign;
 
 import br.com.events.band.data.io.band.ServiceType;
 import br.com.events.band.data.io.person.response.PersonResponse;
+import br.com.events.band.data.io.person.response.PersonWithRoleResponse;
 
 public interface MsAuthFeign {
 
-    PersonResponse getAuthenticatedPersonInformation(String jwtToken);
+    PersonWithRoleResponse getAuthenticatedPersonInformation(String jwtToken);
 
     PersonResponse findPersonInformationByCpf(String cpf);
 
