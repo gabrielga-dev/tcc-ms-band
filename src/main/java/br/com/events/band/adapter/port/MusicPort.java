@@ -1,10 +1,14 @@
 package br.com.events.band.adapter.port;
 
 import br.com.events.band.data.io.commom.UuidHolderDTO;
+import br.com.events.band.data.io.music.criteria.MusicCriteria;
 import br.com.events.band.data.io.music.request.MusicRequest;
+import br.com.events.band.data.io.music.response.MusicResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 @Api(tags = "Music Controller")
@@ -49,4 +53,14 @@ public interface MusicPort {
             dataTypeClass = String.class
     )
     ResponseEntity<Void> activate(String musicUuid);
+
+    @ApiOperation(value = "Find music by criteria")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Page<MusicResponse>> findByCriteria(MusicCriteria criteria, Pageable pageable);
 }
