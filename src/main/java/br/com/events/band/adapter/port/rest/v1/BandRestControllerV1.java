@@ -53,6 +53,7 @@ public class BandRestControllerV1 implements BandPort {
     private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<URI> create(
             @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
@@ -89,6 +90,7 @@ public class BandRestControllerV1 implements BandPort {
 
     @Override
     @PutMapping("/{bandUuid}")
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<Void> update(
             @PathVariable("bandUuid") String bandUuid,
             @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
@@ -108,6 +110,7 @@ public class BandRestControllerV1 implements BandPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @PatchMapping("/{bandUuid}/toggle")
     public ResponseEntity<Void> toggleBandActivity(@PathVariable("bandUuid") String bandUuid) {
         toggleBandActivityFlagUseCase.execute(bandUuid);
@@ -115,6 +118,7 @@ public class BandRestControllerV1 implements BandPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @DeleteMapping("/{bandUuid}/picture")
     public ResponseEntity<Void> removeProfilePicture(@PathVariable String bandUuid) {
         removeBandProfilePictureUseCase.execute(bandUuid);

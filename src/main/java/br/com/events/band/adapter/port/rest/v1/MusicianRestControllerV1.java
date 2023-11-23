@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -48,6 +49,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     private final RemoveMusicianAvatarUseCase removeMusicianAvatarUseCase;
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @PostMapping("/{cpf}/band/{bandUuid}/associate")
     public ResponseEntity<UuidHolderDTO> associate(
             @PathVariable String bandUuid, @PathVariable("cpf") String musicianCpf
@@ -57,6 +59,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @DeleteMapping("/{musicianUuid}/band/{bandUuid}/disassociate")
     public ResponseEntity<Void> disassociate(@PathVariable String bandUuid, @PathVariable String musicianUuid) {
         disassociateCreatedMusicianUseCase.execute(bandUuid, musicianUuid);
@@ -65,6 +68,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @PostMapping(value = "/band/{bandUuid}", consumes = "multipart/form-data")
     public ResponseEntity<UuidHolderDTO> create(
             @PathVariable("bandUuid") String bandUuid,
@@ -86,6 +90,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
 
     @Override
     @GetMapping("/cpf/{musicianCpf}")
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<MusicianWithAddressResponse> findByCpf(@PathVariable("musicianCpf") String musicianCpf) {
         var response = findMusicianByCpfUseCase.execute(musicianCpf);
 
@@ -94,6 +99,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
 
     @Override
     @GetMapping
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<Page<MusicianWithAddressResponse>> findByCriteria(
             Pageable pageable, MusicianCriteria criteria
     ) {
@@ -104,6 +110,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
 
     @Override
     @DeleteMapping("/{musicianUuid}")
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<Void> deactivate(@PathVariable("musicianUuid") String musicianUuid) {
         deactivateMusiciansUseCase.execute(musicianUuid);
 
@@ -112,6 +119,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
 
     @Override
     @PatchMapping
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<Void> activate(@RequestParam("musicianUuid") String musicianUuid) {
         activateMusiciansUseCase.execute(musicianUuid);
 
@@ -119,6 +127,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @PutMapping(value = "/{musicianUuid}", consumes = "multipart/form-data")
     public ResponseEntity<Void> update(
             @PathVariable("musicianUuid") String musicianUuid,
@@ -130,6 +139,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @DeleteMapping("/{musicianUuid}/avatar")
     public ResponseEntity<Void> removeMusicianAvatar(@PathVariable("musicianUuid") String uuid) {
         removeMusicianAvatarUseCase.execute(uuid);

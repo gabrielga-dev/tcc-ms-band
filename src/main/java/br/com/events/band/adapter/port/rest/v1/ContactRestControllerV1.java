@@ -9,6 +9,7 @@ import br.com.events.band.business.use_case.contact.UpdateBandContactUseCase;
 import br.com.events.band.data.io.contact.response.ContactResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class ContactRestControllerV1 implements ContactPort {
 
     @Override
     @PostMapping("/band/{uuid}")
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<ContactResponse> createBandContact(
             @PathVariable("uuid") String bandUuid,
             @RequestBody ContactRequest request
@@ -42,6 +44,7 @@ public class ContactRestControllerV1 implements ContactPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @DeleteMapping("band/{bandUuid}/contact/{contactUuid}")
     public ResponseEntity<Void> removeBandContact(
             @PathVariable("bandUuid") String bandUuid,
@@ -53,6 +56,7 @@ public class ContactRestControllerV1 implements ContactPort {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('BAND')")
     @PutMapping("band/{bandUuid}/contact/{contactUuid}")
     public ResponseEntity<Void> updateBandContact(
             @PathVariable("bandUuid") String bandUuid,

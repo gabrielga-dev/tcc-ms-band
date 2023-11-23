@@ -10,6 +10,7 @@ import br.com.events.band.data.io.music.request.MusicRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class MusicRestControllerV1 implements MusicPort {
 
     @Override
     @PostMapping("/band/{bandUuid}")
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<UuidHolderDTO> contribute(
             @PathVariable("bandUuid") String bandUuid,
             @RequestBody @Valid MusicRequest request
@@ -45,6 +47,7 @@ public class MusicRestControllerV1 implements MusicPort {
 
     @Override
     @PutMapping("/{musicUuid}")
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<UuidHolderDTO> update(
             @PathVariable String musicUuid, @RequestBody @Valid MusicRequest music
     ) {
@@ -54,6 +57,7 @@ public class MusicRestControllerV1 implements MusicPort {
 
     @Override
     @DeleteMapping("/{musicUuid}")
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<Void> deactivate(@PathVariable String musicUuid) {
         deactivateMusicUseCase.execute(musicUuid);
         return ResponseEntity.noContent().build();
@@ -61,6 +65,7 @@ public class MusicRestControllerV1 implements MusicPort {
 
     @Override
     @PatchMapping
+    @PreAuthorize("hasAuthority('BAND')")
     public ResponseEntity<Void> activate(@RequestParam("musicUuid") String musicUuid) {
         activateMusicUseCase.execute(musicUuid);
         return ResponseEntity.noContent().build();
