@@ -10,6 +10,8 @@ public class MusicResponse {
 
     private final String uuid;
     private final String name;
+    private final String author;
+    private final String artist;
     private final String observation;
     private final Long creationDateTimestamp;
     private final boolean active;
@@ -17,6 +19,8 @@ public class MusicResponse {
     public MusicResponse(MusicTable music) {
         this.uuid = music.getUuid();
         this.name = music.getName();
+        this.author = music.getAuthor();
+        this.artist = music.getArtist();
         this.observation = music.getObservation();
         this.creationDateTimestamp = DateUtil.localDateTimeToMilliseconds(music.getCreationDate());
         this.active = music.isActive();
