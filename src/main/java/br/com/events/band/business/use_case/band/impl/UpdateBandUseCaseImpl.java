@@ -42,7 +42,9 @@ public class UpdateBandUseCaseImpl implements UpdateBandUseCase {
 
         band.update(request);
 
-        if (Objects.nonNull(profilePicture)) {
+        if (request.isClearProfilePicture()){
+            band.removeProfilePicture();
+        } else if (Objects.nonNull(profilePicture)) {
             var savedPicture = uploadFileCommand.execute(
                     FileOriginType.BAND.name(),
                     bandUuid,

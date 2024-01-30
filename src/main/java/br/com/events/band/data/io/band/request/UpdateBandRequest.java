@@ -32,4 +32,6 @@ public class UpdateBandRequest {
 
     @Valid
     private AddressRequest address;
+
+    private boolean clearProfilePicture;
 }

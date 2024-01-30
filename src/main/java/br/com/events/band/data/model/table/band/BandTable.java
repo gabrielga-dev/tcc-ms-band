@@ -126,4 +126,8 @@ public class BandTable implements
                 .filter(assoc -> assoc.getMusician().getUuid().equals(musician.getUuid()))
                 .findFirst();
     }
+
+    public void removeProfilePicture(){
+        this.profilePictureUuid = null;
+    }
 }

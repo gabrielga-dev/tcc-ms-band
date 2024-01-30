@@ -4,6 +4,7 @@ public interface IAddress {
 
     String getStreet();
     String getNeighbour();
+    Integer getNumber();
     String getComplement();
 
     Long getCityId();
