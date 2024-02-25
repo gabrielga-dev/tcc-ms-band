@@ -1,6 +1,7 @@
 package br.com.events.band.adapter.port.rest.v1;
 
 import br.com.events.band.adapter.port.MusicianTypePort;
+import br.com.events.band.business.use_case.musician_type.FindAllMusicianTypeUseCase;
 import br.com.events.band.business.use_case.musician_type.FindMusicianTypeByCriteriaUseCase;
 import br.com.events.band.data.io.musician_type.criteria.MusicianTypeCriteria;
 import br.com.events.band.data.io.musician_type.response.MusicianTypeResponse;
@@ -13,12 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/musician/type")
 @RequiredArgsConstructor
 public class MusicianTypeRestControllerV1 implements MusicianTypePort {
 
     private final FindMusicianTypeByCriteriaUseCase findMusicianTypeByCriteriaUseCase;
+    private final FindAllMusicianTypeUseCase findAllMusicianTypeUseCase;
 
     @Override
     @GetMapping
@@ -28,5 +32,13 @@ public class MusicianTypeRestControllerV1 implements MusicianTypePort {
     ) {
         var page = findMusicianTypeByCriteriaUseCase.findByCriteria(pageable, criteria);
         return ResponseEntity.ok(page);
+    }
+
+    @Override
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('BAND', 'CONTRACTOR')")
+    public ResponseEntity<List<MusicianTypeResponse>> findAll() {
+        var musicianTypes = findAllMusicianTypeUseCase.execute();
+        return ResponseEntity.ok(musicianTypes);
     }
 }

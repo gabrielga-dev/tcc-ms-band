@@ -16,6 +16,10 @@ public class FindMusicianTypeCommand {
 
     private final MusicianTypeRepository musicianTypeRepository;
 
+    public List<MusicianTypeTable> findAll() {
+        return musicianTypeRepository.findAll();
+    }
+
     public List<MusicianTypeTable> byUuid(List<String> uuids) {
         return musicianTypeRepository.findAllByUuid(uuids);
     }
