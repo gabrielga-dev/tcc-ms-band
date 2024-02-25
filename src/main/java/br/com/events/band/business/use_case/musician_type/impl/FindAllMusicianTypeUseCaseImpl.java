@@ -6,6 +6,7 @@ import br.com.events.band.data.io.musician_type.response.MusicianTypeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ public class FindAllMusicianTypeUseCaseImpl implements FindAllMusicianTypeUseCas
         return findMusicianTypeCommand.findAll()
                 .stream()
                 .map(MusicianTypeResponse::new)
+                .sorted(Comparator.comparing(MusicianTypeResponse::getName))
                 .collect(Collectors.toList());
     }
 }
