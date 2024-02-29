@@ -32,7 +32,7 @@ public class AddressRequest implements IAddress {
     @Size(min = 3, max = 50, message = "O campo do nome do bairro deve conter, pelo menos, 3 caracteres e no máximo 50.")
     private String neighbour;
 
-    @Size(min = 3, max = 10, message = "O campo do complement deve conter, pelo menos, 1 caracteres e no máximo 10.")
+    @Size(max = 10, message = "O campo do complement deve conter, pelo menos, 1 caracteres e no máximo 10.")
     private String complement;
 
     @NotNull(message = "O campo da cidade não pode ser nulo.")

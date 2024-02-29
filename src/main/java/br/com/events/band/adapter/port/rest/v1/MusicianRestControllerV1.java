@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/v1/musician")
 @RequiredArgsConstructor
@@ -73,7 +75,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     public ResponseEntity<UuidHolderDTO> create(
             @PathVariable("bandUuid") String bandUuid,
             @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
-            @RequestPart("request") MusicianRequest musician
+            @RequestPart("request") @Valid MusicianRequest musician
     ) {
         var response = createMusicianUseCase.execute(profilePicture, musician, bandUuid);
 
@@ -132,7 +134,7 @@ public class MusicianRestControllerV1 implements MusicianPort {
     public ResponseEntity<Void> update(
             @PathVariable("musicianUuid") String musicianUuid,
             @RequestPart(value = "profilePicture", required = false) MultipartFile profilePicture,
-            @RequestPart(value = "request") MusicianRequest request
+            @RequestPart(value = "request") @Valid MusicianRequest request
     ) {
         updateMusicianUseCase.execute(musicianUuid, request, profilePicture);
         return ResponseEntity.ok().build();

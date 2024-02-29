@@ -29,6 +29,10 @@ public class MusicianResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean active;
     private List<MusicianTypeResponse> types;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String cpf;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String email;
 
     public MusicianResponse(BandMusicianTable assoc) {
         this.setBasicInformation(assoc.getMusician());
@@ -56,6 +60,8 @@ public class MusicianResponse {
         this.birthDay = DateUtil.localDateTimeToMilliseconds(musician.getBirthday());
         this.creationDateMilliseconds = DateUtil.localDateTimeToMilliseconds(musician.getCreationDate());
         this.avatarUuid = musician.getProfilePictureUuid();
+        this.cpf = musician.getCpf();
+        this.email = musician.getEmail();
     }
 
     public void setTypes(List<MusicianTypeTable> types) {
