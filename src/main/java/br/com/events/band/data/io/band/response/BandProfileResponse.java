@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
@@ -58,7 +59,9 @@ public class BandProfileResponse {
                 ).collect(Collectors.toList());
 
         this.createdMusicians = band.getInsertedMusicians()
-                .stream().map(
+                .stream()
+                .filter(musician -> Objects.isNull(musician.getPersonUuid()))
+                .map(
                         musician -> new MusicianResponse(musician, Boolean.TRUE)
                 ).collect(Collectors.toList());
 
