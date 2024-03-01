@@ -42,6 +42,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
     private final SaveMusicianCommand saveMusicianCommand;
     private final FindMusicianTypeCommand findMusicianTypeCommand;
     private final UploadFileCommand uploadFileCommand;
+    private final AssociateCreatedMusicianUseCaseImpl associateCreatedMusicianUseCaseImpl;
 
     @Override
     @Transactional
@@ -79,6 +80,8 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
             toSave.setProfilePicture(savedPicture);
             toSave = saveMusicianCommand.execute(toSave);
         }
+
+        associateCreatedMusicianUseCaseImpl.execute(bandUuid, toSave.getUuid());
 
         return new UuidHolderDTO(toSave.getUuid());
     }
