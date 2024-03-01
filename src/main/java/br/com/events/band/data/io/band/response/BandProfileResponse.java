@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
@@ -26,6 +27,7 @@ public class BandProfileResponse {
     private AddressResponse address;
     private List<ContactResponse> contacts;
     private List<MusicianResponse> musicians;
+    private List<MusicianResponse> createdMusicians;
     private List<MusicResponse> contributedMusics;
 
     public BandProfileResponse(BandTable band, AddressResponse address) {
@@ -43,27 +45,25 @@ public class BandProfileResponse {
         var isBandOwner = AuthUtil.isAuthenticated() &&
                 AuthUtil.getAuthenticatedPersonUuid().equals(band.getOwnerUuid());
 
-        this.musicians = band.getInsertedMusicians()
+        this.musicians = band.getAssociatedMusicians()
                 .stream()
-                .filter(m -> {
+                .filter(assoc -> {
                     if (!isBandOwner) {
-                        return m.isActive();
+                        return assoc.getMusician().isActive();
                     }
                     return true;
-                }).map(m -> new MusicianResponse(m, Boolean.TRUE))
-                .collect(Collectors.toList());
-        var addedMusicians = this.musicians
+                }).map(
+                        assoc -> new MusicianResponse(
+                                assoc.getMusician(), assoc.getMusician().getBandThatInserted().getUuid().equals(uuid)
+                        )
+                ).collect(Collectors.toList());
+
+        this.createdMusicians = band.getInsertedMusicians()
                 .stream()
-                .map(MusicianResponse::getUuid)
-                .collect(Collectors.toSet());
-        band.getAssociatedMusicians().forEach(
-                musicianAssoc -> {
-                    if (!addedMusicians.contains(musicianAssoc.getMusician().getUuid())) {
-                        this.musicians.add(new MusicianResponse(musicianAssoc));
-                        addedMusicians.add(musicianAssoc.getMusician().getUuid());
-                    }
-                }
-        );
+                .filter(musician -> Objects.isNull(musician.getPersonUuid()))
+                .map(
+                        musician -> new MusicianResponse(musician, Boolean.TRUE)
+                ).collect(Collectors.toList());
 
         this.contributedMusics = band.getContributedMusics()
                 .stream()

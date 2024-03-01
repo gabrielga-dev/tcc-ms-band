@@ -2,7 +2,6 @@ package br.com.events.band.data.io.musician.response;
 
 import br.com.events.band.core.util.DateUtil;
 import br.com.events.band.data.io.musician_type.response.MusicianTypeResponse;
-import br.com.events.band.data.model.table.band.BandMusicianTable;
 import br.com.events.band.data.model.table.musician.MusicianTable;
 import br.com.events.band.data.model.table.musician.MusicianTypeTable;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -33,22 +32,15 @@ public class MusicianResponse {
     private String cpf;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String email;
-
-    public MusicianResponse(BandMusicianTable assoc) {
-        this.setBasicInformation(assoc.getMusician());
-
-        var bandAssocUuid = assoc.getBand().getUuid();
-        var musicianBand = assoc.getMusician().getBandThatInserted();
-        this.hasStartedWithThisBand = Objects.nonNull(musicianBand) && bandAssocUuid.equals(musicianBand.getUuid());
-        this.active = assoc.getMusician().isActive();
-        this.setTypes(assoc.getMusician().getTypes());
-    }
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean hasAccount;
 
     public MusicianResponse(MusicianTable musician, Boolean hasStartedWithThisBand) {
         this.setBasicInformation(musician);
 
         this.hasStartedWithThisBand = hasStartedWithThisBand;
         this.active = musician.isActive();
+        this.hasAccount = Objects.nonNull(musician.getPersonUuid());
         this.setTypes(musician.getTypes());
     }
 

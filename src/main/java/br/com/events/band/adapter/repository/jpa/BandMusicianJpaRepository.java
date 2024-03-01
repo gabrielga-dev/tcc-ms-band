@@ -16,4 +16,8 @@ public interface BandMusicianJpaRepository extends
     @Modifying
     @Query("delete from BandMusicianTable b where b.band.uuid=:bandUuid AND b.musician.uuid=:musicianUuid")
     void disassociateMusicianFromBand(@Param("bandUuid") String bandUuid, @Param("musicianUuid") String musicianUuid);
+
+    @Modifying
+    @Query("delete from BandMusicianTable b where b.musician.uuid=:musicianUuid")
+    void disassociateMusicianFromBands(@Param("musicianUuid") String musicianUuid);
 }

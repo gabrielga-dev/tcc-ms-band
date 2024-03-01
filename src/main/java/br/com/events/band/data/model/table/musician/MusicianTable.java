@@ -80,6 +80,9 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
     @Column(name = "avatar_picture_uuid")
     private String profilePictureUuid;
 
+    @Column(name = "person_uuid")
+    private String personUuid;
+
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "musician", cascade = CascadeType.ALL)
     private MusicianAddressTable address;
 
@@ -128,8 +131,10 @@ public class MusicianTable implements ActionableTable, UpdatableTable<MusicianRe
         return Objects.nonNull(this.bandThatInserted);
     }
 
-    public boolean belongsTo(BandTable band) {
-        return this.wasInsertedByBand() && this.getBandThatInserted().getUuid().equals(band.getUuid());
+    public boolean isAssociatedWith(BandTable band) {
+        return band.getAssociatedMusicians()
+                .stream()
+                .anyMatch(assoc -> assoc.getMusician().getUuid().equals(this.uuid));
     }
 
     public void disassociate(BandTable band) {

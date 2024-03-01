@@ -31,7 +31,7 @@ public class AssociateCreatedMusicianUseCaseImpl implements AssociateCreatedMusi
 
         var musician = findMusicianCommand.byCpf(musicianCpf).orElseThrow(MusicianDoesNotExistException::new);
 
-        if (musician.belongsTo(band)) {
+        if (musician.isAssociatedWith(band)) {
             throw new MusicianAlreadyLinkedToBandException();
         }
 

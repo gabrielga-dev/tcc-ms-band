@@ -1,5 +1,6 @@
 package br.com.events.band.business.use_case.musician.impl;
 
+import br.com.events.band.business.command.band_musician.DeleteAllBandMusicianAssociationsCommand;
 import br.com.events.band.business.command.musician.FindMusicianCommand;
 import br.com.events.band.business.command.musician.FindPersonMusicianCommand;
 import br.com.events.band.business.command.musician.SaveMusicianCommand;
@@ -20,6 +21,7 @@ public class DeactivateMusiciansUseCaseImpl implements DeactivateMusiciansUseCas
     private final FindMusicianCommand findMusicianCommand;
     private final FindPersonMusicianCommand findPersonMusicianCommand;
     private final SaveMusicianCommand saveMusicianCommand;
+    private final DeleteAllBandMusicianAssociationsCommand deleteAllBandMusicianAssociationsCommand;
 
     @Override
     public void execute(String musicianUuid) {
@@ -27,14 +29,15 @@ public class DeactivateMusiciansUseCaseImpl implements DeactivateMusiciansUseCas
 
         findPersonMusicianCommand.byCpf(musician.getCpf())
                 .ifPresentOrElse(
-                        person -> this.deleteWhenMusicianIsPerson(person, musician),
+                        this::deleteWhenMusicianIsPerson,
                         () -> this.deleteWhenMusicianIsNotPerson(musician)
                 );
         musician.deactivate();
         saveMusicianCommand.execute(musician);
+        deleteAllBandMusicianAssociationsCommand.execute(musician.getUuid());
     }
 
-    private void deleteWhenMusicianIsPerson(PersonResponse person, MusicianTable musician) {
+    private void deleteWhenMusicianIsPerson(PersonResponse person) {
         if (!AuthUtil.getAuthenticatedPerson().getCpf().equals(person.getCpf())) {
             throw new MusicianHasAnAccountException();
         }
