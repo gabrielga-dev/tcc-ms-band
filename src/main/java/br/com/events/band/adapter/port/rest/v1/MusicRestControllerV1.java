@@ -2,6 +2,7 @@ package br.com.events.band.adapter.port.rest.v1;
 
 import br.com.events.band.adapter.port.MusicPort;
 import br.com.events.band.business.use_case.music.ActivateMusicUseCase;
+import br.com.events.band.business.use_case.music.FindBandMusicsUseCase;
 import br.com.events.band.business.use_case.music.FindMusicByCriteriaUseCase;
 import br.com.events.band.data.io.commom.UuidHolderDTO;
 import br.com.events.band.business.use_case.music.ContributeMusicUseCase;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/music")
@@ -39,6 +41,7 @@ public class MusicRestControllerV1 implements MusicPort {
     private final DeactivateMusicUseCase deactivateMusicUseCase;
     private final ActivateMusicUseCase activateMusicUseCase;
     private final FindMusicByCriteriaUseCase findMusicByCriteriaUseCase;
+    private final FindBandMusicsUseCase findBandMusicsUseCase;
 
     @Override
     @PostMapping("/band/{bandUuid}")
@@ -84,5 +87,13 @@ public class MusicRestControllerV1 implements MusicPort {
     public ResponseEntity<Page<MusicResponse>> findByCriteria(MusicCriteria criteria, Pageable pageable) {
         var page = findMusicByCriteriaUseCase.execute(criteria, pageable);
         return ResponseEntity.ok(page);
+    }
+
+    @Override
+    @GetMapping("/band/{bandUuid}")
+    @PreAuthorize("hasAnyAuthority('BAND', 'CONTRACTOR')")
+    public ResponseEntity<List<MusicResponse>> findBandMusics(@PathVariable("bandUuid") String bandUuid) {
+        var musics = findBandMusicsUseCase.execute(bandUuid);
+        return ResponseEntity.ok(musics);
     }
 }

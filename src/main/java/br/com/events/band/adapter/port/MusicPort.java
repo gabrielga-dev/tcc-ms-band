@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 @Api(tags = "Music Controller")
 public interface MusicPort {
 
@@ -63,4 +65,7 @@ public interface MusicPort {
             dataTypeClass = String.class
     )
     ResponseEntity<Page<MusicResponse>> findByCriteria(MusicCriteria criteria, Pageable pageable);
+
+    @ApiOperation(value = "Find music by criteria")
+    ResponseEntity<List<MusicResponse>> findBandMusics(String bandUuid);
 }
