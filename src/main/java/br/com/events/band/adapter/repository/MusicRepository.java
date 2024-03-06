@@ -15,4 +15,8 @@ public interface MusicRepository {
     Optional<MusicTable> findById(String musicUuid);
 
     Page<MusicTable> findByCriteria(String name, String author, String artist, Pageable pageable);
+
+    Page<MusicTable> findByCriteria(
+            String personUuid, String bandUuid, String name, String author, String artist, Pageable pageable
+    );
 }

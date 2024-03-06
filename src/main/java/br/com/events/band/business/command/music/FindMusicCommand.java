@@ -1,6 +1,7 @@
 package br.com.events.band.business.command.music;
 
 import br.com.events.band.adapter.repository.MusicRepository;
+import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.music.criteria.MusicCriteria;
 import br.com.events.band.data.model.table.music.MusicTable;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,15 @@ public class FindMusicCommand {
         return this.musicRepository.findById(musicUuid);
     }
 
-    public Optional<MusicTable> byUuidAndBandUuid(String musicUuid, String bandUuid) {
-        return this.musicRepository.findByUuidAndBandUuid(musicUuid, bandUuid);
+    public Page<MusicTable> byBandUuidAndCriteria(String bandUuid, MusicCriteria criteria, Pageable pageable) {
+        return this.musicRepository.findByCriteria(
+                AuthUtil.getAuthenticatedPersonUuid(),
+                bandUuid,
+                criteria.getName(),
+                criteria.getAuthor(),
+                criteria.getArtist(),
+                pageable
+        );
     }
 
     public Page<MusicTable> byCriteria(MusicCriteria criteria, Pageable pageable) {
