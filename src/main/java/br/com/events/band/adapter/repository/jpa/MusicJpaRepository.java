@@ -33,4 +33,21 @@ public interface MusicJpaRepository extends MusicRepository, JpaRepository<Music
             @Param("artist") String artist,
             Pageable pageable
     );
+
+    @Query(
+            "SELECT music FROM MusicTable music join music.contributingBand band " +
+                    "WHERE band.uuid = :bandUuid " +
+                    "AND ((band.ownerUuid = :personUuid) OR (music.active = TRUE)) " +
+                    "AND ((:name IS NULL) OR  (music.name LIKE CONCAT('%',:name,'%'))) " +
+                    "AND ((:author IS NULL) OR  (music.author LIKE CONCAT('%',:author,'%'))) " +
+                    "AND ((:artist IS NULL) OR  (music.artist LIKE CONCAT('%',:artist,'%'))) "
+    )
+    Page<MusicTable> findByCriteria(
+            @Param("personUuid") String personUuid,
+            @Param("bandUuid") String bandUuid,
+            @Param("name") String name,
+            @Param("author") String author,
+            @Param("artist") String artist,
+            Pageable pageable
+    );
 }

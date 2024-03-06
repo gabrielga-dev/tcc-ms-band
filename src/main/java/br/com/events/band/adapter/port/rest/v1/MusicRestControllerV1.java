@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/v1/music")
@@ -92,8 +91,10 @@ public class MusicRestControllerV1 implements MusicPort {
     @Override
     @GetMapping("/band/{bandUuid}")
     @PreAuthorize("hasAnyAuthority('BAND', 'CONTRACTOR')")
-    public ResponseEntity<List<MusicResponse>> findBandMusics(@PathVariable("bandUuid") String bandUuid) {
-        var musics = findBandMusicsUseCase.execute(bandUuid);
+    public ResponseEntity<Page<MusicResponse>> findBandMusics(
+            @PathVariable("bandUuid") String bandUuid, MusicCriteria criteria, Pageable pageable
+    ) {
+        var musics = findBandMusicsUseCase.execute(bandUuid, criteria, pageable);
         return ResponseEntity.ok(musics);
     }
 }
