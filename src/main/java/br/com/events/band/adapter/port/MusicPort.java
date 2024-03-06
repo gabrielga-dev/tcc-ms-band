@@ -65,5 +65,22 @@ public interface MusicPort {
     ResponseEntity<Page<MusicResponse>> findByCriteria(MusicCriteria criteria, Pageable pageable);
 
     @ApiOperation(value = "Find music by criteria")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
     ResponseEntity<Page<MusicResponse>> findBandMusics(String bandUuid, MusicCriteria criteria, Pageable pageable);
+
+    @ApiOperation(value = "Find music by uuid")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<MusicResponse> findByUuid(String musicUuid);
 }

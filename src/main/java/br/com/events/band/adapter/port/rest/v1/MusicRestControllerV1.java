@@ -4,6 +4,7 @@ import br.com.events.band.adapter.port.MusicPort;
 import br.com.events.band.business.use_case.music.ActivateMusicUseCase;
 import br.com.events.band.business.use_case.music.FindBandMusicsUseCase;
 import br.com.events.band.business.use_case.music.FindMusicByCriteriaUseCase;
+import br.com.events.band.business.use_case.music.FindMusicByUuidUseCase;
 import br.com.events.band.data.io.commom.UuidHolderDTO;
 import br.com.events.band.business.use_case.music.ContributeMusicUseCase;
 import br.com.events.band.business.use_case.music.DeactivateMusicUseCase;
@@ -41,6 +42,7 @@ public class MusicRestControllerV1 implements MusicPort {
     private final ActivateMusicUseCase activateMusicUseCase;
     private final FindMusicByCriteriaUseCase findMusicByCriteriaUseCase;
     private final FindBandMusicsUseCase findBandMusicsUseCase;
+    private final FindMusicByUuidUseCase findMusicByUuidUseCase;
 
     @Override
     @PostMapping("/band/{bandUuid}")
@@ -96,5 +98,12 @@ public class MusicRestControllerV1 implements MusicPort {
     ) {
         var musics = findBandMusicsUseCase.execute(bandUuid, criteria, pageable);
         return ResponseEntity.ok(musics);
+    }
+
+    @Override
+    @GetMapping("/{musicUuid}")
+    public ResponseEntity<MusicResponse> findByUuid(@PathVariable("musicUuid") String musicUuid) {
+        var music = findMusicByUuidUseCase.execute(musicUuid);
+        return ResponseEntity.ok(music);
     }
 }
