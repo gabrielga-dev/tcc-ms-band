@@ -14,12 +14,14 @@ import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.file.FileOriginType;
 import br.com.events.band.data.io.file.FileType;
 import br.com.events.band.data.io.musician.request.MusicianRequest;
+import br.com.events.band.data.io.musician.request.UpdateMusicianRequestMessage;
 import br.com.events.band.data.io.person.response.PersonResponse;
 import br.com.events.band.data.model.table.musician.MusicianTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Component
@@ -73,5 +75,19 @@ public class UpdateMusicianUseCaseImpl implements UpdateMusicianUseCase {
         } else if (!musician.isActive()) {
             throw new ResourceAlreadyDeactivatedException();
         }
+    }
+
+    @Override
+    public void execute(UpdateMusicianRequestMessage request) {
+        var musician = findMusicianCommand.byCpf(request.getCpf())
+                .orElseThrow(MusicianDoesNotExistException::new);
+
+        musician.setFirstName(request.getFirstName());
+        musician.setLastName(request.getLastName());
+        musician.setEmail(request.getEmail());
+        musician.setPersonUuid(request.getPersonUuid());
+        musician.setUpdateDate(LocalDateTime.now());
+
+        saveMusicianCommand.execute(musician);
     }
 }
