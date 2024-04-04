@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -54,4 +55,8 @@ public interface BandJpaRepository extends BandRepository, JpaRepository<BandTab
     );
 
     Optional<BandTable> findByUuidAndOwnerUuid(String uuid, String ownerUuid);
+
+
+    @Query("SELECT band FROM BandTable band WHERE band.uuid IN :uuids")
+    List<BandTable> findAllByUuid(List<String> uuids);
 }
