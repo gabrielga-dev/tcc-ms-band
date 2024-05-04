@@ -1,4 +1,4 @@
-package br.com.events.band.adapter.messaging.sqs;
+package br.com.events.band.adapter.messaging.sqs.listener;
 
 
 import br.com.events.band.business.use_case.musician.UpdateMusicianUseCase;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class EmailRequestSqsListener {
+public class UpdateMusicianRequestSqsListener {
 
     private final ObjectMapper objectMapper;
     private final UpdateMusicianUseCase updateMusicianUseCase;
 
-    @SqsListener("${cloud.aws.endpoint.uri}")
-    public void receiveEmailRequestMessage(String message) {
+    @SqsListener("${cloud.aws.endpoint.uri.update.musician}")
+    public void receiveUpdateMusicianRequestMessage(String message) {
         try {
             log.info("[START] Received musician update request!: {}", message);
 

@@ -1,7 +1,9 @@
 package br.com.events.band.data.model.table.quote_request;
 
+import br.com.events.band.data.io.quote_request.request.MusicianTypeQuoteRequestRequest;
 import br.com.events.band.data.model.table.musician.MusicianTypeTable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -16,6 +18,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "quote_request_musician_type")
+@NoArgsConstructor
 public class QuoteRequestMusicianTypeTable {
 
     @Id
@@ -33,4 +36,15 @@ public class QuoteRequestMusicianTypeTable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private MusicianTypeTable musicianType;
+
+    public QuoteRequestMusicianTypeTable(
+            MusicianTypeQuoteRequestRequest musicianTypeRequest,
+            MusicianTypeTable musicianTypeTable,
+            QuoteRequestTable quoteRequestTable
+    ) {
+        this.quantity = musicianTypeRequest.getQuantity();
+        this.observation = musicianTypeRequest.getObservation();
+        this.musicianType = musicianTypeTable;
+        this.quoteRequest = quoteRequestTable;
+    }
 }

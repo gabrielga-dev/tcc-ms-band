@@ -27,6 +27,9 @@ public interface MsAuthFeignClient extends MsAuthFeign {
     @GetMapping("/v1/person/cpf/{cpf}")
     PersonResponse findPersonInformationByCpf(@PathVariable String cpf);
 
+    @GetMapping("/v1/person/uuid/{uuid}")
+    PersonResponse findPersonInformationByUuid(@PathVariable String uuid);
+
     @PostMapping("/v1/person/add-service/{serviceUuid}/{serviceType}")
     void addServiceToPerson(
             @PathVariable("serviceUuid") String serviceUuid,

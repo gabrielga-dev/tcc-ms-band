@@ -2,15 +2,19 @@ package br.com.events.band.data.io.address.response;
 
 import br.com.events.band.data.io.address.IAddress;
 import br.com.events.band.data.io.address.city.CityResponse;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 public class AddressResponse {
 
     private String street;
@@ -35,5 +39,17 @@ public class AddressResponse {
         this.state = address.getStateIso();
         this.country = address.getCountryIso();
         this.zipCode = address.getZipCode();
+    }
+
+    @JsonIgnore
+    public String getFormattedAddress() {
+        return String.format(
+                "%s , %d%s %s (%s)",
+                street,
+                number,
+                Objects.nonNull(complement) ? " (" + complement + ")" : "",
+                neighbour,
+                zipCode
+        );
     }
 }

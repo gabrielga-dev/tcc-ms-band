@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -19,9 +21,11 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DateUtil {
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
-    public static LocalDateTime millisecondsToLocalDateTime(Long milliseconds){
-        if (Objects.isNull(milliseconds)){
+    public static LocalDateTime millisecondsToLocalDateTime(Long milliseconds) {
+        if (Objects.isNull(milliseconds)) {
             return null;
         }
         var instant = Instant.ofEpochMilli(milliseconds);
@@ -39,5 +43,13 @@ public final class DateUtil {
         var now = LocalDateTime.now();
         var ageNow = Period.between(birthday.toLocalDate(), now.toLocalDate());
         return ageNow.getYears();
+    }
+
+    public static String formatDate(LocalDateTime eventDate) {
+        return eventDate.format(DATE_FORMATTER);
+    }
+
+    public static String formatTime(LocalTime localTime) {
+        return localTime.format(TIME_FORMATTER);
     }
 }
