@@ -1,6 +1,7 @@
 package br.com.events.band.business.command.band;
 
 import br.com.events.band.adapter.repository.BandRepository;
+import br.com.events.band.adapter.repository.jpa.BandJpaRepository;
 import br.com.events.band.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.data.io.band.criteria.FindBandsCriteria;
 import br.com.events.band.data.model.table.band.BandTable;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -50,5 +52,9 @@ public class FindBandCommand {
                 criteria.getCityId(),
                 criteria.getStateIso(),
                 criteria.getCountryIso());
+    }
+
+    public List<BandTable> findAllByUuid(List<String> uuids) {
+        return bandRepository.findAllByUuid(uuids);
     }
 }

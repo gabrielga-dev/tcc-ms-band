@@ -24,11 +24,15 @@ public class MyEventFeignClientConfiguration extends BaseFeignClientConfig {
     @Bean
     public RequestInterceptor requestInterceptor() {
         return requestTemplate -> {
-            var token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                .getRequest().getHeader(HttpHeaders.AUTHORIZATION);
+            try{
+                var token = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                        .getRequest().getHeader(HttpHeaders.AUTHORIZATION);
 
+                requestTemplate.header(HttpHeaders.AUTHORIZATION, token);
+            } catch (Exception e) {
+                requestTemplate.removeHeader(HttpHeaders.AUTHORIZATION);
+            }
             requestTemplate.header(apiKeyHeaderName, apiKeyHeaderValue);
-            requestTemplate.header(HttpHeaders.AUTHORIZATION, token);
         };
     }
 }

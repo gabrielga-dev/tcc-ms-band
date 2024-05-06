@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -19,6 +21,12 @@ public class FindMusicCommand {
 
     public Optional<MusicTable> byUuid(String musicUuid) {
         return this.musicRepository.findById(musicUuid);
+    }
+    public List<MusicTable> byUuids(List<String> musicUuids) {
+        return this.musicRepository.findAllByUuids(musicUuids)
+                .stream()
+                .filter(MusicTable::isActive)
+                .collect(Collectors.toList());
     }
 
     public Page<MusicTable> byBandUuidAndCriteria(String bandUuid, MusicCriteria criteria, Pageable pageable) {

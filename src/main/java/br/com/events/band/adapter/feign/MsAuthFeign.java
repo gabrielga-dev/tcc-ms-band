@@ -9,6 +9,7 @@ public interface MsAuthFeign {
     PersonWithRoleResponse getAuthenticatedPersonInformation(String jwtToken);
 
     PersonResponse findPersonInformationByCpf(String cpf);
+    PersonResponse findPersonInformationByUuid(String uuid);
 
     void addServiceToPerson(String serviceUuid, ServiceType serviceType);
 }

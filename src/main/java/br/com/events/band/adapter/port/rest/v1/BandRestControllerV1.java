@@ -3,6 +3,7 @@ package br.com.events.band.adapter.port.rest.v1;
 import br.com.events.band.adapter.port.BandPort;
 import br.com.events.band.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
+import br.com.events.band.business.use_case.band.FindBandNamesUseCase;
 import br.com.events.band.business.use_case.band.FindBandProfileUseCase;
 import br.com.events.band.business.use_case.band.FindBandsUseCase;
 import br.com.events.band.business.use_case.band.RemoveBandProfilePictureUseCase;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +35,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This interface dictates all available endpoints and its swagger documentation
@@ -51,6 +55,7 @@ public class BandRestControllerV1 implements BandPort {
     private final FindBandProfileUseCase findBandProfileUseCase;
     private final ToggleBandActivityFlagUseCase toggleBandActivityFlagUseCase;
     private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
+    private final FindBandNamesUseCase findBandNamesUseCase;
 
     @Override
     @PreAuthorize("hasAuthority('BAND')")
@@ -123,5 +128,12 @@ public class BandRestControllerV1 implements BandPort {
     public ResponseEntity<Void> removeProfilePicture(@PathVariable String bandUuid) {
         removeBandProfilePictureUseCase.execute(bandUuid);
         return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    @GetMapping("/name")
+    public ResponseEntity<Map<String, String>> getNames(@RequestParam("bandsUuids") List<String> bandsUuids) {
+        var names = findBandNamesUseCase.execute(bandsUuids);
+        return ResponseEntity.ok(names);
     }
 }

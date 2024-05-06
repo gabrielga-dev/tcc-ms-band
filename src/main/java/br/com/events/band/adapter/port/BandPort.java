@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This interface dictates which endpoints will be needed for implementation and holds which one's Swagger
@@ -95,4 +97,14 @@ public interface BandPort {
             dataTypeClass = String.class
     )
     ResponseEntity<Void> removeProfilePicture(String bandUuid);
+
+    @ApiOperation(value = "Find the names of the bands with the given uuids")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Map<String, String>> getNames(List<String> bandsUuids);
 }
