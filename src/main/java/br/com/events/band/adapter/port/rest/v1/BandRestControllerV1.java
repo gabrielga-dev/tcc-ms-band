@@ -9,12 +9,15 @@ import br.com.events.band.business.use_case.band.FindBandsUseCase;
 import br.com.events.band.business.use_case.band.RemoveBandProfilePictureUseCase;
 import br.com.events.band.business.use_case.band.ToggleBandActivityFlagUseCase;
 import br.com.events.band.business.use_case.band.UpdateBandUseCase;
+import br.com.events.band.business.use_case.quote_request.FindBandsQuoteRequestsUseCase;
 import br.com.events.band.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.data.io.band.criteria.FindBandsCriteria;
 import br.com.events.band.data.io.band.request.BandRequest;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.data.io.band.response.BandProfileResponse;
 import br.com.events.band.data.io.band.response.BandResponse;
+import br.com.events.band.data.io.quote_request.criteria.FindQuoteRequestCriteria;
+import br.com.events.band.data.io.quote_request.response.BriefQuoteRequestResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +59,7 @@ public class BandRestControllerV1 implements BandPort {
     private final ToggleBandActivityFlagUseCase toggleBandActivityFlagUseCase;
     private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
     private final FindBandNamesUseCase findBandNamesUseCase;
+    private final FindBandsQuoteRequestsUseCase findBandsQuoteRequestsUseCase;
 
     @Override
     @PreAuthorize("hasAuthority('BAND')")
@@ -135,5 +139,15 @@ public class BandRestControllerV1 implements BandPort {
     public ResponseEntity<Map<String, String>> getNames(@RequestParam("bandsUuids") List<String> bandsUuids) {
         var names = findBandNamesUseCase.execute(bandsUuids);
         return ResponseEntity.ok(names);
+    }
+
+    @Override
+    @GetMapping("/{bandUuid}/quote-request")
+    @PreAuthorize("hasAuthority('BAND')")
+    public ResponseEntity<Page<BriefQuoteRequestResponse>> findQuoteRequests(
+            @PathVariable String bandUuid, FindQuoteRequestCriteria criteria, Pageable pageable
+    ) {
+        var quoteRequests = findBandsQuoteRequestsUseCase.execute(bandUuid, criteria, pageable);
+        return ResponseEntity.ok(quoteRequests);
     }
 }

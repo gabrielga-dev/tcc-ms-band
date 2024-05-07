@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "quote_request_musician_type")
+@Table(name = "quote")
 public class QuoteTable {
 
     @Id
@@ -36,7 +37,7 @@ public class QuoteTable {
     @Column(name = "observation", nullable = false)
     private String observation;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "quote_request_uuid", referencedColumnName = "uuid")
     private QuoteRequestTable quoteRequest;
 }
