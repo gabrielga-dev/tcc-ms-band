@@ -20,7 +20,7 @@ public interface QuoteRequestJpaRepository extends QuoteRequestRepository, JpaRe
     @Query(
             "SELECT qr FROM QuoteRequestTable qr " +
                     "WHERE qr.band.uuid = :bandUuid AND " +
-                    "((:statuses IS NULL) OR (qr.status IN :statuses)) AND " +
+                    "((:statuses IS NULL) OR (qr.status IN (:statuses))) AND " +
                     "((:startDate IS NULL) OR (:startDate <= qr.creationDate)) AND " +
                     "((:startDate IS NULL) OR (:endDate >= qr.creationDate))"
     )

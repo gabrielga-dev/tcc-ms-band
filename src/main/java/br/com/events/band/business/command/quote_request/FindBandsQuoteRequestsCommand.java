@@ -17,7 +17,9 @@ public class FindBandsQuoteRequestsCommand {
     public Page<QuoteRequestTable> execute(String bandUuid, FindQuoteRequestCriteria criteria, Pageable pageable) {
         return quoteRequestRepository.findByBandUuid(
                 bandUuid,
-                criteria.getStatuses(),
+                criteria.getStatuses().isEmpty()
+                        ? null
+                        : criteria.getStatuses(),
                 criteria.getStartDate(),
                 criteria.getEndDate(),
                 pageable
