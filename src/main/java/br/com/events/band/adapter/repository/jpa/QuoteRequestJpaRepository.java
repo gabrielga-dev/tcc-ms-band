@@ -20,13 +20,13 @@ public interface QuoteRequestJpaRepository extends QuoteRequestRepository, JpaRe
     @Query(
             "SELECT qr FROM QuoteRequestTable qr " +
                     "WHERE qr.band.uuid = :bandUuid AND " +
-                    "((:statuses IS NULL) OR (qr.status IN (:statuses))) AND " +
+                    "( COALESCE(:statusList) IS NULL OR qr.status IN :statusList) AND " +
                     "((:startDate IS NULL) OR (:startDate <= qr.creationDate)) AND " +
                     "((:startDate IS NULL) OR (:endDate >= qr.creationDate))"
     )
     Page<QuoteRequestTable> findByBandUuid(
             @Param("bandUuid") String bandUuid,
-            @Param("statuses") List<QuoteRequestStatusType> statuses,
+            @Param("statusList") List<QuoteRequestStatusType> statuses,
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate,
             Pageable pageable
