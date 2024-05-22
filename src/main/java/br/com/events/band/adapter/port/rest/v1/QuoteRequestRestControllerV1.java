@@ -3,8 +3,12 @@ package br.com.events.band.adapter.port.rest.v1;
 import br.com.events.band.adapter.port.QuoteRequestPort;
 import br.com.events.band.business.use_case.quote_request.DeclineQuoteRequestUseCase;
 import br.com.events.band.business.use_case.quote_request.FindQuoteRequestByUuidUseCase;
+import br.com.events.band.business.use_case.quote_request.GenerateQuoteRequestPdfUseCase;
+import br.com.events.band.core.util.FileUtil;
+import br.com.events.band.data.io.pdf.PdfType;
 import br.com.events.band.data.io.quote_request.response.complete.CompleteBriefQuoteRequestResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +24,7 @@ public class QuoteRequestRestControllerV1 implements QuoteRequestPort {
 
     private final DeclineQuoteRequestUseCase declineQuoteRequestUseCase;
     private final FindQuoteRequestByUuidUseCase findQuoteRequestByUuidUseCase;
+    private final GenerateQuoteRequestPdfUseCase generateQuoteRequestPdfUseCase;
 
     @Override
     @GetMapping("/{quoteRequestUuid}")
@@ -37,5 +42,12 @@ public class QuoteRequestRestControllerV1 implements QuoteRequestPort {
     public ResponseEntity<Void> decline(@PathVariable String quoteRequestUuid) {
         declineQuoteRequestUseCase.execute(quoteRequestUuid);
         return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    @GetMapping("/{quoteRequestUuid}/playlist")
+    public ResponseEntity<InputStreamResource> downloadPlaylist(@PathVariable String quoteRequestUuid) {
+        var pdf = generateQuoteRequestPdfUseCase.execute(quoteRequestUuid, PdfType.PLAYLIST);
+        return FileUtil.output(pdf.getFileBytes(), pdf.getFileName());
     }
 }

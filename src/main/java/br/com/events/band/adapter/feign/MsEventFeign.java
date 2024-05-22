@@ -8,4 +8,6 @@ public interface MsEventFeign {
     EventProfileResponse findProfile(String eventUuid);
 
     void declineQuoteRequest(String quoteRequestUuid, DeclineQuoteRequestMsEventRequest declineQuoteRequestRequest);
+
+
 }

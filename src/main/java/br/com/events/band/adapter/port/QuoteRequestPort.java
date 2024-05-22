@@ -4,6 +4,7 @@ import br.com.events.band.data.io.quote_request.response.complete.CompleteBriefQ
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 
 @Api(tags = "Quote Request Controller")
@@ -19,7 +20,7 @@ public interface QuoteRequestPort {
     )
     ResponseEntity<CompleteBriefQuoteRequestResponse> findByUuid(String quoteRequestUuid);
 
-    @ApiOperation(value = "Decline a  quote request")
+    @ApiOperation(value = "Decline a quote request")
     @ApiImplicitParam(
             name = "Authorization",
             value = "Authorization token",
@@ -28,4 +29,14 @@ public interface QuoteRequestPort {
             dataTypeClass = String.class
     )
     ResponseEntity<Void> decline(String quoteRequestUuid);
+
+    @ApiOperation(value = "Download a PDF with the playlist")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<InputStreamResource> downloadPlaylist(String quoteRequestUuid);
 }
