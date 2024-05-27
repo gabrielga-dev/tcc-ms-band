@@ -12,6 +12,7 @@ import br.com.events.band.data.model.table.quote_request.QuoteRequestStatusType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Component
@@ -32,6 +33,7 @@ public class DeclineQuoteRequestUseCaseImpl implements DeclineQuoteRequestUseCas
             throw new QuoteRequestNotFound();
         }
         quoteRequest.setStatus(QuoteRequestStatusType.DECLINED);
+        quoteRequest.setUpdateDate(LocalDateTime.now());
         quoteRequest = saveQuoteRequestCommand.execute(quoteRequest);
 
         var declineQuoteRequestRequest = new DeclineQuoteRequestMsEventRequest(quoteRequest);
