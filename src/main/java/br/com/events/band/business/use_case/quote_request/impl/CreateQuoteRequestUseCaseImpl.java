@@ -5,7 +5,7 @@ import br.com.events.band.business.command.band.FindBandCommand;
 import br.com.events.band.business.command.music.FindMusicCommand;
 import br.com.events.band.business.command.musician_type.FindMusicianTypeCommand;
 import br.com.events.band.business.command.quote_request.SaveQuoteRequestCommand;
-import br.com.events.band.business.command.quote_request.SendQuoteCreationErrorMessageCommand;
+import br.com.events.band.business.command.quote_request.SendQuoteRequestCreationErrorMessageCommand;
 import br.com.events.band.business.command.quote_request.SendQuoteRequestEmailMessageCommand;
 import br.com.events.band.business.use_case.quote_request.CreateQuoteRequestUseCase;
 import br.com.events.band.core.exception.band.BandNonExistenceException;
@@ -31,7 +31,7 @@ public class CreateQuoteRequestUseCaseImpl implements CreateQuoteRequestUseCase 
     private final SaveQuoteRequestCommand saveQuoteRequestCommand;
     private final MsEventFeign msEventFeign;
     private final SendQuoteRequestEmailMessageCommand sendQuoteRequestEmailMessageCommand;
-    private final SendQuoteCreationErrorMessageCommand sendQuoteRequestEmailMessage;
+    private final SendQuoteRequestCreationErrorMessageCommand sendQuoteRequestEmailMessage;
 
     @Override
     @Transactional

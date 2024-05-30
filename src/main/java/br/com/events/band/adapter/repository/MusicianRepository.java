@@ -4,6 +4,7 @@ import br.com.events.band.data.model.table.musician.MusicianTable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MusicianRepository {
@@ -13,6 +14,8 @@ public interface MusicianRepository {
     MusicianTable save(MusicianTable musicianTable);
 
     Optional<MusicianTable> findById(String musicianUuid);
+
+    List<MusicianTable> findByUuidInList(List<String> musicianUuid);
 
 
     Page<MusicianTable> findByCriteria(

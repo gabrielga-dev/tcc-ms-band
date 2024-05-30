@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,6 +21,9 @@ import java.util.Optional;
 public interface MusicianJpaRepository extends MusicianRepository, JpaRepository<MusicianTable, String> {
 
     Optional<MusicianTable> findByCpf(String cpf);
+
+    @Query("SELECT musician FROM MusicianTable musician WHERE musician.uuid IN :uuids")
+    List<MusicianTable> findByUuidInList(@Param("uuids") List<String> musicianUuids);
 
     @Query(
             "SELECT musician " +
