@@ -6,6 +6,7 @@ import br.com.events.band.data.io.band.request.BandRequest;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.data.io.band.response.BandProfileResponse;
 import br.com.events.band.data.io.band.response.BandResponse;
+import br.com.events.band.data.io.musician.response.MusicianResponse;
 import br.com.events.band.data.io.quote_request.criteria.FindQuoteRequestCriteria;
 import br.com.events.band.data.io.quote_request.response.BriefQuoteRequestResponse;
 import io.swagger.annotations.Api;
@@ -121,4 +122,14 @@ public interface BandPort {
     ResponseEntity<Page<BriefQuoteRequestResponse>> findQuoteRequests(
             String bandUuid, FindQuoteRequestCriteria criteria, Pageable pageable
     );
+
+    @ApiOperation(value = "Find all band's musicians")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<List<MusicianResponse>> findMusicians(String bandUuid);
 }

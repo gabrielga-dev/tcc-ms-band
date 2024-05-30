@@ -2,6 +2,7 @@ package br.com.events.band.adapter.port.rest.v1;
 
 import br.com.events.band.adapter.port.BandPort;
 import br.com.events.band.business.use_case.band.CreateBandUseCase;
+import br.com.events.band.business.use_case.band.FindAllMusiciansUseCase;
 import br.com.events.band.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
 import br.com.events.band.business.use_case.band.FindBandNamesUseCase;
 import br.com.events.band.business.use_case.band.FindBandProfileUseCase;
@@ -16,6 +17,7 @@ import br.com.events.band.data.io.band.request.BandRequest;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.data.io.band.response.BandProfileResponse;
 import br.com.events.band.data.io.band.response.BandResponse;
+import br.com.events.band.data.io.musician.response.MusicianResponse;
 import br.com.events.band.data.io.quote_request.criteria.FindQuoteRequestCriteria;
 import br.com.events.band.data.io.quote_request.response.BriefQuoteRequestResponse;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +62,7 @@ public class BandRestControllerV1 implements BandPort {
     private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
     private final FindBandNamesUseCase findBandNamesUseCase;
     private final FindBandsQuoteRequestsUseCase findBandsQuoteRequestsUseCase;
+    private final FindAllMusiciansUseCase findAllMusiciansUseCase;
 
     @Override
     @PreAuthorize("hasAuthority('BAND')")
@@ -148,6 +151,14 @@ public class BandRestControllerV1 implements BandPort {
             @PathVariable String bandUuid, FindQuoteRequestCriteria criteria, Pageable pageable
     ) {
         var quoteRequests = findBandsQuoteRequestsUseCase.execute(bandUuid, criteria, pageable);
+        return ResponseEntity.ok(quoteRequests);
+    }
+
+    @Override
+    @GetMapping("/{bandUuid}/musicians")
+    @PreAuthorize("hasAuthority('BAND')")
+    public ResponseEntity<List<MusicianResponse>> findMusicians(@PathVariable("bandUuid") String bandUuid) {
+        var quoteRequests = findAllMusiciansUseCase.execute(bandUuid);
         return ResponseEntity.ok(quoteRequests);
     }
 }

@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.util.Objects;
 
 /**
@@ -45,7 +44,6 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
     private final AssociateCreatedMusicianUseCaseImpl associateCreatedMusicianUseCaseImpl;
 
     @Override
-    @Transactional
     public UuidHolderDTO execute(MultipartFile profilePicture, MusicianRequest request, String bandUuid) {
         var band = findBandCommand.byUuid(bandUuid).orElseThrow(BandNotFoundException::new);
 
@@ -81,7 +79,7 @@ public class CreateMusicianUseCaseImpl implements CreateMusicianUseCase {
             toSave = saveMusicianCommand.execute(toSave);
         }
 
-        associateCreatedMusicianUseCaseImpl.execute(bandUuid, toSave.getUuid());
+        associateCreatedMusicianUseCaseImpl.execute(bandUuid, toSave.getCpf());
 
         return new UuidHolderDTO(toSave.getUuid());
     }
