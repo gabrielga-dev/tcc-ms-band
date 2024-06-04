@@ -1,5 +1,6 @@
 package br.com.events.band.data.model.table.quote;
 
+import br.com.events.band.data.io.quote.message.QuoteEventAnswerMessage;
 import br.com.events.band.data.io.quote_request.request.AcceptQuoteRequestRequest;
 import br.com.events.band.data.model.table.musician.MusicianTable;
 import br.com.events.band.data.model.table.quote_request.QuoteRequestTable;
@@ -60,10 +61,18 @@ public class QuoteTable {
             List<MusicianTable> musicians,
             QuoteRequestTable quoteRequest
     ) {
-        this.status = QuoteStatusType.NOT_READ;
+        this.status = QuoteStatusType.NON_ANSWERED;
         this.price = request.getFinalValue();
         this.observation = request.getObservation();
         this.hiredMusicians = musicians;
         this.quoteRequest = quoteRequest;
+    }
+
+    public void update(QuoteEventAnswerMessage answer) {
+        if (answer.isHired()){
+            this.status = QuoteStatusType.HIRED;
+        } else {
+            this.status = QuoteStatusType.DECLINED;
+        }
     }
 }
