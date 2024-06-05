@@ -50,4 +50,14 @@ public interface QuoteRequestPort {
             dataTypeClass = String.class
     )
     ResponseEntity<InputStreamResource> downloadPlaylist(String quoteRequestUuid);
+
+    @ApiOperation(value = "Download a PDF with the lineup")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<InputStreamResource> downloadLineup(String quoteRequestUuid);
 }

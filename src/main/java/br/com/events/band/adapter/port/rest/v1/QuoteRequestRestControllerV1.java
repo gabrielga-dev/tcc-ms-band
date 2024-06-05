@@ -68,4 +68,11 @@ public class QuoteRequestRestControllerV1 implements QuoteRequestPort {
         var pdf = generateQuoteRequestPdfUseCase.execute(quoteRequestUuid, PdfType.PLAYLIST);
         return FileUtil.output(pdf.getFileBytes(), pdf.getFileName());
     }
+
+    @Override
+    @GetMapping("/{quoteRequestUuid}/lineup")
+    public ResponseEntity<InputStreamResource> downloadLineup(@PathVariable String quoteRequestUuid) {
+        var pdf = generateQuoteRequestPdfUseCase.execute(quoteRequestUuid, PdfType.LINEUP);
+        return FileUtil.output(pdf.getFileBytes(), pdf.getFileName());
+    }
 }

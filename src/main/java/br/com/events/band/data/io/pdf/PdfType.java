@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum PdfType {
 
-    PLAYLIST(1L);
+    PLAYLIST(1L),
+    LINEUP(2L);
 
     private final Long id;
 }
