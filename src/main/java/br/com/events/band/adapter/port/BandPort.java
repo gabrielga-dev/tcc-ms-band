@@ -111,6 +111,16 @@ public interface BandPort {
     )
     ResponseEntity<Map<String, String>> getNames(List<String> bandsUuids);
 
+    @ApiOperation(value = "Find the all names of all user's bands with the given uuids")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<Map<String, String>> getAllMyBandNames();
+
     @ApiOperation(value = "Find band's all quote requests")
     @ApiImplicitParam(
             name = "Authorization",

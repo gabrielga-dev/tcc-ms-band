@@ -21,6 +21,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,6 +57,9 @@ public class QuoteTable {
     @JoinColumn(name = "quote_request_uuid", referencedColumnName = "uuid")
     private QuoteRequestTable quoteRequest;
 
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
     public QuoteTable(
             AcceptQuoteRequestRequest request,
             List<MusicianTable> musicians,
@@ -66,6 +70,7 @@ public class QuoteTable {
         this.observation = request.getObservation();
         this.hiredMusicians = musicians;
         this.quoteRequest = quoteRequest;
+        this.creationDate = LocalDateTime.now();
     }
 
     public void update(QuoteEventAnswerMessage answer) {

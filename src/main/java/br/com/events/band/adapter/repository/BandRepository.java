@@ -38,4 +38,6 @@ public interface BandRepository {
     Optional<BandTable> findByUuidAndOwnerUuid(String uuid, String ownerUuid);
 
     List<BandTable> findAllByUuid(@Param("uuids") List<String> uuids);
+
+    List<BandTable> findByOwnerUuid(String ownerUuid);
 }

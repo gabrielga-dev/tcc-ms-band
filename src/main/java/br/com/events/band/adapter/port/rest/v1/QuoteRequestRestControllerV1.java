@@ -1,12 +1,15 @@
 package br.com.events.band.adapter.port.rest.v1;
 
 import br.com.events.band.adapter.port.QuoteRequestPort;
+import br.com.events.band.business.use_case.quote.GenerateDashboardUseCase;
 import br.com.events.band.business.use_case.quote_request.AcceptQuoteRequestUseCase;
 import br.com.events.band.business.use_case.quote_request.DeclineQuoteRequestUseCase;
 import br.com.events.band.business.use_case.quote_request.FindQuoteRequestByUuidUseCase;
 import br.com.events.band.business.use_case.quote_request.GenerateQuoteRequestPdfUseCase;
 import br.com.events.band.core.util.FileUtil;
 import br.com.events.band.data.io.pdf.PdfType;
+import br.com.events.band.data.io.quote.request.DashboardRequest;
+import br.com.events.band.data.io.quote.response.DashboardResponse;
 import br.com.events.band.data.io.quote_request.request.AcceptQuoteRequestRequest;
 import br.com.events.band.data.io.quote_request.response.complete.CompleteBriefQuoteRequestResponse;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +35,7 @@ public class QuoteRequestRestControllerV1 implements QuoteRequestPort {
     private final FindQuoteRequestByUuidUseCase findQuoteRequestByUuidUseCase;
     private final GenerateQuoteRequestPdfUseCase generateQuoteRequestPdfUseCase;
     private final AcceptQuoteRequestUseCase acceptQuoteRequestUseCase;
+    private final GenerateDashboardUseCase generateDashboardUseCase;
 
     @Override
     @GetMapping("/{quoteRequestUuid}")
@@ -74,5 +78,12 @@ public class QuoteRequestRestControllerV1 implements QuoteRequestPort {
     public ResponseEntity<InputStreamResource> downloadLineup(@PathVariable String quoteRequestUuid) {
         var pdf = generateQuoteRequestPdfUseCase.execute(quoteRequestUuid, PdfType.LINEUP);
         return FileUtil.output(pdf.getFileBytes(), pdf.getFileName());
+    }
+
+    @Override
+    @GetMapping("/dashboard")
+    public ResponseEntity<DashboardResponse> dashboard(@Valid DashboardRequest criteria) {
+        var dashboard = generateDashboardUseCase.execute(criteria);
+        return ResponseEntity.ok(dashboard);
     }
 }

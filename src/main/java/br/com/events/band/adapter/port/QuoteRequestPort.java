@@ -1,5 +1,7 @@
 package br.com.events.band.adapter.port;
 
+import br.com.events.band.data.io.quote.request.DashboardRequest;
+import br.com.events.band.data.io.quote.response.DashboardResponse;
 import br.com.events.band.data.io.quote_request.request.AcceptQuoteRequestRequest;
 import br.com.events.band.data.io.quote_request.response.complete.CompleteBriefQuoteRequestResponse;
 import io.swagger.annotations.Api;
@@ -60,4 +62,14 @@ public interface QuoteRequestPort {
             dataTypeClass = String.class
     )
     ResponseEntity<InputStreamResource> downloadLineup(String quoteRequestUuid);
+
+    @ApiOperation(value = "Generate the band dashboard")
+    @ApiImplicitParam(
+            name = "Authorization",
+            value = "Authorization token",
+            required = true,
+            paramType = "header",
+            dataTypeClass = String.class
+    )
+    ResponseEntity<DashboardResponse> dashboard(DashboardRequest criteria);
 }

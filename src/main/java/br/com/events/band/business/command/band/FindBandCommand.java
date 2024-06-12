@@ -1,7 +1,6 @@
 package br.com.events.band.business.command.band;
 
 import br.com.events.band.adapter.repository.BandRepository;
-import br.com.events.band.adapter.repository.jpa.BandJpaRepository;
 import br.com.events.band.data.io.band.criteria.AuthenticatedPersonBandsCriteria;
 import br.com.events.band.data.io.band.criteria.FindBandsCriteria;
 import br.com.events.band.data.model.table.band.BandTable;
@@ -42,6 +41,10 @@ public class FindBandCommand {
                 criteria.getCreationDateStart(),
                 criteria.getCreationDateEnd()
         );
+    }
+
+    public List<BandTable> byPersonUuid(String personUuid) {
+        return bandRepository.findByOwnerUuid(personUuid);
     }
 
     public Page<BandTable> byCriteria(FindBandsCriteria criteria, Pageable pageable) {

@@ -3,6 +3,7 @@ package br.com.events.band.adapter.port.rest.v1;
 import br.com.events.band.adapter.port.BandPort;
 import br.com.events.band.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.business.use_case.band.FindAllMusiciansUseCase;
+import br.com.events.band.business.use_case.band.FindAllUserBandNamesUseCase;
 import br.com.events.band.business.use_case.band.FindAuthenticatedPersonBandsUseCase;
 import br.com.events.band.business.use_case.band.FindBandNamesUseCase;
 import br.com.events.band.business.use_case.band.FindBandProfileUseCase;
@@ -61,6 +62,7 @@ public class BandRestControllerV1 implements BandPort {
     private final ToggleBandActivityFlagUseCase toggleBandActivityFlagUseCase;
     private final RemoveBandProfilePictureUseCase removeBandProfilePictureUseCase;
     private final FindBandNamesUseCase findBandNamesUseCase;
+    private final FindAllUserBandNamesUseCase findAllUserBandNamesUseCase;
     private final FindBandsQuoteRequestsUseCase findBandsQuoteRequestsUseCase;
     private final FindAllMusiciansUseCase findAllMusiciansUseCase;
 
@@ -141,6 +143,14 @@ public class BandRestControllerV1 implements BandPort {
     @GetMapping("/name")
     public ResponseEntity<Map<String, String>> getNames(@RequestParam("bandsUuids") List<String> bandsUuids) {
         var names = findBandNamesUseCase.execute(bandsUuids);
+        return ResponseEntity.ok(names);
+    }
+
+    @Override
+    @GetMapping("/all/name")
+    @PreAuthorize("hasAuthority('BAND')")
+    public ResponseEntity<Map<String, String>> getAllMyBandNames() {
+        var names = findAllUserBandNamesUseCase.execute();
         return ResponseEntity.ok(names);
     }
 
