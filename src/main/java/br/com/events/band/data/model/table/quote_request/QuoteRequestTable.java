@@ -67,7 +67,7 @@ public class QuoteRequestTable {
     @OneToMany(mappedBy = "quoteRequest", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<QuoteRequestMusicianTypeTable> wantedMusicianTypes;
 
-    @OneToOne(mappedBy = "quoteRequest")
+    @OneToOne(mappedBy = "quoteRequest", fetch = FetchType.LAZY)
     private QuoteTable quote;
 
 

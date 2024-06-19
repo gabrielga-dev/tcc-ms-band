@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SendQuoteCreationErrorMessageCommand {
+public class SendQuoteRequestCreationErrorMessageCommand {
 
     private final SqsMessageSender sqsMessageSender;
 

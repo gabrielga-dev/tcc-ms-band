@@ -12,10 +12,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum QuoteStatusType {
 
-    NOT_READ("Não lido"),
-    READ("Lido"),
-    APPROVED("Aprovado"),
-    REJECTED("Rejeitado");
+    NON_ANSWERED("Não Respondido"),
+    HIRED("Aprovado"),
+    DECLINED("Negado");
 
 
     private final String label;

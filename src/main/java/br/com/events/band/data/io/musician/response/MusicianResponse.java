@@ -44,6 +44,13 @@ public class MusicianResponse {
         this.setTypes(musician.getTypes());
     }
 
+    public MusicianResponse(MusicianTable musician) {
+        this.setBasicInformation(musician);
+        this.active = musician.isActive();
+        this.hasAccount = Objects.nonNull(musician.getPersonUuid());
+        this.setTypes(musician.getTypes());
+    }
+
     public void setBasicInformation(MusicianTable musician) {
         this.uuid = musician.getUuid();
         this.firstName = musician.getFirstName();

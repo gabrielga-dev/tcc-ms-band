@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -21,6 +20,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DateUtil {
 
+    private static final String ZONE_ID = "America/Sao_Paulo";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -28,15 +28,17 @@ public final class DateUtil {
         if (Objects.isNull(milliseconds)) {
             return null;
         }
-        var instant = Instant.ofEpochMilli(milliseconds);
-        var zonedDateTime = instant.atZone(ZoneOffset.UTC);
-
-        return zonedDateTime.toLocalDateTime();
+        return Instant
+                .ofEpochMilli(milliseconds)
+                .atZone(ZoneId.of(ZONE_ID))
+                .toLocalDateTime();
     }
 
     public static Long localDateTimeToMilliseconds(LocalDateTime localDateTime) {
-        var zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
-        return zonedDateTime.toInstant().toEpochMilli();
+        if (Objects.isNull(localDateTime)) {
+            return null;
+        }
+        return localDateTime.atZone(ZoneId.of(ZONE_ID)).toInstant().toEpochMilli();
     }
 
     public static Integer calculateAgeByBirthday(LocalDateTime birthday) {

@@ -26,6 +26,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -127,7 +128,31 @@ public class BandTable implements
                 .findFirst();
     }
 
-    public void removeProfilePicture(){
+    public void removeProfilePicture() {
         this.profilePictureUuid = null;
+    }
+
+    public List<MusicianTable> getAllMusicians() {
+        var musicians = this.associatedMusicians
+                .stream()
+                .map(
+                        BandMusicianTable::getMusician
+                ).collect(Collectors.toList());
+        musicians.addAll(this.insertedMusicians);
+
+        var auxMap = new HashMap<String, MusicianTable>();
+
+        musicians.forEach(
+                musician -> {
+                    Optional.ofNullable(auxMap.get(musician.getUuid()))
+                            .ifPresentOrElse(
+                                    m -> {
+                                    },
+                                    () -> auxMap.put(musician.getUuid(), musician)
+                            );
+                }
+        );
+
+        return new ArrayList<>(auxMap.values());
     }
 }

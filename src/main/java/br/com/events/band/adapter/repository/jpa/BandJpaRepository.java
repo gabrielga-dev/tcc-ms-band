@@ -59,4 +59,6 @@ public interface BandJpaRepository extends BandRepository, JpaRepository<BandTab
 
     @Query("SELECT band FROM BandTable band WHERE band.uuid IN :uuids")
     List<BandTable> findAllByUuid(List<String> uuids);
+
+    List<BandTable> findByOwnerUuid(String ownerUuid);
 }
