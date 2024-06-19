@@ -82,6 +82,7 @@ public class QuoteRequestRestControllerV1 implements QuoteRequestPort {
 
     @Override
     @GetMapping("/dashboard")
+    @PreAuthorize("hasAnyAuthority('BAND')")
     public ResponseEntity<DashboardResponse> dashboard(@Valid DashboardRequest criteria) {
         var dashboard = generateDashboardUseCase.execute(criteria);
         return ResponseEntity.ok(dashboard);
