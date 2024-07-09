@@ -1,6 +1,7 @@
 package br.com.events.band.data.model.table.band;
 
 import br.com.events.band.MockConstants;
+import br.com.events.band.data.model.table.band.contact.ContactTableMock;
 import br.com.events.band.data.model.table.musician.MusicianTableMock;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,11 @@ public final class BandTableMock {
 
         band.setUuid(UUID.randomUUID().toString());
         band.setProfilePictureUuid(MockConstants.STRING);
+        band.setOwnerUuid(MockConstants.STRING);
         band.setAssociatedMusicians(List.of(BandMusicianTableMock.build()));
         band.setInsertedMusicians(List.of(MusicianTableMock.build()));
         band.setAddress(BandAddressTableMock.build());
+        band.setContacts(List.of(ContactTableMock.build()));
 
         return band;
     }
