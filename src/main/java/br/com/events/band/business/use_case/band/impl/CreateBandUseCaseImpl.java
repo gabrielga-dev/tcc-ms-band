@@ -1,6 +1,7 @@
 package br.com.events.band.business.use_case.band.impl;
 
 import br.com.events.band.business.command.file.UploadFileCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.band.CreateBandUseCase;
 import br.com.events.band.business.command.address.CheckAddressCommand;
 import br.com.events.band.business.command.band.AssignBandToPersonCommand;
@@ -22,6 +23,7 @@ import java.util.Objects;
 public class CreateBandUseCaseImpl implements CreateBandUseCase {
 
     private final CheckAddressCommand checkAddressCommand;
+    private final AuthService authService;
 
     private final SaveBandCommand saveBandCommand;
     private final AssignBandToPersonCommand assignBandToPersonCommand;
@@ -33,7 +35,7 @@ public class CreateBandUseCaseImpl implements CreateBandUseCase {
     public UuidHolderDTO execute(BandRequest bandForm, MultipartFile profilePicture) {
         checkAddressCommand.execute(bandForm.getAddress());
 
-        var toSave = new BandTable(bandForm);
+        var toSave = new BandTable(bandForm, authService.getAuthenticatedPersonUuid());
         toSave = saveBandCommand.execute(toSave);
 
         if (Objects.nonNull(profilePicture)) {

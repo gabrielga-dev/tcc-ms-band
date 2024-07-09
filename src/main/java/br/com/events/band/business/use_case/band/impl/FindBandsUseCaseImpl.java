@@ -19,7 +19,6 @@ public class FindBandsUseCaseImpl implements FindBandsUseCase {
 
     @Override
     public Page<BandResponse> execute(FindBandsCriteria criteria, Pageable pageable) {
-
         var bands = findBandCommand.byCriteria(criteria, pageable);
 
         return bands.map(buildBandResponseCommand::execute);

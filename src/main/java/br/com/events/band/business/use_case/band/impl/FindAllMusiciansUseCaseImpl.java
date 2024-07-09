@@ -1,10 +1,10 @@
 package br.com.events.band.business.use_case.band.impl;
 
 import br.com.events.band.business.command.band.FindBandCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.band.FindAllMusiciansUseCase;
 import br.com.events.band.core.exception.band.BandNonExistenceException;
 import br.com.events.band.core.exception.band.BandOwnerException;
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.musician.response.MusicianResponse;
 import br.com.events.band.data.model.table.musician.MusicianTable;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +19,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FindAllMusiciansUseCaseImpl implements FindAllMusiciansUseCase {
 
+    private final AuthService authService;
     private final FindBandCommand findBandCommand;
 
     @Override
     public List<MusicianResponse> execute(String bandUuid) {
         var band = findBandCommand.byUuid(bandUuid).orElseThrow(BandNonExistenceException::new);
-        if (!Objects.equals(AuthUtil.getAuthenticatedPersonUuid(), band.getOwnerUuid())){
+        if (!Objects.equals(authService.getAuthenticatedPersonUuid(), band.getOwnerUuid())) {
             throw new BandOwnerException();
         }
         return band.getAllMusicians()
