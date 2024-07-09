@@ -2,10 +2,10 @@ package br.com.events.band.business.use_case.music.impl;
 
 import br.com.events.band.business.command.music.FindMusicCommand;
 import br.com.events.band.business.command.music.SaveMusicCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.music.ActivateMusicUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.music.MusicNonExistenceException;
-import br.com.events.band.core.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ActivateMusicUseCaseImpl implements ActivateMusicUseCase {
 
+    private final AuthService authService;
     private final FindMusicCommand findMusicCommand;
     private final SaveMusicCommand saveMusicCommand;
 
@@ -20,7 +21,7 @@ public class ActivateMusicUseCaseImpl implements ActivateMusicUseCase {
     public void execute(String musicUuid) {
         var music = findMusicCommand.byUuid(musicUuid).orElseThrow(MusicNonExistenceException::new);
 
-        if (!music.getContributingBand().getOwnerUuid().equals(AuthUtil.getAuthenticatedPersonUuid())) {
+        if (!music.getContributingBand().getOwnerUuid().equals(authService.getAuthenticatedPersonUuid())) {
             throw new BandOwnerException();
         }
 
