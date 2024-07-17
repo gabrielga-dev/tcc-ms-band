@@ -43,7 +43,6 @@ public class RawEmailRequest implements Serializable {
             this.type = EmailRequestType.QUOTE_HIRED;
         } else {
             this.type = EmailRequestType.QUOTE_DECLINED;
-
         }
 
         this.keyAndValues = Map.of(

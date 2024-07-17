@@ -17,6 +17,7 @@ public final class BandTableMock {
         var band = new BandTable();
 
         band.setUuid(UUID.randomUUID().toString());
+        band.setName(MockConstants.STRING);
         band.setProfilePictureUuid(MockConstants.STRING);
         band.setOwnerUuid(MockConstants.STRING);
         band.setAssociatedMusicians(new ArrayList<>(List.of(BandMusicianTableMock.build())));
