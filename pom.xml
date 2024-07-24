@@ -16,6 +16,28 @@
     <properties>
         <java.version>11</java.version>
         <spring.cloud-version>2021.0.3</spring.cloud-version>
+        <!--SONAR-->
+        <jacoco.version>0.8.7</jacoco.version>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.junit.reportsPath>${project.basedir}/../target/</sonar.junit.reportsPath>
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.tests>${project.basedir}/src/test/</sonar.tests>
+        <sonar.language>java</sonar.language>
+        <sonar.coverage.exclusions>
+            **/src/main/java/br/com/events/band/adapter/**,
+            **/src/main/java/br/com/events/band/business/service/**,
+            **/src/main/java/br/com/events/band/core/config/**,
+            **/src/main/java/br/com/events/band/core/exception/**,
+            **/src/main/java/br/com/events/band/data/**
+        </sonar.coverage.exclusions>
+        <sonar.issue.ignore.multicriteria>e1,e2,e3</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S110</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
+        <sonar.issue.ignore.multicriteria.e2.ruleKey>java:S107</sonar.issue.ignore.multicriteria.e2.ruleKey>
+        <sonar.issue.ignore.multicriteria.e2.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e2.resourceKey>
+        <sonar.issue.ignore.multicriteria.e3.ruleKey>java:S1168</sonar.issue.ignore.multicriteria.e3.ruleKey>
+        <sonar.issue.ignore.multicriteria.e3.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e3.resourceKey>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -163,11 +185,18 @@
             </exclusions>
         </dependency>
 
-<!--    TEST    -->
+        <!--    TEST    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!--    JACOCO    -->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.7</version>
         </dependency>
     </dependencies>
 
@@ -184,6 +213,26 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

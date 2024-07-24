@@ -37,7 +37,6 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -78,7 +77,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, mock(MultipartFile.class))
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, never()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, never()).getAuthenticatedPersonUuid();
@@ -104,7 +103,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, mock(MultipartFile.class))
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, atMostOnce()).getAuthenticatedPerson();
         verify(authService, never()).getAuthenticatedPersonUuid();
@@ -130,7 +129,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, null)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, atMostOnce()).getAuthenticatedPerson();
         verify(authService, never()).getAuthenticatedPersonUuid();
@@ -158,7 +157,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, mock(MultipartFile.class))
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, atMostOnce()).getAuthenticatedPerson();
         verify(authService, never()).getAuthenticatedPersonUuid();
@@ -184,7 +183,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, null)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
@@ -211,7 +210,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, null)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
@@ -236,7 +235,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, null)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
@@ -263,7 +262,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request, mock(MultipartFile.class))
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
@@ -284,7 +283,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(request)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byCpf(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byCpf(MockConstants.STRING);
         verify(saveMusicianCommand, never()).execute(any(MusicianTable.class));
     }
 
@@ -298,7 +297,7 @@ class UpdateMusicianUseCaseImplTest {
                 () -> useCase.execute(request)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byCpf(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byCpf(MockConstants.STRING);
         verify(saveMusicianCommand, atMostOnce()).execute(any(MusicianTable.class));
     }
 }

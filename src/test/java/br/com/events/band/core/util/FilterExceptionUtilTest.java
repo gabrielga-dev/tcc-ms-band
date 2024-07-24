@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
  * @author gabriel
  */
 @ExtendWith(MockitoExtension.class)
-public class FilterExceptionUtilTest {
+class FilterExceptionUtilTest {
 
     @InjectMocks
     private FilterExceptionUtil util;

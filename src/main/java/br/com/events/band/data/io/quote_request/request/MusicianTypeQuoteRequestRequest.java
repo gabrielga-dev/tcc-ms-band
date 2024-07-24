@@ -8,12 +8,13 @@ import lombok.Setter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MusicianTypeQuoteRequestRequest {
+public class MusicianTypeQuoteRequestRequest implements Serializable {
 
     @NotNull(message = "Informe um tipo de músico existente")
     private String musicianTypeUuid;

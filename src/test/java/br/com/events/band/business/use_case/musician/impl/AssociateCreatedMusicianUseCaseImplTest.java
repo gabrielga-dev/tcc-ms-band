@@ -24,7 +24,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -61,7 +60,7 @@ class AssociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, never()).byCpf(anyString());
         verify(saveBandCommand, never()).execute(any(BandTable.class));
@@ -80,7 +79,7 @@ class AssociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, never()).byCpf(anyString());
         verify(saveBandCommand, never()).execute(any(BandTable.class));
@@ -100,7 +99,7 @@ class AssociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(saveBandCommand, never()).execute(any(BandTable.class));
@@ -121,7 +120,7 @@ class AssociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(saveBandCommand, never()).execute(any(BandTable.class));
@@ -142,7 +141,7 @@ class AssociateCreatedMusicianUseCaseImplTest {
         Assertions.assertNotNull(returned);
         Assertions.assertEquals(musicianFound.getUuid(), returned.getUuid());
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(saveBandCommand, atMostOnce()).execute(any(BandTable.class));

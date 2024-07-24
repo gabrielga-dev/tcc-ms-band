@@ -23,7 +23,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -58,7 +57,7 @@ class UpdateMusicUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request)
         );
 
-        verify(findMusicCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, never()).getAuthenticatedPersonUuid();
     }
 
@@ -77,7 +76,7 @@ class UpdateMusicUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, request)
         );
 
-        verify(findMusicCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 
@@ -98,7 +97,7 @@ class UpdateMusicUseCaseImplTest {
         Assertions.assertNotNull(response);
         Assertions.assertEquals(musicFound.getUuid(), response.getUuid());
 
-        verify(findMusicCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 }

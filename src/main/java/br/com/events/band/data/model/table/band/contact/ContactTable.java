@@ -56,6 +56,6 @@ public class ContactTable {
 
     public void update(ContactRequest request) {
         this.type = request.getType();
-        this.content = request.getContent();;
+        this.content = request.getContent();
     }
 }

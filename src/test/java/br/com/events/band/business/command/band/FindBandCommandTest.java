@@ -56,7 +56,7 @@ class FindBandCommandTest {
         Assertions.assertFalse(returned.isEmpty());
         Assertions.assertEquals(bandTable, returned.get());
 
-        verify(bandRepository, times(1)).findByUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(bandRepository, times(1)).findByUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
     }
 
     @Test
@@ -71,7 +71,7 @@ class FindBandCommandTest {
         Assertions.assertFalse(returned.isEmpty());
         Assertions.assertEquals(bandTable, returned.get());
 
-        verify(bandRepository, times(1)).findById(eq(MockConstants.STRING));
+        verify(bandRepository, times(1)).findById(MockConstants.STRING);
     }
 
     @Test
@@ -124,7 +124,7 @@ class FindBandCommandTest {
         Assertions.assertFalse(returned.isEmpty());
         Assertions.assertEquals(bandTable, returned.get(0));
 
-        verify(bandRepository, times(1)).findByOwnerUuid(eq(MockConstants.STRING));
+        verify(bandRepository, times(1)).findByOwnerUuid(MockConstants.STRING);
     }
 
     @Test

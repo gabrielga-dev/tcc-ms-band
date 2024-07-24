@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
-public class AddressResponse {
+public class AddressResponse implements Serializable {
 
     private String street;
     private String neighbour;

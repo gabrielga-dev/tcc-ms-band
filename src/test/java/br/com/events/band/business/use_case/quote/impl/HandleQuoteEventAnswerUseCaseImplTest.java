@@ -55,8 +55,8 @@ class HandleQuoteEventAnswerUseCaseImplTest {
 
         Assertions.assertEquals(QuoteStatusType.HIRED, quote.getStatus());
 
-        verify(findQuoteCommand, atMostOnce()).byUuidOrThrow(eq(message.getQuoteUuid()));
-        verify(saveQuoteCommand, atMostOnce()).execute(eq(quote));
+        verify(findQuoteCommand, atMostOnce()).byUuidOrThrow(message.getQuoteUuid());
+        verify(saveQuoteCommand, atMostOnce()).execute(quote);
         verify(sendQuoteAnswerEmailMessageCommand, atMostOnce()).execute(any(QuoteTable.class), eq(message.isHired()));
     }
 }

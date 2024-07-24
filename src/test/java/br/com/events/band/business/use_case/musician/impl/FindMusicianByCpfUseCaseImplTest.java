@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -50,7 +49,7 @@ class FindMusicianByCpfUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byCpf(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byCpf(MockConstants.STRING);
         verify(buildAddressResponseCommand, never()).execute(any(IAddress.class));
     }
 
@@ -68,7 +67,7 @@ class FindMusicianByCpfUseCaseImplTest {
         Assertions.assertEquals(musicianFound.getUuid(), response.getUuid());
         Assertions.assertEquals(address, response.getAddress());
 
-        verify(findMusicianCommand, atMostOnce()).byCpf(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byCpf(MockConstants.STRING);
         verify(buildAddressResponseCommand, atMostOnce()).execute(any(IAddress.class));
     }
 }

@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,7 +26,7 @@ import static org.mockito.Mockito.when;
  * @author gabriel
  */
 @ExtendWith(MockitoExtension.class)
-public class FindAllMusiciansUseCaseImplTest {
+class FindAllMusiciansUseCaseImplTest {
 
     @Mock
     private AuthService authService;
@@ -39,7 +38,7 @@ public class FindAllMusiciansUseCaseImplTest {
 
     @Test
     @DisplayName("execute - when person is band owner, then return musicians")
-    public void executeWhenPersonIsBandOwnerThenReturnMusicians() {
+    void executeWhenPersonIsBandOwnerThenReturnMusicians() {
         when(authService.getAuthenticatedPersonUuid()).thenReturn(MockConstants.STRING);
         var bandFound = BandTableMock.build();
         bandFound.setOwnerUuid(MockConstants.STRING);
@@ -51,13 +50,13 @@ public class FindAllMusiciansUseCaseImplTest {
         Assertions.assertFalse(returned.isEmpty());
         Assertions.assertEquals(bandFound.getAllMusicians().size(), returned.size());
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 
     @Test
     @DisplayName("execute - when band is not found, then throw BandNonExistenceException")
-    public void executeWhenBandIsNotFoundThenThrowBandNonExistenceException() {
+    void executeWhenBandIsNotFoundThenThrowBandNonExistenceException() {
         when(authService.getAuthenticatedPersonUuid()).thenReturn(MockConstants.STRING);
         var bandFound = BandTableMock.build();
         bandFound.setOwnerUuid(MockConstants.STRING);
@@ -69,13 +68,13 @@ public class FindAllMusiciansUseCaseImplTest {
         Assertions.assertFalse(returned.isEmpty());
         Assertions.assertEquals(bandFound.getAllMusicians().size(), returned.size());
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 
     @Test
     @DisplayName("execute - when person is not band owner, then throws band owner exception")
-    public void executeWhenPersonIsNotBandOwnerThenThrowsBandOwnerException() {
+    void executeWhenPersonIsNotBandOwnerThenThrowsBandOwnerException() {
         when(authService.getAuthenticatedPersonUuid()).thenReturn(MockConstants.STRING.repeat(2));
         var bandFound = BandTableMock.build();
         bandFound.setOwnerUuid(MockConstants.STRING);
@@ -83,7 +82,7 @@ public class FindAllMusiciansUseCaseImplTest {
 
         Assertions.assertThrows(BandOwnerException.class, () -> useCase.execute(MockConstants.STRING));
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 }

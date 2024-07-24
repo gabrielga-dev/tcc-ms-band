@@ -25,7 +25,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -60,7 +59,7 @@ class ActivateMusiciansUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, never()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, never()).getAuthenticatedPersonUuid();
@@ -83,7 +82,7 @@ class ActivateMusiciansUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, atMostOnce()).getAuthenticatedPerson();
         verify(authService, never()).getAuthenticatedPersonUuid();
@@ -106,7 +105,7 @@ class ActivateMusiciansUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, atMostOnce()).getAuthenticatedPerson();
         verify(authService, never()).getAuthenticatedPersonUuid();
@@ -131,7 +130,7 @@ class ActivateMusiciansUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
@@ -155,7 +154,7 @@ class ActivateMusiciansUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicianCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicianCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(findPersonMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(authService, never()).getAuthenticatedPerson();
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();

@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.when;
  * @author gabriel
  */
 @ExtendWith(MockitoExtension.class)
-public class FindAllUserBandNamesUseCaseImplTest {
+class FindAllUserBandNamesUseCaseImplTest {
 
     @Mock
     private AuthService authService;
@@ -54,7 +53,7 @@ public class FindAllUserBandNamesUseCaseImplTest {
         Assertions.assertEquals(band1.getName(), returned.get(band1.getUuid()));
         Assertions.assertEquals(band2.getName(), returned.get(band2.getUuid()));
 
-        verify(findBandCommand, atMostOnce()).byPersonUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byPersonUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 }

@@ -18,7 +18,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -52,7 +51,7 @@ class RemoveBandProfilePictureUseCaseImplTest {
         Assertions.assertThrows(BandNonExistenceException.class, () -> useCase.execute(MockConstants.STRING));
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(saveBandCommand, never()).execute(any(BandTable.class));
     }
 
@@ -68,7 +67,7 @@ class RemoveBandProfilePictureUseCaseImplTest {
         Assertions.assertDoesNotThrow(() -> useCase.execute(MockConstants.STRING));
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(mockedBand, atMostOnce()).removeProfilePicture();
         verify(saveBandCommand, atMostOnce()).execute(any(BandTable.class));
     }

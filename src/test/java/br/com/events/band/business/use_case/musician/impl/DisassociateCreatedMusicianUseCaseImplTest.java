@@ -27,7 +27,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -64,7 +63,7 @@ class DisassociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, never()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, never()).byUuid(anyString());
         verify(deleteBandMusicianAssociationCommand, never()).execute(any(BandMusicianTable.class));
@@ -83,7 +82,7 @@ class DisassociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, never()).byUuid(anyString());
         verify(deleteBandMusicianAssociationCommand, never()).execute(any(BandMusicianTable.class));
@@ -103,7 +102,7 @@ class DisassociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byUuid(anyString());
         verify(deleteBandMusicianAssociationCommand, never()).execute(any(BandMusicianTable.class));
@@ -125,7 +124,7 @@ class DisassociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byUuid(anyString());
         verify(deleteBandMusicianAssociationCommand, never()).execute(any(BandMusicianTable.class));
@@ -150,7 +149,7 @@ class DisassociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byUuid(anyString());
         verify(deleteBandMusicianAssociationCommand, never()).execute(any(BandMusicianTable.class));
@@ -175,7 +174,7 @@ class DisassociateCreatedMusicianUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byUuid(anyString());
         verify(deleteBandMusicianAssociationCommand, atMostOnce()).execute(any(BandMusicianTable.class));

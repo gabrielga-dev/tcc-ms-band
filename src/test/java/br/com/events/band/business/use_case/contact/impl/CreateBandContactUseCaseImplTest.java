@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -53,7 +52,7 @@ class CreateBandContactUseCaseImplTest {
         Assertions.assertThrows(BandNonExistenceException.class, () -> useCase.execute(MockConstants.STRING, request));
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(saveContactCommand, never()).execute(any(ContactTable.class));
     }
 
@@ -69,7 +68,7 @@ class CreateBandContactUseCaseImplTest {
         Assertions.assertThrows(BandNonExistenceException.class, () -> useCase.execute(MockConstants.STRING, request));
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(saveContactCommand, never()).execute(any(ContactTable.class));
     }
 
@@ -87,7 +86,7 @@ class CreateBandContactUseCaseImplTest {
         Assertions.assertNotNull(returned);
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(saveContactCommand, atMostOnce()).execute(any(ContactTable.class));
     }
 

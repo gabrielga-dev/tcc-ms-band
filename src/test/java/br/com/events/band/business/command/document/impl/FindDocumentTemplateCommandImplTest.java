@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,7 +44,7 @@ class FindDocumentTemplateCommandImplTest {
                 () -> command.findByIdOrThrow(MockConstants.LONG)
         );
 
-        verify(documentTemplateRepository, times(1)).findById(eq(MockConstants.LONG));
+        verify(documentTemplateRepository, times(1)).findById(MockConstants.LONG);
     }
 
     @Test
@@ -59,6 +58,6 @@ class FindDocumentTemplateCommandImplTest {
         Assertions.assertNotNull(returned);
         Assertions.assertEquals(documentTemplate, returned);
 
-        verify(documentTemplateRepository, times(1)).findById(eq(MockConstants.LONG));
+        verify(documentTemplateRepository, times(1)).findById(MockConstants.LONG);
     }
 }

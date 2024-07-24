@@ -27,7 +27,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -61,7 +60,7 @@ class UpdateBandUseCaseImplTest {
     @DisplayName("execute - when band is not found, then throws BandNotFoundException")
     void executeWhenBandIsNotFoundThenThrowsBandNotFoundException() {
         when(authService.getAuthenticatedPersonUuid()).thenReturn(MockConstants.STRING);
-        when(findBandCommand.byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING)))
+        when(findBandCommand.byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING))
                 .thenReturn(Optional.empty());
 
         var request = UpdateBandRequestMock.build();
@@ -88,7 +87,7 @@ class UpdateBandUseCaseImplTest {
         when(authService.getAuthenticatedPersonUuid()).thenReturn(MockConstants.STRING);
         var bandFound = BandTableMock.build();
         bandFound.setActive(Boolean.FALSE);
-        when(findBandCommand.byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING)))
+        when(findBandCommand.byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING))
                 .thenReturn(Optional.of(bandFound));
 
         var request = UpdateBandRequestMock.build();
@@ -114,7 +113,7 @@ class UpdateBandUseCaseImplTest {
     void executeWhenClearPictureFlagIsOnThenClearPictureAndSaveBand() {
         when(authService.getAuthenticatedPersonUuid()).thenReturn(MockConstants.STRING);
         var bandFound = BandTableMock.build();
-        when(findBandCommand.byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING)))
+        when(findBandCommand.byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING))
                 .thenReturn(Optional.of(bandFound));
         doNothing().when(checkAddressCommand).execute(any(IAddress.class));
         when(saveBandCommand.execute(any(BandTable.class))).thenReturn(bandFound);
@@ -143,7 +142,7 @@ class UpdateBandUseCaseImplTest {
         when(authService.getAuthenticatedPersonUuid()).thenReturn(MockConstants.STRING);
 
         var bandFound = BandTableMock.build();
-        when(findBandCommand.byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING)))
+        when(findBandCommand.byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING))
                 .thenReturn(Optional.of(bandFound));
 
         doNothing().when(checkAddressCommand).execute(any(IAddress.class));

@@ -23,6 +23,8 @@ public class GenerateDashboardUseCaseImpl implements GenerateDashboardUseCase {
 
     private final FindQuoteCommand findQuoteCommand;
 
+    private static final String CREATION_DATE_LABEL = "creationDate";
+
     @Override
     public DashboardResponse execute(DashboardRequest criteria) {
         var quotes = findQuoteCommand.bySpecification(generateSpecification(criteria));
@@ -44,18 +46,18 @@ public class GenerateDashboardUseCaseImpl implements GenerateDashboardUseCase {
             if (Objects.nonNull(criteria.getStartDate()) && Objects.nonNull(criteria.getEndDate())) {
                 predicates.add(
                         builder.between(
-                                quote.get("creationDate"),
+                                quote.get(CREATION_DATE_LABEL),
                                 criteria.getStartDate(),
                                 criteria.getEndDate()
                         )
                 );
             } else {
                 if (Objects.nonNull(criteria.getStartDate())) {
-                    predicates.add(builder.greaterThanOrEqualTo(quote.get("creationDate"), criteria.getStartDate()));
+                    predicates.add(builder.greaterThanOrEqualTo(quote.get(CREATION_DATE_LABEL), criteria.getStartDate()));
                 }
 
                 if (Objects.nonNull(criteria.getEndDate())) {
-                    predicates.add(builder.lessThanOrEqualTo(quote.get("creationDate"), criteria.getEndDate()));
+                    predicates.add(builder.lessThanOrEqualTo(quote.get(CREATION_DATE_LABEL), criteria.getEndDate()));
                 }
             }
 

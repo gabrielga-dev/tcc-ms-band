@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,7 +43,7 @@ class SaveBandCommandTest {
         Assertions.assertNotNull(returned);
         Assertions.assertEquals(bandTable, returned);
 
-        verify(bandRepository, times(1)).save(eq(toSave));
+        verify(bandRepository, times(1)).save(toSave);
     }
 
 }

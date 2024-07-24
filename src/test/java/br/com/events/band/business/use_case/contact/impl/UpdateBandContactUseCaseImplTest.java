@@ -23,7 +23,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -58,7 +57,7 @@ class UpdateBandContactUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING, request)
         );
 
-        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(MockConstants.STRING, MockConstants.STRING);
         verify(authService, never()).getAuthenticatedPersonUuid();
     }
 
@@ -76,7 +75,7 @@ class UpdateBandContactUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING, request)
         );
 
-        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(MockConstants.STRING, MockConstants.STRING);
         verify(authService, never()).getAuthenticatedPersonUuid();
     }
 
@@ -95,7 +94,7 @@ class UpdateBandContactUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING, request)
         );
 
-        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(MockConstants.STRING, MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 
@@ -113,7 +112,7 @@ class UpdateBandContactUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING, MockConstants.STRING, request)
         );
 
-        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findContactCommand, atMostOnce()).byUuidAndBandUuid(MockConstants.STRING, MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
     }
 }

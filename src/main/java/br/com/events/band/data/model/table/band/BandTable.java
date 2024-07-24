@@ -127,6 +127,7 @@ public class BandTable implements
                 .findFirst();
     }
 
+    @Override
     public void removeProfilePicture() {
         this.profilePictureUuid = null;
     }
@@ -142,14 +143,12 @@ public class BandTable implements
         var auxMap = new HashMap<String, MusicianTable>();
 
         musicians.forEach(
-                musician -> {
-                    Optional.ofNullable(auxMap.get(musician.getUuid()))
-                            .ifPresentOrElse(
-                                    m -> {
-                                    },
-                                    () -> auxMap.put(musician.getUuid(), musician)
-                            );
-                }
+                musician -> Optional.ofNullable(auxMap.get(musician.getUuid()))
+                        .ifPresentOrElse(
+                                m -> {
+                                },
+                                () -> auxMap.put(musician.getUuid(), musician)
+                        )
         );
 
         return new ArrayList<>(auxMap.values());

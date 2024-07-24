@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,14 +35,14 @@ class ListBandContactUseCaseImplTest {
     @Test
     @DisplayName("execute - when band is not found, then throws BandNonExistenceException")
     void executeWhenBandIsNotFoundThenThrowsBandNonExistenceException() {
-        when(findBandCommand.byUuid(eq(MockConstants.STRING))).thenReturn(Optional.empty());
+        when(findBandCommand.byUuid(MockConstants.STRING)).thenReturn(Optional.empty());
 
         Assertions.assertThrows(
                 BandNonExistenceException.class,
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
     }
 
     @Test
@@ -51,21 +50,21 @@ class ListBandContactUseCaseImplTest {
     void executeWhenBandIsNotActiveThenThrowsBandNonExistenceException() {
         var bandFound = BandTableMock.build();
         bandFound.setActive(Boolean.FALSE);
-        when(findBandCommand.byUuid(eq(MockConstants.STRING))).thenReturn(Optional.of(bandFound));
+        when(findBandCommand.byUuid(MockConstants.STRING)).thenReturn(Optional.of(bandFound));
 
         Assertions.assertThrows(
                 BandNonExistenceException.class,
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
     }
 
     @Test
     @DisplayName("execute - when band is active, then return contacts")
     void executeWhenBandIsActiveThenReturnContacts() {
         var bandFound = BandTableMock.build();
-        when(findBandCommand.byUuid(eq(MockConstants.STRING))).thenReturn(Optional.of(bandFound));
+        when(findBandCommand.byUuid(MockConstants.STRING)).thenReturn(Optional.of(bandFound));
 
         var contacts = useCase.execute(MockConstants.STRING);
 
@@ -73,6 +72,6 @@ class ListBandContactUseCaseImplTest {
         Assertions.assertFalse(contacts.isEmpty());
         Assertions.assertEquals(bandFound.getContacts().size(), contacts.size());
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
     }
 }

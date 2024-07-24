@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  * @author gabriel
  */
 @ExtendWith(MockitoExtension.class)
-public class FileUtilTest {
+class FileUtilTest {
 
     @Test
     @DisplayName("output - whe called return ResponseEntity")

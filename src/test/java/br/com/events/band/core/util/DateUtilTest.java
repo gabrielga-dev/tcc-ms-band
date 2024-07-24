@@ -15,7 +15,7 @@ import java.time.LocalTime;
  * @author gabriel
  */
 @ExtendWith(MockitoExtension.class)
-public class DateUtilTest {
+class DateUtilTest {
 
     @Test
     @DisplayName("millisecondsToLocalDateTime - when milliseconds is null, then return null")
@@ -29,12 +29,12 @@ public class DateUtilTest {
         var milliseconds = 1721499489122L;
         var returned = DateUtil.millisecondsToLocalDateTime(milliseconds);
         Assertions.assertNotNull(returned);
-        Assertions.assertEquals(returned.getDayOfMonth(), 20);
-        Assertions.assertEquals(returned.getMonthValue(), 7);
-        Assertions.assertEquals(returned.getYear(), 2024);
-        Assertions.assertEquals(returned.getHour(), 15);
-        Assertions.assertEquals(returned.getMinute(), 18);
-        Assertions.assertEquals(returned.getSecond(), 9);
+        Assertions.assertEquals(20, returned.getDayOfMonth());
+        Assertions.assertEquals(7, returned.getMonthValue());
+        Assertions.assertEquals(2024, returned.getYear());
+        Assertions.assertEquals(15, returned.getHour());
+        Assertions.assertEquals(18, returned.getMinute());
+        Assertions.assertEquals(9, returned.getSecond());
         Assertions.assertTrue(String.valueOf(returned.getNano()).startsWith("122"));
     }
 

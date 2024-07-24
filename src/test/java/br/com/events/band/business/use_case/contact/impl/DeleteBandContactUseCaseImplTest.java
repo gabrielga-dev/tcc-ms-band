@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
@@ -54,7 +53,7 @@ class DeleteBandContactUseCaseImplTest {
         );
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(deleteContactCommand, never()).execute(anyString());
     }
 
@@ -72,7 +71,7 @@ class DeleteBandContactUseCaseImplTest {
         );
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(deleteContactCommand, never()).execute(anyString());
     }
 
@@ -89,7 +88,7 @@ class DeleteBandContactUseCaseImplTest {
         );
 
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
-        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(eq(MockConstants.STRING), eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuidAndOwnerUuid(MockConstants.STRING, MockConstants.STRING);
         verify(deleteContactCommand, atMostOnce()).execute(anyString());
     }
 

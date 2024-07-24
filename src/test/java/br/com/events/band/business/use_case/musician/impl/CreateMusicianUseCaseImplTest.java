@@ -39,7 +39,6 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -90,7 +89,7 @@ class CreateMusicianUseCaseImplTest {
                 () -> useCase.execute(mock(MultipartFile.class), request, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, never()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, never()).byCpf(anyString());
         verify(findMusicianTypeCommand, never()).byUuid(anyList());
@@ -114,7 +113,7 @@ class CreateMusicianUseCaseImplTest {
                 () -> useCase.execute(mock(MultipartFile.class), request, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, never()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, never()).byCpf(anyString());
         verify(findMusicianTypeCommand, never()).byUuid(anyList());
@@ -139,7 +138,7 @@ class CreateMusicianUseCaseImplTest {
                 () -> useCase.execute(mock(MultipartFile.class), request, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, never()).byCpf(anyString());
         verify(findMusicianTypeCommand, never()).byUuid(anyList());
@@ -165,7 +164,7 @@ class CreateMusicianUseCaseImplTest {
                 () -> useCase.execute(mock(MultipartFile.class), request, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(findMusicianTypeCommand, never()).byUuid(anyList());
@@ -191,7 +190,7 @@ class CreateMusicianUseCaseImplTest {
                 () -> useCase.execute(mock(MultipartFile.class), request, MockConstants.STRING)
         );
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(findMusicianTypeCommand, never()).byUuid(anyList());
@@ -221,7 +220,7 @@ class CreateMusicianUseCaseImplTest {
         Assertions.assertNotNull(returned);
         Assertions.assertNotNull(returned.getUuid());
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(findMusicianTypeCommand, atMostOnce()).byUuid(anyList());
@@ -253,7 +252,7 @@ class CreateMusicianUseCaseImplTest {
         Assertions.assertNotNull(returned);
         Assertions.assertNotNull(returned.getUuid());
 
-        verify(findBandCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findBandCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(findMusicianCommand, atMostOnce()).byCpf(anyString());
         verify(findMusicianTypeCommand, atMostOnce()).byUuid(anyList());

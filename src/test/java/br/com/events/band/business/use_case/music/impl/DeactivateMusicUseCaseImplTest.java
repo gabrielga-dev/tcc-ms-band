@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -53,7 +52,7 @@ class DeactivateMusicUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, never()).getAuthenticatedPersonUuid();
         verify(saveMusicCommand, never()).execute(any(MusicTable.class));
     }
@@ -71,7 +70,7 @@ class DeactivateMusicUseCaseImplTest {
                 () -> useCase.execute(MockConstants.STRING)
         );
 
-        verify(findMusicCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(saveMusicCommand, never()).execute(any(MusicTable.class));
     }
@@ -89,7 +88,7 @@ class DeactivateMusicUseCaseImplTest {
 
         Assertions.assertFalse(musicFound.isActive());
 
-        verify(findMusicCommand, atMostOnce()).byUuid(eq(MockConstants.STRING));
+        verify(findMusicCommand, atMostOnce()).byUuid(MockConstants.STRING);
         verify(authService, atMostOnce()).getAuthenticatedPersonUuid();
         verify(saveMusicCommand, atMostOnce()).execute(any(MusicTable.class));
     }
