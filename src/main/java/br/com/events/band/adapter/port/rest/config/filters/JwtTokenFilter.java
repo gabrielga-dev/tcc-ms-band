@@ -34,6 +34,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final MsAuthFeign personMsAuthFeignClient;
     private final FilterExceptionUtil filterExceptionUtil;
 
+    private static final String BEARER = "Bearer ";
+
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
@@ -41,7 +43,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         var token = request.getHeader("Authorization");
 
-        if (Objects.isNull(token) || !token.startsWith("Bearer ")) {
+        if (Objects.isNull(token) || !token.startsWith(BEARER)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -49,7 +51,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         token = extractToken(token);
 
         try {
-            var person = personMsAuthFeignClient.getAuthenticatedPersonInformation("Bearer " + token);
+            var person = personMsAuthFeignClient.getAuthenticatedPersonInformation(BEARER + token);
 
             log.info("Setting up security context: {}", person);
             authenticate(person);
@@ -71,7 +73,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private String extractToken(String token) {
-        if (ObjectUtils.isEmpty(token) || !token.startsWith("Bearer ")) {
+        if (ObjectUtils.isEmpty(token) || !token.startsWith(BEARER)) {
             throw new NoTokenReceivedException();
         }
         return token.substring(7);

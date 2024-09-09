@@ -57,15 +57,13 @@ public class GeneratePdfDocumentCommandImpl implements GeneratePdfDocumentComman
 
             var templateStream = new ByteArrayInputStream(processedTemplate.getBytes(StandardCharsets.UTF_8));
 
-            if (configuration.isWaterMark()) {
-                writer.setPageEvent(new WaterMarkDTO(
-                        "My Events",
-                        Font.FontFamily.HELVETICA,
-                        70,
-                        Font.NORMAL,
-                        new BaseColor(0.058f, 0.44f, 0.70f, 0.45f)
-                ));
-            }
+            writer.setPageEvent(new WaterMarkDTO(
+                    "My Events",
+                    Font.FontFamily.HELVETICA,
+                    70,
+                    Font.NORMAL,
+                    new BaseColor(0.058f, 0.44f, 0.70f, 0.45f)
+            ));
 
             document.open();
 

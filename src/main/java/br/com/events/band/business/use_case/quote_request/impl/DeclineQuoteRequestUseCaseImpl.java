@@ -3,10 +3,10 @@ package br.com.events.band.business.use_case.quote_request.impl;
 import br.com.events.band.adapter.feign.MsEventFeign;
 import br.com.events.band.business.command.quote_request.FindQuoteRequestCommand;
 import br.com.events.band.business.command.quote_request.SaveQuoteRequestCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.quote_request.DeclineQuoteRequestUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.quote_request.QuoteRequestNotFound;
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.quote_request.request.DeclineQuoteRequestMsEventRequest;
 import br.com.events.band.data.model.table.quote_request.QuoteRequestStatusType;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class DeclineQuoteRequestUseCaseImpl implements DeclineQuoteRequestUseCase {
 
+    private final AuthService authService;
     private final FindQuoteRequestCommand findQuoteRequestCommand;
     private final SaveQuoteRequestCommand saveQuoteRequestCommand;
     private final MsEventFeign msEventFeign;
@@ -26,7 +27,7 @@ public class DeclineQuoteRequestUseCaseImpl implements DeclineQuoteRequestUseCas
     @Override
     public void execute(String quoteRequestUuid) {
         var quoteRequest = findQuoteRequestCommand.findByUuidOrThrow(quoteRequestUuid);
-        if (!Objects.equals(AuthUtil.getAuthenticatedPersonUuid(), quoteRequest.getBand().getOwnerUuid())) {
+        if (!Objects.equals(authService.getAuthenticatedPersonUuid(), quoteRequest.getBand().getOwnerUuid())) {
             throw new BandOwnerException();
         }
         if (!Objects.equals(QuoteRequestStatusType.NON_ANSWERED, quoteRequest.getStatus())) {

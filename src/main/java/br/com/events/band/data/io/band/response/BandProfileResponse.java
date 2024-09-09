@@ -1,6 +1,5 @@
 package br.com.events.band.data.io.band.response;
 
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.address.response.AddressResponse;
 import br.com.events.band.data.io.contact.response.ContactResponse;
 import br.com.events.band.data.io.music.response.MusicResponse;
@@ -30,7 +29,7 @@ public class BandProfileResponse {
     private List<MusicianResponse> createdMusicians;
     private List<MusicResponse> contributedMusics;
 
-    public BandProfileResponse(BandTable band, AddressResponse address) {
+    public BandProfileResponse(BandTable band, AddressResponse address, boolean isBandOwner) {
         this.uuid = band.getUuid();
         this.name = band.getName();
         this.description = band.getDescription();
@@ -42,8 +41,6 @@ public class BandProfileResponse {
 
         this.contacts = band.getContacts().stream().map(ContactResponse::new).collect(Collectors.toList());
 
-        var isBandOwner = AuthUtil.isAuthenticated() &&
-                AuthUtil.getAuthenticatedPersonUuid().equals(band.getOwnerUuid());
 
         this.musicians = band.getAssociatedMusicians()
                 .stream()

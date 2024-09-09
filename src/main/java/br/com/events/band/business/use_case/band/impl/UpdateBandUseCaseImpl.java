@@ -4,10 +4,10 @@ import br.com.events.band.business.command.address.CheckAddressCommand;
 import br.com.events.band.business.command.band.FindBandCommand;
 import br.com.events.band.business.command.band.SaveBandCommand;
 import br.com.events.band.business.command.file.UploadFileCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.band.UpdateBandUseCase;
 import br.com.events.band.core.exception.band.BandNonExistenceException;
 import br.com.events.band.core.exception.band.BandNotFoundException;
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
 import br.com.events.band.data.io.file.FileOriginType;
 import br.com.events.band.data.io.file.FileType;
@@ -21,6 +21,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UpdateBandUseCaseImpl implements UpdateBandUseCase {
 
+    private final AuthService authService;
+
     private final FindBandCommand findBandCommand;
     private final SaveBandCommand saveBandCommand;
 
@@ -31,7 +33,7 @@ public class UpdateBandUseCaseImpl implements UpdateBandUseCase {
     @Override
     public void execute(String bandUuid, UpdateBandRequest request, MultipartFile profilePicture) {
         var band = findBandCommand.byUuidAndOwnerUuid(
-                bandUuid, AuthUtil.getAuthenticatedPersonUuid()
+                bandUuid, authService.getAuthenticatedPersonUuid()
         ).orElseThrow(BandNotFoundException::new);
 
         if (!band.isActive()) {
@@ -42,7 +44,7 @@ public class UpdateBandUseCaseImpl implements UpdateBandUseCase {
 
         band.update(request);
 
-        if (request.isClearProfilePicture()){
+        if (request.isClearProfilePicture()) {
             band.removeProfilePicture();
         } else if (Objects.nonNull(profilePicture)) {
             var savedPicture = uploadFileCommand.execute(

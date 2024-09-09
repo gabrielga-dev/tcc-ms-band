@@ -8,5 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class PdfConfigurationDTO {
 
     private final String template;
-    private final boolean waterMark = true;
+    private static final boolean WATER_MARK = true;
 }

@@ -8,13 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.io.ByteArrayInputStream;
-import java.util.Base64;
-import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class FileUtil {
     private static final String HEADER_CACHE_CONTROL = "Cache-Control";
-    private static final String UTF_8 = "UTF-8";
     private static final String HEADER_CACHE_CONTROL_VALUE = "no-cache, no-store, must-revalidate";
     private static final String HEADER_PRAGMA = "Pragma";
     private static final String HEADER_PRAGMA_VALUE = "no-cache";
@@ -23,22 +20,6 @@ public final class FileUtil {
     private static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
     private static final String HEADER_ATTACHMENT_FILENAME = "attachment; filename=";
 
-    public static String BYTE_ARRAY_TO_STRING_BASE64(byte[] foto){
-        if(Objects.isNull(foto)) return null;
-        try {
-            return new String(Base64.getEncoder().encode(foto), UTF_8);
-        }catch (Exception e){
-            return null;
-        }
-    }
-    public static byte[] STRING_BASE64_TO_BYTE_ARRAY(String foto){
-        if(Objects.isNull(foto)) return null;
-        try {
-            return Base64.getDecoder().decode(foto);
-        }catch (Exception e){
-            return null;
-        }
-    }
 
     public static ResponseEntity<InputStreamResource> output(byte[] byteArrayOutputStream, String nome) {
         return montaResponse(byteArrayOutputStream, getHttpHeaders(nome));
@@ -47,7 +28,10 @@ public final class FileUtil {
     private static ResponseEntity<InputStreamResource> montaResponse(
             byte[] byteArrayOutputStream, HttpHeaders headers
     ) {
-        return ResponseEntity.ok().headers(headers).contentLength(byteArrayOutputStream.length)
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentLength(byteArrayOutputStream.length)
                 .contentType(MediaType.parseMediaType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
                 .body(new InputStreamResource(new ByteArrayInputStream(byteArrayOutputStream)));
     }

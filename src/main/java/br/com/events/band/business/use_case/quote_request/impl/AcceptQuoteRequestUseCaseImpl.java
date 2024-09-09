@@ -5,10 +5,10 @@ import br.com.events.band.business.command.quote.SaveQuoteCommand;
 import br.com.events.band.business.command.quote.SendQuoteCreationMessageCommand;
 import br.com.events.band.business.command.quote_request.FindQuoteRequestCommand;
 import br.com.events.band.business.command.quote_request.SaveQuoteRequestCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.quote_request.AcceptQuoteRequestUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.musician.MusicianDoesNotExistException;
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.quote_request.request.AcceptQuoteRequestRequest;
 import br.com.events.band.data.model.table.quote.QuoteTable;
 import br.com.events.band.data.model.table.quote_request.QuoteRequestStatusType;
@@ -22,6 +22,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AcceptQuoteRequestUseCaseImpl implements AcceptQuoteRequestUseCase {
 
+    private final AuthService authService;
     private final FindQuoteRequestCommand findQuoteRequestCommand;
     private final FindMusicianCommand findMusicianCommand;
     private final SaveQuoteCommand saveQuoteCommand;
@@ -32,7 +33,7 @@ public class AcceptQuoteRequestUseCaseImpl implements AcceptQuoteRequestUseCase 
     @Transactional
     public void execute(String quoteRequestUuid, AcceptQuoteRequestRequest request) {
         var quoteRequest = findQuoteRequestCommand.findByUuidOrThrow(quoteRequestUuid);
-        if (!Objects.equals(quoteRequest.getBand().getOwnerUuid(), AuthUtil.getAuthenticatedPersonUuid())) {
+        if (!Objects.equals(quoteRequest.getBand().getOwnerUuid(), authService.getAuthenticatedPersonUuid())) {
             throw new BandOwnerException();
         }
 

@@ -1,4 +1,4 @@
-package br.com.events.band.adapter.port.rest.config.exception.server_Error;
+package br.com.events.band.adapter.port.rest.config.exception.server_error;
 
 import br.com.events.band.core.exception.BusinessException;
 import org.springframework.http.HttpStatus;

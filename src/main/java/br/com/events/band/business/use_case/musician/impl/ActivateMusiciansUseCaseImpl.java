@@ -3,11 +3,11 @@ package br.com.events.band.business.use_case.musician.impl;
 import br.com.events.band.business.command.musician.FindMusicianCommand;
 import br.com.events.band.business.command.musician.FindPersonMusicianCommand;
 import br.com.events.band.business.command.musician.SaveMusicianCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.musician.ActivateMusiciansUseCase;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.musician.MusicianExistsException;
 import br.com.events.band.core.exception.musician.MusicianHasAnAccountException;
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.person.response.PersonResponse;
 import br.com.events.band.data.model.table.musician.MusicianTable;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ActivateMusiciansUseCaseImpl implements ActivateMusiciansUseCase {
 
+    private final AuthService authService;
     private final FindMusicianCommand findMusicianCommand;
     private final FindPersonMusicianCommand findPersonMusicianCommand;
     private final SaveMusicianCommand saveMusicianCommand;
@@ -27,21 +28,21 @@ public class ActivateMusiciansUseCaseImpl implements ActivateMusiciansUseCase {
 
         findPersonMusicianCommand.byCpf(musician.getCpf())
                 .ifPresentOrElse(
-                        person -> this.deleteWhenMusicianIsPerson(person, musician),
+                        this::deleteWhenMusicianIsPerson,
                         () -> this.deleteWhenMusicianIsNotPerson(musician)
                 );
         musician.activate();
         saveMusicianCommand.execute(musician);
     }
 
-    private void deleteWhenMusicianIsPerson(PersonResponse person, MusicianTable musician) {
-        if (!AuthUtil.getAuthenticatedPerson().getCpf().equals(person.getCpf())) {
+    private void deleteWhenMusicianIsPerson(PersonResponse person) {
+        if (!authService.getAuthenticatedPerson().getCpf().equals(person.getCpf())) {
             throw new MusicianHasAnAccountException();
         }
     }
 
     private void deleteWhenMusicianIsNotPerson(MusicianTable musician) {
-        if (!AuthUtil.getAuthenticatedPersonUuid().equals(musician.getBandThatInserted().getOwnerUuid())) {
+        if (!authService.getAuthenticatedPersonUuid().equals(musician.getBandThatInserted().getOwnerUuid())) {
             throw new BandOwnerException();
         }
     }

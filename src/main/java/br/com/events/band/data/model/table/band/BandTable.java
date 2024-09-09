@@ -1,6 +1,5 @@
 package br.com.events.band.data.model.table.band;
 
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.band.IBandResponse;
 import br.com.events.band.data.io.band.request.BandRequest;
 import br.com.events.band.data.io.band.request.UpdateBandRequest;
@@ -89,14 +88,14 @@ public class BandTable implements
     @OneToMany(mappedBy = "band", fetch = FetchType.LAZY)
     private List<QuoteRequestTable> quoteRequests;
 
-    public BandTable(BandRequest form) {
+    public BandTable(BandRequest form, String ownerUuid) {
         this.active = true;
         this.creationDate = LocalDateTime.now();
         this.name = form.getName();
         this.description = form.getDescription();
         this.address = new BandAddressTable(form.getAddress());
         this.address.setBand(this);
-        this.ownerUuid = AuthUtil.getAuthenticatedPersonUuid();
+        this.ownerUuid = ownerUuid;
 
         this.contacts = form.getContacts()
                 .stream()
@@ -128,6 +127,7 @@ public class BandTable implements
                 .findFirst();
     }
 
+    @Override
     public void removeProfilePicture() {
         this.profilePictureUuid = null;
     }
@@ -143,14 +143,12 @@ public class BandTable implements
         var auxMap = new HashMap<String, MusicianTable>();
 
         musicians.forEach(
-                musician -> {
-                    Optional.ofNullable(auxMap.get(musician.getUuid()))
-                            .ifPresentOrElse(
-                                    m -> {
-                                    },
-                                    () -> auxMap.put(musician.getUuid(), musician)
-                            );
-                }
+                musician -> Optional.ofNullable(auxMap.get(musician.getUuid()))
+                        .ifPresentOrElse(
+                                m -> {
+                                },
+                                () -> auxMap.put(musician.getUuid(), musician)
+                        )
         );
 
         return new ArrayList<>(auxMap.values());

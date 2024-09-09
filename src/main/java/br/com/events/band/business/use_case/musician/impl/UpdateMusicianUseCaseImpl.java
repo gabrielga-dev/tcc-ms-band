@@ -5,12 +5,12 @@ import br.com.events.band.business.command.musician.FindMusicianCommand;
 import br.com.events.band.business.command.musician.FindPersonMusicianCommand;
 import br.com.events.band.business.command.musician.SaveMusicianCommand;
 import br.com.events.band.business.command.musician_type.FindMusicianTypeCommand;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.business.use_case.musician.UpdateMusicianUseCase;
 import br.com.events.band.core.exception.ResourceAlreadyDeactivatedException;
 import br.com.events.band.core.exception.band.BandOwnerException;
 import br.com.events.band.core.exception.musician.MusicianDoesNotExistException;
 import br.com.events.band.core.exception.musician.MusicianHasAnAccountException;
-import br.com.events.band.core.util.AuthUtil;
 import br.com.events.band.data.io.file.FileOriginType;
 import br.com.events.band.data.io.file.FileType;
 import br.com.events.band.data.io.musician.request.MusicianRequest;
@@ -28,6 +28,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UpdateMusicianUseCaseImpl implements UpdateMusicianUseCase {
 
+    private final AuthService authService;
     private final FindMusicianCommand findMusicianCommand;
     private final FindPersonMusicianCommand findPersonMusicianCommand;
     private final FindMusicianTypeCommand findMusicianTypeCommand;
@@ -64,13 +65,13 @@ public class UpdateMusicianUseCaseImpl implements UpdateMusicianUseCase {
     }
 
     private void isSamePerson(PersonResponse person) {
-        if (!AuthUtil.getAuthenticatedPerson().getCpf().equals(person.getCpf())) {
+        if (!authService.getAuthenticatedPerson().getCpf().equals(person.getCpf())) {
             throw new MusicianHasAnAccountException();
         }
     }
 
     private void isMusiciansBandOwner(MusicianTable musician) {
-        if (!AuthUtil.getAuthenticatedPersonUuid().equals(musician.getBandThatInserted().getOwnerUuid())) {
+        if (!authService.getAuthenticatedPersonUuid().equals(musician.getBandThatInserted().getOwnerUuid())) {
             throw new BandOwnerException();
         } else if (!musician.isActive()) {
             throw new ResourceAlreadyDeactivatedException();

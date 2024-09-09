@@ -1,6 +1,7 @@
 package br.com.events.band.data.io.quote.response.quote_prices;
 
 import br.com.events.band.data.model.table.quote.QuoteTable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 import java.text.DateFormatSymbols;
@@ -16,7 +17,8 @@ public class QuotePricesDashboardPartResponse {
 
     private final List<String> labels;
     private final String label;
-    private final String backgroundColor = "#33cc33";
+    @JsonProperty("backgroundColor")
+    private static final String BACKGROUND_COLOR = "#33cc33";
     private final List<QuotePricesOfYearDashboardPartResponse> data;
 
     public QuotePricesDashboardPartResponse(List<QuoteTable> quotes) {

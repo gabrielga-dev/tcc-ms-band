@@ -1,6 +1,6 @@
 package br.com.events.band.core.exception.document_template;
 
-import br.com.events.band.adapter.port.rest.config.exception.server_Error.ServerSideException;
+import br.com.events.band.adapter.port.rest.config.exception.server_error.ServerSideException;
 
 public class CouldNotGenerateDocumentException extends ServerSideException {
     public CouldNotGenerateDocumentException() {

@@ -1,7 +1,7 @@
 package br.com.events.band.business.command.music;
 
 import br.com.events.band.adapter.repository.MusicRepository;
-import br.com.events.band.core.util.AuthUtil;
+import br.com.events.band.business.service.AuthService;
 import br.com.events.band.data.io.music.criteria.MusicCriteria;
 import br.com.events.band.data.model.table.music.MusicTable;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +18,12 @@ import java.util.stream.Collectors;
 public class FindMusicCommand {
 
     private final MusicRepository musicRepository;
+    private final AuthService authService;
 
     public Optional<MusicTable> byUuid(String musicUuid) {
         return this.musicRepository.findById(musicUuid);
     }
+
     public List<MusicTable> byUuids(List<String> musicUuids) {
         return this.musicRepository.findAllByUuids(musicUuids)
                 .stream()
@@ -31,7 +33,7 @@ public class FindMusicCommand {
 
     public Page<MusicTable> byBandUuidAndCriteria(String bandUuid, MusicCriteria criteria, Pageable pageable) {
         return this.musicRepository.findByCriteria(
-                AuthUtil.getAuthenticatedPersonUuid(),
+                authService.getAuthenticatedPersonUuid(),
                 bandUuid,
                 criteria.getName(),
                 criteria.getAuthor(),
